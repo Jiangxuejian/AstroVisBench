@@ -733,7 +733,7 @@ def get_vises(vis_output):
             for k, v in output['data'].items():
 
                 if 'image' in k:
-                    gen_vises.append(f"data:{k},base64,{v}")
+                    gen_vises.append(f"data:{k};base64,{v}")
 
     return gen_vises
 
