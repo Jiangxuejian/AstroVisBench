@@ -7,6 +7,20 @@
 <p align="center"><strong>[&nbsp;<a href="https://astrovisbench.github.io">Website & Leaderboard</a>&nbsp;]</strong></p>
 <br>
 
+## Independent evaluation results
+
+This fork preserves the upstream AstroVisBench workflow and adds a separate,
+reproducible results page for independently run models. The page reports the
+Full-432 Qwen3.8-27B Q4_K_M evaluation and an exploratory Lite-72 candidate;
+these rows are labelled separately from the official leaderboard because the
+judge and transport protocols differ.
+
+**Results page:** [AstroVisBench independent evaluations](docs/index.md)
+
+The original benchmark, code, dataset, citation, and license remain the
+authority for the benchmark itself. See the upstream [website and leaderboard](https://astrovisbench.github.io/)
+and [repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench).
+
 ![AstroVisBench](imgs/overview-1.png)
 
 This is the repository containing the code needed to run the AstroVisBench benchmark as detailed in the paper ["AstroVisBench: A Code Benchmark for Scientific Computing and Visualization in Astronomy"](https://arxiv.org/abs/2505.20538).

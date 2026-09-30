@@ -1,0 +1,590 @@
+{
+  "suite": "lite72-candidate-v1",
+  "status": "provisional; domain review required",
+  "seed": "astrovis-lite72-candidate-v1-20260930",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "selection": "12 per notebook primary domain; 4 per within-domain code-character-count tercile; greedy notebook diversity with SHA256 seeded tie-breaks. No model scores used.",
+  "limitations": [
+    "Notebook domains are manually assigned proxies, not official per-task labels.",
+    "Code length is a complexity proxy, not measured difficulty.",
+    "Balanced domain sampling differs from the full task distribution."
+  ],
+  "tasks": [
+    {
+      "uid": "c1b95253-3b6a-4a04-b6ec-a5ab4dc1c4bd",
+      "index_1based": 1,
+      "notebook": "Classifying_TESS_flares_with_CNNs.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 1149,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "9cc4b7c6-5e7d-48aa-8fc3-7eaa088dc84f",
+      "index_1based": 2,
+      "notebook": "Classifying_TESS_flares_with_CNNs.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 2744,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "47e8e149-b8b5-4343-8aec-2325694f04f6",
+      "index_1based": 4,
+      "notebook": "hscv3_api.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 6981,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "c775d8bc-edd4-4c57-9294-a631b382ddcd",
+      "index_1based": 10,
+      "notebook": "CoaddTutorial.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 2548,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "17a02a01-af49-4ee7-b017-d0c71acdb57b",
+      "index_1based": 18,
+      "notebook": "NIRCam_PSF_matched_multiband_photometry.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 16080,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "7fd80af6-da2b-40a5-91e4-d44e6ff805dd",
+      "index_1based": 21,
+      "notebook": "cube_fitting.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 17075,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "58c24ca3-a524-4b8c-ba3b-d8d0fe1ab253",
+      "index_1based": 25,
+      "notebook": "miri_photutils.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 405,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "7d56c314-8d6c-439e-ba64-bc803ce897e8",
+      "index_1based": 30,
+      "notebook": "Interpreting_CNNs.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 3438,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "2e1a9726-5b3b-4da3-99b7-4419cf891159",
+      "index_1based": 31,
+      "notebook": "Interpreting_CNNs.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 3850,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "2197f927-5def-4303-96e1-3aec9ae4a74e",
+      "index_1based": 33,
+      "notebook": "How_to_use_SDSS_Data.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 2467,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "85369b15-43ed-4de1-996e-f215f31fd9cb",
+      "index_1based": 44,
+      "notebook": "BaryonicAcousticOscillation_BOSSDR12.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 1068,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "c8ab6aa2-8e9c-4d03-a60e-11554e29d664",
+      "index_1based": 45,
+      "notebook": "BaryonicAcousticOscillation_BOSSDR12.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 1672,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "ec751b1b-48e9-4248-9bb8-dd080498e33f",
+      "index_1based": 49,
+      "notebook": "Intro_Machine_Learning_practical.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 1492,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "a37aec5d-d6f1-4000-8648-3bade2959adf",
+      "index_1based": 51,
+      "notebook": "Intro_Machine_Learning_practical.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 1351,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "0e5bf331-b921-4e21-9fe1-6ec06ce0c66d",
+      "index_1based": 52,
+      "notebook": "MaNGA_HST_tutorial.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 674,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "c62dc8ee-0bec-4b41-9549-acd1e2d3af50",
+      "index_1based": 56,
+      "notebook": "isha_nayak_ysos_in_the_lmc.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 1286,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "497dc2ce-5d8f-4501-8bae-5d231b306acc",
+      "index_1based": 70,
+      "notebook": "miri_spacephot.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 441,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "002f11b3-627d-4b95-ae2e-067d056da5d7",
+      "index_1based": 75,
+      "notebook": "custom_ccd_darks.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 153,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "355af9d3-179a-4e3d-af73-472fb3c0799d",
+      "index_1based": 83,
+      "notebook": "02_Cross_correlation_template.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 1419,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "238220a8-8cdc-41ab-93a8-0ae0ec62fd15",
+      "index_1based": 95,
+      "notebook": "mask_satellite.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 485,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "dbaf0eac-4de5-4c4c-8721-13c9c4432cb8",
+      "index_1based": 102,
+      "notebook": "LargeScaleStructureSdssLs.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 1348,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "627613e5-84a4-467b-a166-ec9ec5bfca11",
+      "index_1based": 108,
+      "notebook": "03_Spatially_resolved_emission_line_map.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 3412,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "afd81858-3389-483b-a0d7-d3d74cf7e876",
+      "index_1based": 112,
+      "notebook": "beginner_search.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 1722,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "9537fb6f-f1c5-4f40-a1d8-5d5bcb45e3b8",
+      "index_1based": 141,
+      "notebook": "beginner_how_to_use_tp.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 692,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "f7850e8d-b4cd-41e5-8b9c-3522000cfea7",
+      "index_1based": 144,
+      "notebook": "WFC3_UVIS_Pixel_Area_Map_Corrections_for_Subarrays.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 385,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "d4804e8e-80b5-4417-b3a2-e3f508100129",
+      "index_1based": 146,
+      "notebook": "TVB_flattenramp_notebook.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 810,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "33295b64-6b01-4666-bc42-99f8bd05735c",
+      "index_1based": 149,
+      "notebook": "M31WithPhat.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 2019,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "d8a30a5e-6a09-4661-beae-0e0c221efa57",
+      "index_1based": 162,
+      "notebook": "hyperspectral_healpix_maps.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 4269,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "7744c49c-18d4-4cf8-b732-7fe76fc4437a",
+      "index_1based": 163,
+      "notebook": "hyperspectral_healpix_maps.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 975,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "fb50a146-7c98-4b44-ab0b-82ac586332ff",
+      "index_1based": 172,
+      "notebook": "instrumental_noise_4_electronic_noise.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 207,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "89a5d0de-2406-4a5b-9d0a-ddeb202b5788",
+      "index_1based": 176,
+      "notebook": "removing_instrumental_noise_using_pld.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 89,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "fa664ea9-1590-4bad-829a-382d6fb0fb6c",
+      "index_1based": 186,
+      "notebook": "00_Optimal_extraction.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 3354,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "aae368e7-e901-4911-a3b5-4eda45859116",
+      "index_1based": 199,
+      "notebook": "removing_scattered_light_using_regression.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 939,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "188c4b77-354f-4e75-9acb-820db4944f83",
+      "index_1based": 219,
+      "notebook": "HCV_API_demo.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 6493,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "87220ab7-b49f-4e68-b27e-9ab51bbda809",
+      "index_1based": 222,
+      "notebook": "miri_1028.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 764,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "80831816-3a6a-44c3-8c03-f4c1d9dbf206",
+      "index_1based": 238,
+      "notebook": "NIRCam_multiband_photometry.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 618,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "23aa6396-1e0e-4f88-a2cc-51f6989938bd",
+      "index_1based": 246,
+      "notebook": "instrumental_noise_2_spurious_signals_and_time_sampling_effects.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 81,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "5c60db9b-c287-4a84-a61b-715487d1c845",
+      "index_1based": 253,
+      "notebook": "StarGalQsoLSDR9.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 5324,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "eca69933-152c-41a2-a3dc-38d8c48b9d4f",
+      "index_1based": 256,
+      "notebook": "Regressing_3D-HST_galaxy_redshift_with_decision_trees.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 540,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "625a8a7c-0dce-4316-8085-1f41771b7201",
+      "index_1based": 261,
+      "notebook": "Regressing_3D-HST_galaxy_redshift_with_decision_trees.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 1948,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "160f483a-5273-4f5f-a993-df3217e2394e",
+      "index_1based": 264,
+      "notebook": "PS1_image.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 4671,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "76d5d28c-b147-4312-97ad-75e9056ba3b6",
+      "index_1based": 269,
+      "notebook": "ExploringSMASHDR2.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 1410,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "8b7ac5df-b70f-4125-a4e0-b5c2626c471f",
+      "index_1based": 272,
+      "notebook": "asteroid_rotation.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 523,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "a570878c-8f42-48f7-9819-2713d9d0bb29",
+      "index_1based": 277,
+      "notebook": "ifu_optimal.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 8142,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "4cbe0a87-8bf8-4bed-a99d-4c3085287986",
+      "index_1based": 281,
+      "notebook": "Low_Count_Uncertainties.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 902,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "48f1992d-36e1-4459-bdc4-5add59da05e9",
+      "index_1based": 286,
+      "notebook": "acs_findsat_mrt_example.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 1945,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "41d15f0f-d58b-4b8d-bd8b-4b2d085b2e97",
+      "index_1based": 294,
+      "notebook": "instrumental_noise_1_data_gaps_and_quality_flags.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 364,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "dd7d9594-d70d-4218-9a16-17aca965718d",
+      "index_1based": 297,
+      "notebook": "lightkurve_custom_aperture_photometry.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 606,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "7e3490f5-1574-4cf8-80ea-327ee709f40b",
+      "index_1based": 305,
+      "notebook": "GalacticStructureDECaPS.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 2822,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "d2bbf16f-061d-4f23-9b29-fd6d29effe2f",
+      "index_1based": 314,
+      "notebook": "measuring_a_rotation_period.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 328,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "07079aeb-c8f4-4ea3-aa04-7c926bd1dc9e",
+      "index_1based": 320,
+      "notebook": "TPF.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 812,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "7788e881-9e90-47b3-8c05-25de5f330ae7",
+      "index_1based": 331,
+      "notebook": "LSF.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 16666,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "951db797-6b07-4686-9fba-7ce477df2876",
+      "index_1based": 336,
+      "notebook": "Classifying_PanSTARRS_sources_with_unsupervised_learning.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 2016,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "07c8eb39-2946-4a2c-aa7a-84b28c1eaf47",
+      "index_1based": 341,
+      "notebook": "miri_1028_photutils.ipynb",
+      "domain": "Photometry",
+      "complexity_proxy": 4794,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "4469562e-cc01-40e1-896c-a262585b2767",
+      "index_1based": 343,
+      "notebook": "how_to_understand_and_manipulate_the_periodogram_of_an_oscillating_star.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 105,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "2128e9c3-4b3a-4833-a430-48d9c8cbf1eb",
+      "index_1based": 351,
+      "notebook": "Milky_Way_Analogues_LS_DR9.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 3426,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "1ff69f41-f150-4f7a-be05-63c99df0318e",
+      "index_1based": 352,
+      "notebook": "plotting_images_from_tpf.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 400,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "c8b33d23-e294-4cf1-a001-6cf62c5dcf97",
+      "index_1based": 362,
+      "notebook": "How_to_use_the_File_Services.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 1426,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "41adb5f6-deda-40bf-8479-0d96facfc207",
+      "index_1based": 370,
+      "notebook": "Large_Scale_Structure_of_the_Universe.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 972,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "c4764483-281e-493c-b064-4abd55c8eb73",
+      "index_1based": 378,
+      "notebook": "beginner_tour_lc_tp.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 2100,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "bd5ddae7-a452-4dad-a9cf-c95873249434",
+      "index_1based": 380,
+      "notebook": "instrumental_noise_3_seasonal_and_detector_effects.ipynb",
+      "domain": "Time-series analysis",
+      "complexity_proxy": 365,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "86f7a70c-9cf8-4742-8aa4-9515a2de55cb",
+      "index_1based": 386,
+      "notebook": "Palomar5InNSCGaia.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 1705,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "50da158f-4fa9-4dc8-82ad-1b1797e52677",
+      "index_1based": 388,
+      "notebook": "Palomar5InNSCGaia.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 4371,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "3340a274-e53f-444c-bb13-81a3c21101d0",
+      "index_1based": 395,
+      "notebook": "StellarStreamDESDR1.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 1658,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "e8f3a414-1dfb-4765-b3bc-9a0afbf5efb2",
+      "index_1based": 397,
+      "notebook": "StellarStreamDESDR1.ipynb",
+      "domain": "Cosmology and large-scale structure",
+      "complexity_proxy": 4291,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "5e7897c0-f287-4023-a900-f45d165c0ee2",
+      "index_1based": 402,
+      "notebook": "02_DESI_SDSS_Comparison.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 2481,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "cfb0ed17-4c2a-4425-aa0f-df3275072a58",
+      "index_1based": 403,
+      "notebook": "02_DESI_SDSS_Comparison.ipynb",
+      "domain": "Spectroscopy",
+      "complexity_proxy": 5552,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "ef078b25-1a76-44e0-a045-9dc5afdd5131",
+      "index_1based": 407,
+      "notebook": "00_niriss_mast_query_data_setup.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 1867,
+      "complexity_band": "long"
+    },
+    {
+      "uid": "395134b0-eeaa-462f-b45a-cd2dc80b6d26",
+      "index_1based": 408,
+      "notebook": "acs_focus_diverse_epsfs.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 1305,
+      "complexity_band": "short"
+    },
+    {
+      "uid": "5d5b3425-21aa-4a5e-b23d-17c571582b91",
+      "index_1based": 409,
+      "notebook": "acs_focus_diverse_epsfs.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 1650,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "cb97c3f7-3b6a-466c-abd6-1721d25be091",
+      "index_1based": 430,
+      "notebook": "acs_sbc_dark_analysis.ipynb",
+      "domain": "Image processing",
+      "complexity_proxy": 838,
+      "complexity_band": "medium"
+    },
+    {
+      "uid": "47ea8025-f66f-43cf-b991-58d384722dfc",
+      "index_1based": 432,
+      "notebook": "interm_tess_prf_retrieve.ipynb",
+      "domain": "Simulation and modeling",
+      "complexity_proxy": 4703,
+      "complexity_band": "long"
+    }
+  ]
+}

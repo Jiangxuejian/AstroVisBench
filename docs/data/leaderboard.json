@@ -1,0 +1,137 @@
+{
+  "suite": "AstroVisBench Full-432",
+  "snapshot": "2026-09-30",
+  "metrics": [
+    "processing_no_error",
+    "vi_score",
+    "visualization_no_error",
+    "correct_v",
+    "vis_fail",
+    "minor",
+    "major"
+  ],
+  "chart_metrics": [
+    "processing_no_error",
+    "visualization_no_error",
+    "correct_v"
+  ],
+  "rows": [
+    {
+      "id": "gemini-2.5-pro",
+      "label": "Gemini 2.5 Pro",
+      "source": "published-reference",
+      "processing_no_error": 69.2,
+      "vi_score": 0.6,
+      "visualization_no_error": 79.9,
+      "correct_v": 15.7,
+      "vis_fail": 9.3,
+      "minor": 25.9,
+      "major": 28.5
+    },
+    {
+      "id": "claude-sonnet-3.7",
+      "label": "Claude Sonnet 3.7",
+      "source": "published-reference",
+      "processing_no_error": 49.1,
+      "vi_score": 0.633,
+      "visualization_no_error": 65.3,
+      "correct_v": 9.5,
+      "vis_fail": 21.3,
+      "minor": 14.6,
+      "major": 19.2
+    },
+    {
+      "id": "claude-opus-4.0",
+      "label": "Claude Opus 4.0",
+      "source": "published-reference",
+      "processing_no_error": 49.8,
+      "vi_score": 0.644,
+      "visualization_no_error": 66.9,
+      "correct_v": 9.3,
+      "vis_fail": 12.7,
+      "minor": 28.9,
+      "major": 16.0
+    },
+    {
+      "id": "o3-mini",
+      "label": "o3-mini",
+      "source": "published-reference",
+      "processing_no_error": 48.6,
+      "vi_score": 0.694,
+      "visualization_no_error": 69.7,
+      "correct_v": 10.4,
+      "vis_fail": 2.8,
+      "minor": 26.4,
+      "major": 29.6
+    },
+    {
+      "id": "gpt-4o",
+      "label": "GPT-4o",
+      "source": "published-reference",
+      "processing_no_error": 46.3,
+      "vi_score": 0.480,
+      "visualization_no_error": 67.4,
+      "correct_v": 8.6,
+      "vis_fail": 6.0,
+      "minor": 23.4,
+      "major": 28.5
+    },
+    {
+      "id": "qwq",
+      "label": "QwQ",
+      "source": "published-reference",
+      "processing_no_error": 35.9,
+      "vi_score": 0.472,
+      "visualization_no_error": 39.1,
+      "correct_v": 8.2,
+      "vis_fail": 3.9,
+      "minor": 12.6,
+      "major": 14.9
+    },
+    {
+      "id": "qwen-2.5",
+      "label": "Qwen-2.5",
+      "source": "published-reference",
+      "processing_no_error": 43.1,
+      "vi_score": 0.527,
+      "visualization_no_error": 64.6,
+      "correct_v": 10.4,
+      "vis_fail": 3.7,
+      "minor": 20.1,
+      "major": 29.9
+    },
+    {
+      "id": "llama-4-maverick",
+      "label": "Llama-4 Maverick",
+      "source": "published-reference",
+      "processing_no_error": 44.7,
+      "vi_score": 0.546,
+      "visualization_no_error": 71.3,
+      "correct_v": 9.7,
+      "vis_fail": 9.0,
+      "minor": 21.5,
+      "major": 30.6
+    },
+    {
+      "id": "qwen38-27b-q4-k-m",
+      "label": "Qwen3.8\n27B Q4_K_M",
+      "table_label": "Qwen3.8-27B Q4_K_M",
+      "source": "independent-local",
+      "processing_no_error": 32.175925925925924,
+      "vi_score": 0.4737654320987654,
+      "visualization_no_error": 52.5462962962963,
+      "correct_v": 7.175925925925926,
+      "vis_fail": 9.953703703703704,
+      "minor": 10.493827160493828,
+      "major": 24.92283950617284
+    }
+  ],
+  "sources": {
+    "published-reference": "https://astrovisbench.github.io/",
+    "independent-local": "docs/data/qwen38-audit.json"
+  },
+  "notes": [
+    "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
+    "The Qwen3.8 row is our independent Full-432 run and used a GPT-6 Astra medium judge adapter; it is not directly comparable to the published rows because judge and transport protocols differ."
+  ]
+}
