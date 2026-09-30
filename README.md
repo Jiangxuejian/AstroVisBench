@@ -21,6 +21,22 @@ The original benchmark, code, dataset, citation, and license remain the
 authority for the benchmark itself. See the upstream [website and leaderboard](https://astrovisbench.github.io/)
 and [repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench).
 
+### Current leaderboard snapshot
+
+![AstroVisBench Full-432 leaderboard](docs/assets/leaderboard-full.svg)
+
+This figure compares the published AstroVisBench reference rows with our
+independent Qwen3.8-27B Q4_K_M Full-432 evaluation. It shows processing
+execution success, visualization execution success, and CorrectV (the share
+of visualization-judge outcomes categorized as having no error). Hatched bars
+identify the independent QWEN result. The published rows are reproduced from
+the official leaderboard; the QWEN row used a GPT-6 Astra medium judge adapter
+and is therefore a separately identified evaluation series rather than a
+direct replacement for the published scores.
+
+The complete table, Lite-72 candidate, metric definitions, and provenance are
+available on the [independent results page](docs/index.md).
+
 ![AstroVisBench](imgs/overview-1.png)
 
 This is the repository containing the code needed to run the AstroVisBench benchmark as detailed in the paper ["AstroVisBench: A Code Benchmark for Scientific Computing and Visualization in Astronomy"](https://arxiv.org/abs/2505.20538).
