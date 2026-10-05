@@ -53,7 +53,7 @@ def main() -> None:
     ax.set_xticklabels(labels, rotation=18, ha="right")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), ncol=3,
               frameon=False, fontsize=11, handlelength=1.8, columnspacing=1.5)
-    fig.text(0.99, 0.015, "Hatched bars: independent Qwen3.8 result; published rows are reference values.",
+    fig.text(0.99, 0.015, "Hatched bars: independent local runs; published rows are reference values.",
              ha="right", va="bottom", fontsize=9, color="#596273")
     fig.subplots_adjust(left=0.07, right=0.99, bottom=0.22, top=0.82)
     fig.savefig(OUT / "leaderboard-full.svg", bbox_inches="tight", facecolor="white")

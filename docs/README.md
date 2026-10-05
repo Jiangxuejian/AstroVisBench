@@ -5,14 +5,15 @@ not a deployment. Working title: **AstroVisBench — Independent Model Evaluatio
 No GitHub repository, Pages configuration, custom domain, or publication was created.
 
 The page uses ordinary Markdown and relative download links. It can be placed in a
-GitHub Pages/Jekyll site when the public repository is chosen. Presentation and the
-grouped bar chart can be added after the content is approved. Keep the Full and Lite
-results visually separate.
+GitHub Pages/Jekyll site when the public repository is chosen. The grouped bar chart
+contains the published reference rows plus the audited QWEN and Kimi K3 Full-432
+runs. Keep the Full and Lite results visually separate; STEP3-VL is currently
+published only as a Lite-72 processing record.
 
 ## Content decisions
 
 - Attribute the upstream benchmark prominently and identify this as independent work.
-- Publish only the QWEN scores audited in this session; do not infer other runs' readiness.
+- Publish only scores audited from complete, frozen records. QWEN and Kimi K3 are Full-432 local rows; STEP3-VL is a processing-only Lite-72 row.
 - Keep Lite-72 explicitly provisional, including its imperfect notebook-family labels.
 - Mark Smoke, the portable public runner, and the agent comparison track as unfinished.
 - Describe the actual three-trial aggregation and eligible VIscore denominators.
@@ -23,19 +24,21 @@ results visually separate.
 
 ## Updating the content
 
-The existing audited sources are `results/lite72-candidate-v1/` and the QWEN run
-manifest/provenance. Generate the small public downloads using:
+The existing audited sources are `results/lite72-candidate-v1/`, the QWEN and Kimi K3
+run manifests/provenance, and the STEP3-VL Lite processing summary. Generate the
+small public downloads using:
 
 ```bash
 python3 scripts/prepare_pages_data.py
 .astrovis-data/venvs/original-bench/bin/python scripts/build_leaderboard_assets.py
 ```
 
-The first script exports evidence; it does not rerun generation, execution, or judging.
-It also checks numeric values displayed on the page against the audited scores. The
-second script reads `docs/data/leaderboard.json` and regenerates the matching SVG/PNG
-figure. The prose and table cells remain deliberately easy to edit as one Markdown page.
-When new scores are added, update the text, source selection, and checks together.
+The first script exports the QWEN evidence; it does not rerun generation, execution, or
+judging. Kimi K3 and STEP3-VL compact records are retained as
+`docs/data/k3-audit.json` and `docs/data/step3-lite-processing.json`. The second
+script reads `docs/data/leaderboard.json` and regenerates the matching SVG/PNG figure.
+The prose and table cells remain deliberately easy to edit as one Markdown page. When
+new scores are added, update the text, source selection, and checks together.
 
 ## Before publication
 

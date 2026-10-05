@@ -1,0 +1,56 @@
+{
+  "content_snapshot": "2026-10-05",
+  "suite": "AstroVisBench Lite-72 candidate v1",
+  "stage": "processing_only",
+  "model": {
+    "display_name": "Step3-VL-10B Q4_K_M",
+    "repository": "seanbailey518/Step3-VL-10B-GGUF",
+    "weight_revision": "4e88ea55358ca8091e495a59414fd4a5d43d6932",
+    "quantization": "Q4_K_M",
+    "filename": "Step3-VL-10B-Q4_K_M.gguf",
+    "weight_sha256": "e6623236729a8f86482c41f305b4e36d97683acb713687d17bf5159b96d3f95d",
+    "projector_filename": "mmproj-Step3-VL-10b-F16.gguf",
+    "projector_sha256": "a2bd0d24d5b1edd03b2c18f218dcda63512e7bc361b4ed3acc0b48e6f6437577",
+    "runtime_note": "The llama.cpp build rejected the projector (missing mm.1.weight), so this recorded generation run was text-only. The projector was retained locally and not silently substituted."
+  },
+  "upstream_revision": "707657f8fac4df50a6cf6c2c4671bf6a0258a201",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "run": {
+    "run_id": "step3-vl-10b-gguf-q4-original-20260929",
+    "generation_records": 432,
+    "execution_sha256": "6c901a1f433b67142d6ef12994738c033ebdaf3cd7e03650d60b7c3a2cba0e0f",
+    "lite_manifest_sha256": "25a97c7deae01f4590cd5d14d0d77a170a7be2a46f2d50a972eac4fe5a1d4d2e",
+    "codex_cli": "codex-cli 0.153.4",
+    "desktop_version_supplied_by_user": "26.908.70816",
+    "generation_parameters": {
+      "temperature": 0,
+      "seed": 42,
+      "max_tokens": 8192,
+      "tools": "none"
+    }
+  },
+  "metrics": {
+    "workflows": 72,
+    "processing_no_error": 13.88888888888889,
+    "vi_score": 0.7142857142857143,
+    "vi_eligible_workflows": 7,
+    "visualization_judge": "not run"
+  },
+  "processing_error_types": {
+    "TypeError": 4,
+    "SyntaxError": 31,
+    "IndentationError": 6,
+    "AttributeError": 16,
+    "IndexError": 1,
+    "TimeoutError": 1,
+    "NameError": 1,
+    "queryClientError": 1,
+    "ImportError": 1
+  },
+  "aggregation": "Upstream processing execution and unweighted VIscore; VIscore excludes failed or empty inspections. No visualization percentage or judge category is reported for this row.",
+  "limitations": [
+    "This is a Lite-72 processing-only result and must not be placed in the Full-432 visualization chart.",
+    "The text-only projector failure means it is not a vision-capable Step3-VL evaluation.",
+    "The Lite-72 selection remains a provisional candidate and has the same coverage limitations documented on the main page."
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "suite": "AstroVisBench Full-432",
-  "snapshot": "2026-09-30",
+  "snapshot": "2026-10-05",
   "metrics": [
     "processing_no_error",
     "vi_score",
@@ -117,6 +117,7 @@
       "label": "Qwen3.8\n27B Q4_K_M",
       "table_label": "Qwen3.8-27B Q4_K_M",
       "source": "independent-local",
+      "audit": "data/qwen38-audit.json",
       "processing_no_error": 32.175925925925924,
       "vi_score": 0.4737654320987654,
       "visualization_no_error": 52.5462962962963,
@@ -124,14 +125,29 @@
       "vis_fail": 9.953703703703704,
       "minor": 10.493827160493828,
       "major": 24.92283950617284
+    },
+    {
+      "id": "kimi-k3",
+      "label": "Kimi K3",
+      "table_label": "Kimi K3",
+      "source": "independent-local",
+      "audit": "data/k3-audit.json",
+      "processing_no_error": 63.88888888888889,
+      "vi_score": 0.7220501474926254,
+      "visualization_no_error": 84.9537037037037,
+      "correct_v": 16.049382716049383,
+      "vis_fail": 10.87962962962963,
+      "minor": 18.132716049382715,
+      "major": 31.790123456790123
     }
   ],
   "sources": {
     "published-reference": "https://astrovisbench.github.io/",
-    "independent-local": "docs/data/qwen38-audit.json"
+    "independent-local-qwen": "data/qwen38-audit.json",
+    "independent-local-k3": "data/k3-audit.json"
   },
   "notes": [
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
-    "The Qwen3.8 row is our independent Full-432 run and used a GPT-6 Astra medium judge adapter; it is not directly comparable to the published rows because judge and transport protocols differ."
+    "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ."
   ]
 }

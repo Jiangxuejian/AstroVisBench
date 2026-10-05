@@ -11,9 +11,9 @@
 
 This fork preserves the upstream AstroVisBench workflow and adds a separate,
 reproducible results page for independently run models. The page reports the
-Full-432 Qwen3.8-27B Q4_K_M evaluation and an exploratory Lite-72 candidate;
-these rows are labelled separately from the official leaderboard because the
-judge and transport protocols differ.
+Full-432 Qwen3.8-27B Q4_K_M and Kimi K3 evaluations, plus a processing-only
+Step3-VL-10B Q4_K_M Lite-72 result. These rows are labelled separately from the
+official leaderboard because the judge and transport protocols differ.
 
 **Results page:** [AstroVisBench independent evaluations](docs/index.md)
 
@@ -26,13 +26,15 @@ and [repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench)
 ![AstroVisBench Full-432 leaderboard](docs/assets/leaderboard-full.svg)
 
 This figure compares the published AstroVisBench reference rows with our
-independent Qwen3.8-27B Q4_K_M Full-432 evaluation. It shows processing
-execution success, visualization execution success, and CorrectV (the share
-of visualization-judge outcomes categorized as having no error). Hatched bars
-identify the independent QWEN result. The published rows are reproduced from
-the official leaderboard; the QWEN row used a GPT-6 Astra medium judge adapter
-and is therefore a separately identified evaluation series rather than a
-direct replacement for the published scores.
+independent Qwen3.8-27B Q4_K_M and Kimi K3 Full-432 evaluations. It shows
+processing execution success, visualization execution success, and CorrectV
+(the share of visualization-judge outcomes categorized as having no error).
+Hatched bars identify the independent local rows. The published rows are
+reproduced from the official leaderboard; both local rows used a GPT-6 Astra
+medium judge adapter and are therefore a separately identified evaluation
+series rather than a direct replacement for the published scores. Step3-VL is
+kept in the page's Lite-72 processing-only table because its visualization
+judge is still pending.
 
 The complete table, Lite-72 candidate, metric definitions, and provenance are
 available on the [independent results page](docs/index.md).

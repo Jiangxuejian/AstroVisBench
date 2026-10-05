@@ -1,0 +1,93 @@
+{
+  "content_snapshot": "2026-10-05",
+  "suite": "AstroVisBench Full-432",
+  "model": {
+    "display_name": "Kimi K3",
+    "provider": "Kimi Code API",
+    "requested_model": "k3",
+    "advertised_model_ids": [
+      "kimi-for-coding",
+      "kimi-for-coding-highspeed",
+      "k3",
+      "k3-256k"
+    ],
+    "generation_reasoning_effort": "low",
+    "generation_max_completion_tokens": 8192,
+    "temperature": "provider-fixed-1.0; omitted",
+    "tools": "none"
+  },
+  "upstream_revision": "707657f8fac4df50a6cf6c2c4671bf6a0258a201",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "run": {
+    "run_id": "kimi-k3-original-20260928",
+    "execution_records": 432,
+    "execution_sha256": "415b5491fa05e81ac964eafe5552b980935c07aaae5dd692c6fddeb793d787c8",
+    "execution_manifest_sha256": "56d32f1751c8bbb840fd2f34a98f3c3f7112c3ed58a0cafc77341638e162eaf1",
+    "execution_workflow": "Original upstream executor with the recorded serial-launcher adaptation; generated code was not manually repaired."
+  },
+  "judge": {
+    "model_requested": "gpt-6-astra",
+    "reasoning_effort_requested": "medium",
+    "trials": 3,
+    "records": 432,
+    "trial_outcomes": 1296,
+    "invocation_errors": 0,
+    "transport": "Authenticated Codex CLI non-interactive vision request",
+    "codex_cli": "codex-cli 0.153.4",
+    "desktop_version_supplied_by_user": "26.908.70816",
+    "tool_policy": "Judge prompt prohibits tools; runner audits JSONL events for tool calls.",
+    "aggregation": "Mean category percentages across three trials and all 432 workflows; Crash and VisFail remain explicit outcomes. VIscore is the mean unweighted score for successful, nonempty inspections.",
+    "canonical_selection": "One complete record per UID. Later retry/continuation checkpoints supersede the original slots; the 2026-10-05 repaired batches supersede the stale VisFail placeholders for records 301-432."
+  },
+  "outcome_counts": {
+    "No Error": 208,
+    "Minor Error": 235,
+    "Major Error": 412,
+    "VisFail": 141,
+    "Crash": 300
+  },
+  "first_trial_outcome_counts": {
+    "No Error": 69,
+    "Minor Error": 78,
+    "Major Error": 138,
+    "VisFail": 47,
+    "Crash": 100
+  },
+  "metrics": {
+    "processing_no_error": 63.88888888888889,
+    "vi_score": 0.7220501474926254,
+    "vi_eligible_workflows": 113,
+    "visualization_no_error": 84.9537037037037,
+    "correct_v": 16.049382716049383,
+    "correct_v_first_trial": 15.972222222222221,
+    "vis_fail": 10.87962962962963,
+    "minor": 18.132716049382715,
+    "major": 31.790123456790123,
+    "crash": 23.14814814814815
+  },
+  "judge_checkpoint_checksums": [
+    {"batch": "judge-first50-gpt6-astra-medium-20260929/checkpoint.json", "sha256": "4836f66e1e6673bb78427e32adcbbf024ab9e7d26b7fe0a290d778746d7b0be7"},
+    {"batch": "judge-051-100-gpt6-astra-medium-20260929/checkpoint.json", "sha256": "4adef3703cc5645eade4e2b1e4ecc11cefed04860050bb6233c1985f25557f81"},
+    {"batch": "judge-101-130-gpt6-astra-medium-20260930/checkpoint.json", "sha256": "8af81a69b887a6f24421698a30ea307c0214c52134ea3aef0eeed6dba47a27f9"},
+    {"batch": "judge-131-150-gpt6-astra-medium-20260930/checkpoint.json", "sha256": "c294f57bb0f264be1959acd56113d28b0a6978aa55b0e0cdd7bae10ba684315c"},
+    {"batch": "judge-151-180-gpt6-astra-medium-20261002/checkpoint.json", "sha256": "4a080d47841a32d15c2cb075ed4832fe259cb143e3203a86cc89566bf5acc2c8"},
+    {"batch": "judge-retry-162-180-gpt6-astra-medium-20261002/checkpoint.json", "sha256": "3d15ad89e849f3a723c7d96b6dd933b6b32fc2941f3717dea6a2dba66a1cec5a"},
+    {"batch": "judge-181-210-gpt6-astra-medium-20261002/checkpoint.json", "sha256": "04a5d09d6d1196ff84b919a900a7a5efa397c3a45132c1fe2bfd9569c19eb644"},
+    {"batch": "judge-retry-196-202-gpt6-astra-medium-20261002/checkpoint.json", "sha256": "0918492e0771c2463cf33392db3a1157ab30748d31f8eed7dccb054a2ddd9ceb"},
+    {"batch": "judge-cont-203-210-gpt6-astra-medium-20261002/checkpoint.json", "sha256": "6e9732870b211f99d75ea53dab29bd30a9569e63c1924fbe7f0dd57d37068eb7"},
+    {"batch": "judge-211-240-gpt6-astra-medium-20261002/checkpoint.json", "sha256": "41946f9ff64b788a17e629a4971044c1f87ea337865ddf5e905a4fcea5ad88e8"},
+    {"batch": "judge-241-270-gpt6-astra-medium-20261004/checkpoint.json", "sha256": "5b6efe7eb0a5c358fc2f8d7842c95615d114223fe850f5e731bbf7d7f1142265"},
+    {"batch": "judge-271-300-gpt6-astra-medium-20261004/checkpoint.json", "sha256": "13c6394f96188126b90b24f172b0d1657a0f7edce86e9fe5312219fda40b22b7"},
+    {"batch": "judge-repaired-301-406/.../batch_301_330/checkpoint.json", "sha256": "4e1089d906c077b04317e7ce9244f68855a423a34d9a42fda6aec8894453d1a0"},
+    {"batch": "judge-repaired-301-406/.../batch_331_360/checkpoint.json", "sha256": "7100db6f921c331cd0adf9e537529241b9c052269d03df171762429fe70aefea"},
+    {"batch": "judge-repaired-301-406/.../batch_361_390/checkpoint.json", "sha256": "f1f4ef142ef25163fbc6f9f55092843d71975bec17ecbb369bb623b3c1df668b"},
+    {"batch": "judge-repaired-301-406/.../batch_391_406/checkpoint.json", "sha256": "0f0c65742bfb753767ad1408c99e7b086b0de064439b07045603dc855d432a8f"},
+    {"batch": "judge-repaired-301-406/.../batch_407_432/checkpoint.json", "sha256": "36f6c13c667537dbd158ca994b0c30f9a385711314634754479a1eff0f7e5ab1"}
+  ],
+  "limitations": [
+    "The Kimi K3 row is an independent local evaluation, not a rerun of the published reference rows.",
+    "The provider exposes a model alias rather than an immutable backend weight revision in this record.",
+    "The judge model is recorded as requested; the hosted backend snapshot was not exposed by the transport."
+  ],
+  "raw_artifacts": "Retained locally; no public raw-artifact archive linked here."
+}

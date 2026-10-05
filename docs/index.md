@@ -13,7 +13,7 @@ This is an **independent evaluation project**, built on the original AstroVisBen
 
 [Results](#results) · [Workflow](#workflow) · [Lite benchmark](#a-smaller-benchmark) · [Coding agents](#coding-agents) · [Reproducibility](#reproducibility) · [Credits](#credits)
 
-**Content snapshot: 30 September 2026.** This page contains one audited local-model result and an exploratory Lite subset. Further models will be added after their results and provenance are checked.
+**Content snapshot: 5 October 2026.** This page contains two audited Full-432 local-model results, one processing-only Lite result, and an exploratory Lite subset. Further models will be added after their results and provenance are checked.
 
 ## What we measure
 
@@ -30,11 +30,11 @@ The original benchmark deliberately evaluates visualization with **reference pro
 
 ### Full benchmark · 432 workflows
 
-The figure and table below combine the published AstroVisBench reference rows with our independently audited Qwen3.8 run. The published rows reproduce the official leaderboard snapshot; the hatched Qwen bars and † row are our local evaluation. **Because the judge and transport protocols differ, the Qwen row is shown for context and must not be treated as a directly comparable replacement for the published rows.**
+The figure and table below combine the published AstroVisBench reference rows with our independently audited Qwen3.8 and Kimi K3 runs. The published rows reproduce the official leaderboard snapshot; the hatched Qwen and K3 bars and † rows are our local evaluations. **Because the judge and transport protocols differ, the local rows are shown for context and must not be treated as directly comparable replacements for the published rows.**
 
 ![AstroVisBench Full-432 leaderboard](assets/leaderboard-full.svg)
 
-*Hatched bars identify the independent Qwen3.8 evaluation. The published reference rows are reproduced from the official leaderboard snapshot available on 30 September 2026.*
+*Hatched bars identify independent local evaluations. The published reference rows are reproduced from the official leaderboard snapshot available on 30 September 2026.*
 
 | Model | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -47,16 +47,27 @@ The figure and table below combine the published AstroVisBench reference rows wi
 | Qwen-2.5 | 43.10% | 0.527 | 64.60% | 10.40% | 3.70% | 20.10% | 29.90% |
 | Llama-4 Maverick | 44.70% | 0.546 | 71.30% | 9.70% | 9.00% | 21.50% | 30.60% |
 | Qwen3.8-27B Q4_K_M† | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
+| Kimi K3† | 63.89% | 0.722 | 84.95% | 16.05% | 10.88% | 18.13% | 31.79% |
 
-† Independent local run, three GPT-6 Astra medium judge trials; see the [full provenance record](data/qwen38-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
+† Independent local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
 
-**Coverage:** 432 executed workflows; three recorded visualization outcomes per workflow. Crashes and visualization-format failures receive their prescribed outcomes without an LLM call. All 1,296 outcome slots are complete; that does not mean 1,296 judge API calls were made.
+**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three recorded visualization outcomes per workflow. Crashes and visualization-format failures receive their prescribed outcomes without an LLM call. Each local row has 1,296 complete outcome slots; that does not mean 1,296 judge API calls were made.
 
-**Generation track:** No tools supplied to the evaluated model. The operator's use of software to run the benchmark is separate from the model's permitted capabilities.
+**Generation track:** No tools supplied to the evaluated models. Qwen3.8 ran through the local model harness; Kimi K3 used the Kimi Code API with `tool_choice=none`. The operator's use of software to run the benchmark is separate from the model's permitted capabilities.
 
-**Judge:** Requested model `gpt-6-astra`, reasoning effort `medium`, three trials. Recorded transport: Codex CLI `0.153.4`. Mac app version `26.908.70816` was supplied by the operator, not detected on the execution host. A requested model name is not proof of an immutable backend model snapshot.
+**Judge:** Both local rows requested `gpt-6-astra`, reasoning effort `medium`, and three trials through Codex CLI `0.153.4`. Mac app version `26.908.70816` was supplied by the operator, not detected on the execution host. A requested model name is not proof of an immutable backend model snapshot.
 
-[Download scores and provenance](data/qwen38-audit.json) · [Original AstroVisBench leaderboard](https://astrovisbench.github.io/)
+[Download Qwen3.8 provenance](data/qwen38-audit.json) · [Download Kimi K3 provenance](data/k3-audit.json) · [Original AstroVisBench leaderboard](https://astrovisbench.github.io/)
+
+### STEP3-VL · Lite-72 processing-only
+
+The Step3-VL-10B Q4_K_M run has completed generation and execution for the full source run. The table below reports the frozen **Lite-72 processing stage only**; its visualization judge has not been run, so STEP3-VL is intentionally absent from the Full-432 chart and table.
+
+| Model | Suite | Processing no error ↑ | VIscore ↑ | VIscore-eligible workflows | Visualization judge |
+|---|---|---:|---:|---:|---|
+| Step3-VL-10B Q4_K_M‡ | Lite-72 candidate v1 | 13.89% | 0.714 | 7 / 72 | Not run |
+
+‡ The GGUF projector was retained locally but rejected by the llama.cpp build (`missing mm.1.weight`), so this was a text-only Step3-VL generation run rather than a vision-capable evaluation. See the [STEP3-VL processing record](data/step3-lite-processing.json) for checksums, model revision, and the recorded limitation. This row is not a Full-432 score and has no visualization-error categories.
 
 ### Reading the metrics
 
@@ -183,6 +194,8 @@ The current reference inputs are:
 | Dataset revision | `43e4784c638f946b8362bc5ecaef4117d3dc7752` |
 | Dataset SHA-256 | `c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2` |
 | QWEN weight revision | `0669b98607d47046c7c2b3f801011d54a08cfccf` |
+| Kimi generation transport | Kimi Code API, requested model `k3` |
+| STEP3-VL weight revision | `4e88ea55358ca8091e495a59414fd4a5d43d6932` (`Q4_K_M`) |
 
 Reproducibility includes stating what cannot be pinned. Hosted model aliases, unavailable provider metadata, external data services, and nondeterministic execution can limit exact replay. A changed judge or tool policy defines a new evaluation series; it does not silently replace the old one.
 
@@ -191,6 +204,7 @@ Reproducibility includes stating what cannot be pinned. Hosted model aliases, un
 Results will be added after completed runs are audited. Each update should state the model and protocol, suite, coverage, and any corrections. We do not commit to a fixed update schedule.
 
 - **30 September 2026:** Prepared this public-content draft with the audited QWEN Full-432 result and the exploratory Lite-72 comparison. These are local artifacts; this entry does not indicate that the website has been deployed.
+- **5 October 2026:** Added the audited Kimi K3 Full-432 result and the STEP3-VL Lite-72 processing-only result. STEP3-VL visualization judging remains pending because the recorded run was text-only after the projector compatibility failure.
 
 ### Limits of interpretation
 
