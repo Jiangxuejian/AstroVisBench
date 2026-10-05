@@ -1,8 +1,9 @@
 # GitHub Pages content draft
 
-`index.md` is the proposed one-page public content. It is ready for editorial review,
-not a deployment. Working title: **AstroVisBench — Independent Model Evaluations**.
-No GitHub repository, Pages configuration, custom domain, or publication was created.
+`index.md` is the one-page public content for the Jiangxuejian fork. Working title:
+**AstroVisBench — Independent Model Evaluations**. The files are published in the
+repository's `main` branch; GitHub Pages configuration, a custom domain, and a
+separate public raw-artifact archive remain optional and are not assumed here.
 
 The page uses ordinary Markdown and relative download links. It can be placed in a
 GitHub Pages/Jekyll site when the public repository is chosen. The grouped bar chart
@@ -40,10 +41,9 @@ script reads `docs/data/leaderboard.json` and regenerates the matching SVG/PNG f
 The prose and table cells remain deliberately easy to edit as one Markdown page. When
 new scores are added, update the text, source selection, and checks together.
 
-## Before publication
+## Before enabling additional publication
 
-Choose the repository name and website title, add a link to the public runner once
-its installation path is verified, and check the repository license/attribution for
-the actual redistributed material. Add presentation and Pages deployment separately.
-Do not describe locally retained raw artifacts as publicly downloadable until a
-public archive and its links exist.
+Keep the repository license/attribution aligned with the actual redistributed material,
+add a link to the public runner once its installation path is verified, and configure
+Pages separately if desired. Do not describe locally retained raw artifacts as publicly
+downloadable until a public archive and its links exist.
