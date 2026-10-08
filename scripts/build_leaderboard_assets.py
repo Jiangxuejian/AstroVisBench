@@ -20,7 +20,12 @@ def main() -> None:
     rows = payload["rows"]
     chart = payload["chart_metrics"]
     labels = [r["label"] for r in rows]
-    values = np.array([[r[key] for key in chart] for r in rows], dtype=float)
+    # Missing metrics are rendered as gaps rather than zeros.  This matters for
+    # processing-only Lite runs: a zero would falsely imply an evaluated score.
+    values = np.array([
+        [np.nan if r.get(key) is None else r[key] for key in chart]
+        for r in rows
+    ], dtype=float)
     x = np.arange(len(rows))
     width = 0.24
     colors = ["#89a8ee", "#91dce9", "#8fe7a5"]
@@ -38,7 +43,13 @@ def main() -> None:
                 bar.set_hatch("//")
                 bar.set_edgecolor("#4b5563")
                 bar.set_linewidth(0.55)
-    ax.set_title("AstroVisBench Full-432 Leaderboard", fontsize=22, fontweight="bold", pad=20)
+            if row.get(metric) is None:
+                # Keep the missing value visible in the same visual language as
+                # the reference figure without inventing a numeric bar.
+                ax.text(bar.get_x() + bar.get_width() / 2, 1.2, "n/a",
+                        ha="center", va="bottom", fontsize=8,
+                        color="#8b95a7", rotation=90)
+    ax.set_title("AstroVisBench Leaderboard Snapshot", fontsize=22, fontweight="bold", pad=20)
     ax.set_ylabel("Percent (%)", fontsize=13)
     ax.set_xlabel("Models", fontsize=13, labelpad=18)
     ax.set_ylim(0, 85)
@@ -53,7 +64,8 @@ def main() -> None:
     ax.set_xticklabels(labels, rotation=18, ha="right")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), ncol=3,
               frameon=False, fontsize=11, handlelength=1.8, columnspacing=1.5)
-    fig.text(0.99, 0.015, "Hatched bars: independent local runs; published rows are reference values.",
+    fig.text(0.99, 0.015,
+             "Hatched bars: independent local runs; Lite labels are Lite-72; n/a = not evaluated.",
              ha="right", va="bottom", fontsize=9, color="#596273")
     fig.subplots_adjust(left=0.07, right=0.99, bottom=0.22, top=0.82)
     fig.savefig(OUT / "leaderboard-full.svg", bbox_inches="tight", facecolor="white")

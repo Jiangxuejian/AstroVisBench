@@ -40,17 +40,22 @@ def main():
             assert f"{entry[key]:.2f}%" in page, (scope, key)
         assert f"{entry['vi_score']:.3f}" in page
     assert scores['full']['n'] == 432 and scores['lite']['n'] == 72
-    # Kimi K3 and STEP3-VL are exported from separately audited local run
+    # Kimi K3, STEP3-VL, and Claude Code + K3 are exported from separately audited local run
     # records. Keep these checks here so a QWEN refresh cannot silently leave
     # the public page out of sync with the other published rows.
     k3 = json.loads((OUT/'k3-audit.json').read_text())
     step = json.loads((OUT/'step3-lite-processing.json').read_text())
+    claude_k3 = json.loads((OUT/'claude-k3-lite-audit.json').read_text())
     for key in ('processing_no_error', 'visualization_no_error', 'correct_v', 'vis_fail'):
         assert f"{k3['metrics'][key]:.2f}%" in page, ('k3', key)
     assert f"{k3['metrics']['vi_score']:.3f}" in page
     assert f"{step['metrics']['processing_no_error']:.2f}%" in page
     assert f"{step['metrics']['vi_score']:.3f}" in page
     assert step['metrics']['visualization_judge'] == 'not run'
+    for key in ('processing_no_error', 'visualization_no_error', 'correct_v', 'vis_fail'):
+        assert f"{claude_k3['metrics'][key]:.2f}%" in page, ('claude-k3', key)
+    assert f"{claude_k3['metrics']['vi_score']:.3f}" in page
+    assert claude_k3['judge']['outcome_slots'] == 216
     OUT.mkdir(parents=True, exist_ok=True)
     # The selection manifest contains UIDs and classification metadata, not task prompts.
     write('lite72-candidate-v1.json', manifest)
@@ -80,7 +85,7 @@ def main():
         'limitations': manifest['limitations'],
         'raw_artifacts': 'Retained locally; no public raw-artifact archive linked in this draft.',
     })
-    print('Prepared three public data files; verified task counts, provenance, and displayed score values.')
+    print('Prepared public data files; verified task counts, provenance, and displayed score values.')
 
 
 if __name__ == '__main__':

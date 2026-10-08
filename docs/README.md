@@ -7,16 +7,16 @@ separate public raw-artifact archive remain optional and are not assumed here.
 
 The page uses ordinary Markdown and relative download links. It can be placed in a
 GitHub Pages/Jekyll site when the public repository is chosen. The grouped bar chart
-contains the published reference rows plus the audited QWEN and Kimi K3 Full-432
-runs. Keep the Full and Lite results visually separate; STEP3-VL is currently
-published only as a Lite-72 processing record.
+contains the published reference rows, the audited QWEN and Kimi K3 Full-432
+runs, and explicitly labelled Lite-72 STEP3-VL and Claude Code + K3 rows. Keep
+the Full and Lite suites and the T0/T1 tracks distinct when interpreting it.
 
 ## Content decisions
 
 - Attribute the upstream benchmark prominently and identify this as independent work.
-- Publish only scores audited from complete, frozen records. QWEN and Kimi K3 are Full-432 local rows; STEP3-VL is a processing-only Lite-72 row.
+- Publish only scores audited from complete, frozen records. QWEN and Kimi K3 are Full-432 local rows; STEP3-VL is a processing-only Lite-72 row; Claude Code + K3 is a Lite-72 T1 agent row.
 - Keep Lite-72 explicitly provisional, including its imperfect notebook-family labels.
-- Mark Smoke, the portable public runner, and the agent comparison track as unfinished.
+- Mark Smoke and the portable public runner as unfinished; identify the Claude Code + K3 agent comparison as a separate T1 track.
 - Describe the actual three-trial aggregation and eligible VIscore denominators.
 - Distinguish requested judge identity from a verified backend snapshot.
 - Avoid placeholder repository URLs, invented commands, or promises of exact cost savings.
@@ -26,7 +26,8 @@ published only as a Lite-72 processing record.
 ## Updating the content
 
 The existing audited sources are `results/lite72-candidate-v1/`, the QWEN and Kimi K3
-run manifests/provenance, and the STEP3-VL Lite processing summary. Generate the
+run manifests/provenance, the STEP3-VL Lite processing summary, and the Claude Code
+K3 Lite audit. Generate the
 small public downloads using:
 
 ```bash
@@ -35,9 +36,11 @@ python3 scripts/prepare_pages_data.py
 ```
 
 The first script exports the QWEN evidence; it does not rerun generation, execution, or
-judging. Kimi K3 and STEP3-VL compact records are retained as
-`docs/data/k3-audit.json` and `docs/data/step3-lite-processing.json`. The second
-script reads `docs/data/leaderboard.json` and regenerates the matching SVG/PNG figure.
+judging. Kimi K3, STEP3-VL, and Claude Code + K3 compact records are retained as
+`docs/data/k3-audit.json`, `docs/data/step3-lite-processing.json`, and
+`docs/data/claude-k3-lite-audit.json`. The second script reads
+`docs/data/leaderboard.json` and regenerates the matching SVG/PNG figure, rendering
+missing processing-only metrics as `n/a` rather than zero.
 The prose and table cells remain deliberately easy to edit as one Markdown page. When
 new scores are added, update the text, source selection, and checks together.
 

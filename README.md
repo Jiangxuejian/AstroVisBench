@@ -11,9 +11,10 @@
 
 This fork preserves the upstream AstroVisBench workflow and adds a separate,
 reproducible results page for independently run models. The page reports the
-Full-432 Qwen3.8-27B Q4_K_M and Kimi K3 evaluations, plus a processing-only
-Step3-VL-10B Q4_K_M Lite-72 result. These rows are labelled separately from the
-official leaderboard because the judge and transport protocols differ.
+Full-432 Qwen3.8-27B Q4_K_M and Kimi K3 evaluations, plus the processing-only
+Step3-VL-10B Q4_K_M and Claude Code + Kimi K3 T1 Lite-72 results. Lite rows are
+labelled separately from the Full-432 rows and the official leaderboard because
+the suite, judge, transport, and (for Claude Code) tool protocols differ.
 
 **Results page:** [AstroVisBench independent evaluations](docs/index.md)
 
@@ -23,18 +24,18 @@ and [repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench)
 
 ### Current leaderboard snapshot
 
-![AstroVisBench Full-432 leaderboard](docs/assets/leaderboard-full.svg)
+![AstroVisBench leaderboard snapshot](docs/assets/leaderboard-full.svg)
 
 This figure compares the published AstroVisBench reference rows with our
-independent Qwen3.8-27B Q4_K_M and Kimi K3 Full-432 evaluations. It shows
-processing execution success, visualization execution success, and CorrectV
-(the share of visualization-judge outcomes categorized as having no error).
-Hatched bars identify the independent local rows. The published rows are
-reproduced from the official leaderboard; both local rows used a GPT-6 Astra
-medium judge adapter and are therefore a separately identified evaluation
-series rather than a direct replacement for the published scores. Step3-VL is
-kept in the page's Lite-72 processing-only table because its visualization
-judge is still pending.
+independent Full-432 Qwen3.8-27B Q4_K_M and Kimi K3 evaluations and the
+Lite-72 STEP3-VL and Claude Code + K3 rows. It shows processing execution
+success, visualization execution success, and CorrectV (the share of
+visualization-judge outcomes categorized as having no error). Hatched bars
+identify independent local rows; labels containing **Lite** are the provisional
+Lite-72 suite. STEP3-VL is processing-only, so its unavailable visualization
+fields are shown as n/a. The published rows are reproduced from the official
+leaderboard; the local rows are a separately identified evaluation series
+rather than direct replacements for the published scores.
 
 The complete table, Lite-72 candidate, metric definitions, and provenance are
 available on the [independent results page](docs/index.md).
