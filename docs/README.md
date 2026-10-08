@@ -8,7 +8,7 @@ separate public raw-artifact archive remain optional and are not assumed here.
 The page uses ordinary Markdown and relative download links. It can be placed in a
 GitHub Pages/Jekyll site when the public repository is chosen. The grouped bar chart
 contains the published reference rows, the audited QWEN and Kimi K3 Full-432
-runs, and explicitly labelled Lite-72 STEP3-VL and Claude Code + K3 rows. Keep
+runs, and the explicitly labelled Lite-72 Claude Code + K3 row. Keep
 the Full and Lite suites and the T0/T1 tracks distinct when interpreting it.
 
 ## Content decisions

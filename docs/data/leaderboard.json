@@ -143,21 +143,6 @@
       "major": 31.790123456790123
     },
     {
-      "id": "step3-vl-10b-q4-k-m-lite72",
-      "label": "STEP3-VL-10B\nQ4_K_M · Lite",
-      "table_label": "STEP3-VL-10B Q4_K_M (Lite-72)",
-      "suite": "Lite-72 processing-only",
-      "source": "independent-local",
-      "audit": "data/step3-lite-processing.json",
-      "processing_no_error": 13.88888888888889,
-      "vi_score": 0.7142857142857143,
-      "visualization_no_error": null,
-      "correct_v": null,
-      "vis_fail": null,
-      "minor": null,
-      "major": null
-    },
-    {
       "id": "claude-code-k3-lite72",
       "label": "Claude Code + Kimi K3\nLite",
       "table_label": "Claude Code + Kimi K3 (Lite-72, T1)",
@@ -177,13 +162,12 @@
     "published-reference": "https://astrovisbench.github.io/",
     "independent-local-qwen": "data/qwen38-audit.json",
     "independent-local-k3": "data/k3-audit.json",
-    "independent-local-step3": "data/step3-lite-processing.json",
     "independent-local-claude-k3": "data/claude-k3-lite-audit.json"
   },
   "notes": [
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",
-    "Rows labelled Lite are the provisional Lite-72 candidate. STEP3-VL is processing-only, so its visualization and judge fields are intentionally null and shown as n/a in the chart.",
+    "The chart's Lite row is the provisional Lite-72 Claude Code + K3 T1 result. STEP3-VL remains a separate processing-only record and is not included in this chart.",
     "Claude Code + K3 is a separate T1 coding-agent track with approved tools, a bounded correction loop, and Lite-72 coverage; it must not be ranked as a no-tool model result."
   ]
 }

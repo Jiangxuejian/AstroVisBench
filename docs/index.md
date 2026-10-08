@@ -30,11 +30,11 @@ The original benchmark deliberately evaluates visualization with **reference pro
 
 ### Leaderboard snapshot · Full-432 and Lite-72
 
-The figure and table below combine the published AstroVisBench reference rows with our independently audited Full-432 Qwen3.8 and Kimi K3 runs and two Lite-72 rows. The published rows reproduce the official leaderboard snapshot; hatched rows are our local evaluations. **Because the judge, transport, suite, and (for Claude Code + K3) tool protocols differ, these rows are shown for context and must not be treated as directly comparable replacements for the published rows.**
+The figure and table below combine the published AstroVisBench reference rows with our independently audited Full-432 Qwen3.8 and Kimi K3 runs and the Claude Code + K3 Lite-72 row. The STEP3-VL processing-only result is documented separately below and is intentionally not plotted here. The published rows reproduce the official leaderboard snapshot; hatched rows are our local evaluations. **Because the judge, transport, suite, and (for Claude Code + K3) tool protocols differ, these rows are shown for context and must not be treated as directly comparable replacements for the published rows.**
 
 ![AstroVisBench leaderboard snapshot](assets/leaderboard-full.svg)
 
-*Hatched bars identify independent local evaluations. Labels containing **Lite** are the provisional Lite-72 candidate. STEP3-VL has no visualization evaluation, so its unavailable fields are shown as n/a. The published reference rows are reproduced from the official leaderboard snapshot available on 30 September 2026.*
+*Hatched bars identify independent local evaluations. The **Lite** label identifies the provisional Lite-72 Claude Code + K3 row. STEP3-VL is processing-only and is documented below, not plotted here. The published reference rows are reproduced from the official leaderboard snapshot available on 30 September 2026.*
 
 | Model | Suite | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -48,12 +48,11 @@ The figure and table below combine the published AstroVisBench reference rows wi
 | Llama-4 Maverick | Full-432 | 44.70% | 0.546 | 71.30% | 9.70% | 9.00% | 21.50% | 30.60% |
 | Qwen3.8-27B Q4_K_M† | Full-432 | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
 | Kimi K3† | Full-432 | 63.89% | 0.722 | 84.95% | 16.05% | 10.88% | 18.13% | 31.79% |
-| STEP3-VL-10B Q4_K_M‡ | Lite-72 processing-only | 13.89% | 0.714 | n/a | n/a | n/a | n/a | n/a |
 | Claude Code + Kimi K3‡ | Lite-72 T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
 
-† Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). ‡ Independent Lite-72 local run; see the [STEP3-VL processing record](data/step3-lite-processing.json) and [Claude Code + K3 provenance record](data/claude-k3-lite-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
+† Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). ‡ Independent Lite-72 Claude Code + K3 run; see the [Claude Code + K3 provenance record](data/claude-k3-lite-audit.json). The STEP3-VL processing-only record is linked below. Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
 
-**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three recorded visualization outcomes per workflow. The STEP3-VL and Claude Code + K3 rows each cover 72 Lite workflows; Claude Code + K3 has 216 recorded visualization-judge outcomes. Crashes and visualization-format failures receive their prescribed outcomes without an LLM call. These are separate suite and protocol tracks, not one pooled ranking.
+**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three recorded visualization outcomes per workflow. The plotted Claude Code + K3 row covers 72 Lite workflows and has 216 recorded visualization-judge outcomes. STEP3-VL covers 72 Lite processing workflows but is not plotted because its visualization judge was not run. These are separate suite and protocol tracks, not one pooled ranking.
 
 **Generation track:** No tools were supplied to the Qwen3.8 or Kimi K3 Full-432 model runs. Qwen3.8 ran through the local model harness; Kimi K3 used the Kimi Code API with `tool_choice=none`. Claude Code + K3 is deliberately separate: its Lite T1 agent could inspect approved text inputs, edit its candidate, run bounded checks, and submit. The operator's use of software to run the benchmark is separate from the evaluated system's permitted capabilities.
 
@@ -63,7 +62,7 @@ The figure and table below combine the published AstroVisBench reference rows wi
 
 ### STEP3-VL · Lite-72 processing-only
 
-The Step3-VL-10B Q4_K_M run has completed generation and execution for the full source run. The table below reports the frozen **Lite-72 processing stage only**. It is included in the snapshot above with n/a visualization fields; no visualization judge score is implied.
+The Step3-VL-10B Q4_K_M run has completed generation and execution for the full source run. The table below reports the frozen **Lite-72 processing stage only**. It is intentionally not included in the snapshot above because no visualization judge score was run.
 
 | Model | Suite | Processing no error ↑ | VIscore ↑ | VIscore-eligible workflows | Visualization judge |
 |---|---|---:|---:|---:|---|
@@ -214,7 +213,7 @@ Results will be added after completed runs are audited. Each update should state
 
 - **30 September 2026:** Prepared this public-content draft with the audited QWEN Full-432 result and the exploratory Lite-72 comparison. These are local artifacts; this entry does not indicate that the website has been deployed.
 - **5 October 2026:** Added the audited Kimi K3 Full-432 result and the STEP3-VL Lite-72 processing-only result. STEP3-VL visualization judging remains pending because the recorded run was text-only after the projector compatibility failure.
-- **8 October 2026:** Added the Claude Code + K3 Lite-72 T1 result and placed both Lite rows in the snapshot figure with explicit Lite labels. STEP3-VL visualization fields remain n/a because that run is processing-only.
+- **8 October 2026:** Added the Claude Code + K3 Lite-72 T1 result. The snapshot figure now shows the Claude Code + K3 Lite row; STEP3-VL remains documented separately as processing-only and is not plotted.
 
 ### Limits of interpretation
 

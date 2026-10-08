@@ -28,14 +28,14 @@ and [repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench)
 
 This figure compares the published AstroVisBench reference rows with our
 independent Full-432 Qwen3.8-27B Q4_K_M and Kimi K3 evaluations and the
-Lite-72 STEP3-VL and Claude Code + K3 rows. It shows processing execution
+Claude Code + K3 Lite-72 row. It shows processing execution
 success, visualization execution success, and CorrectV (the share of
 visualization-judge outcomes categorized as having no error). Hatched bars
 identify independent local rows; labels containing **Lite** are the provisional
-Lite-72 suite. STEP3-VL is processing-only, so its unavailable visualization
-fields are shown as n/a. The published rows are reproduced from the official
-leaderboard; the local rows are a separately identified evaluation series
-rather than direct replacements for the published scores.
+Lite-72 suite. STEP3-VL is retained in the detailed processing-only section,
+but is not included in this chart. The published rows are reproduced from the
+official leaderboard; the local rows are a separately identified evaluation
+series rather than direct replacements for the published scores.
 
 The complete table, Lite-72 candidate, metric definitions, and provenance are
 available on the [independent results page](docs/index.md).
