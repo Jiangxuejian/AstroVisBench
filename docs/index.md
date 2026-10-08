@@ -30,11 +30,11 @@ The original benchmark deliberately evaluates visualization with **reference pro
 
 ### Leaderboard snapshot · Full-432 and Lite-72
 
-The figure and table below combine the published AstroVisBench reference rows with our independently audited Full-432 Qwen3.8 and Kimi K3 runs and the Claude Code + K3 Lite-72 row. The STEP3-VL processing-only result is documented separately below and is intentionally not plotted here. The published rows reproduce the official leaderboard snapshot; hatched rows are our local evaluations. **Because the judge, transport, suite, and (for Claude Code + K3) tool protocols differ, these rows are shown for context and must not be treated as directly comparable replacements for the published rows.**
+The figure and table below combine the published AstroVisBench reference rows with our independently audited Full-432 Qwen3.8 and Kimi K3 runs and the Claude Code + K3 (lite-72 subset) row. The STEP3-VL processing-only result is documented separately below and is intentionally not plotted here. The published rows reproduce the official leaderboard snapshot; hatched rows are our local evaluations. **Because the judge, transport, suite, and (for Claude Code + K3) tool protocols differ, these rows are shown for context and must not be treated as directly comparable replacements for the published rows.**
 
 ![AstroVisBench leaderboard snapshot](assets/leaderboard-full.svg)
 
-*Hatched bars identify independent local evaluations. The **Lite** label identifies the provisional Lite-72 Claude Code + K3 row. STEP3-VL is processing-only and is documented below, not plotted here. The published reference rows are reproduced from the official leaderboard snapshot available on 30 September 2026.*
+*Hatched bars identify independent local evaluations. The **(lite-72 subset)** label identifies the fixed sampled-subset Claude Code + K3 row. STEP3-VL is processing-only and is documented below, not plotted here. The published reference rows are reproduced from the official leaderboard snapshot available on 30 September 2026.*
 
 | Model | Suite | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -48,7 +48,7 @@ The figure and table below combine the published AstroVisBench reference rows wi
 | Llama-4 Maverick | Full-432 | 44.70% | 0.546 | 71.30% | 9.70% | 9.00% | 21.50% | 30.60% |
 | Qwen3.8-27B Q4_K_M† | Full-432 | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
 | Kimi K3† | Full-432 | 63.89% | 0.722 | 84.95% | 16.05% | 10.88% | 18.13% | 31.79% |
-| Claude Code + Kimi K3‡ | Lite-72 T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
+| Claude Code + Kimi K3‡ | (lite-72 subset) T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
 
 † Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). ‡ Independent Lite-72 Claude Code + K3 run; see the [Claude Code + K3 provenance record](data/claude-k3-lite-audit.json). The STEP3-VL processing-only record is linked below. Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
 

@@ -144,9 +144,9 @@
     },
     {
       "id": "claude-code-k3-lite72",
-      "label": "Claude Code + Kimi K3\nLite",
-      "table_label": "Claude Code + Kimi K3 (Lite-72, T1)",
-      "suite": "Lite-72 coding-agent T1",
+      "label": "Claude Code + Kimi K3\n(lite-72 subset)",
+      "table_label": "Claude Code + Kimi K3 (lite-72 subset, T1)",
+      "suite": "lite-72 subset · coding-agent T1",
       "source": "independent-local",
       "audit": "data/claude-k3-lite-audit.json",
       "processing_no_error": 62.5,
@@ -167,7 +167,7 @@
   "notes": [
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",
-    "The chart's Lite row is the provisional Lite-72 Claude Code + K3 T1 result. STEP3-VL remains a separate processing-only record and is not included in this chart.",
+    "The chart's (lite-72 subset) row is the provisional fixed sampled-subset Claude Code + K3 T1 result. STEP3-VL remains a separate processing-only record and is not included in this chart.",
     "Claude Code + K3 is a separate T1 coding-agent track with approved tools, a bounded correction loop, and Lite-72 coverage; it must not be ranked as a no-tool model result."
   ]
 }
