@@ -11,7 +11,6 @@ official leaderboard.
 - An [independent results page](docs/index.md) with audited Full-432 and Lite-72
   results.
 - Full-432 local evaluations for Qwen3.8-27B Q4_K_M and Kimi K3.
-- A processing-only Lite-72 record for Step3-VL-10B Q4_K_M.
 - A separate Lite-72 T1 coding-agent evaluation for Claude Code + Kimi K3.
 - A frozen, deterministic [Lite-72 subset manifest](docs/data/lite72-candidate-v1.json),
   [UID selector](scripts/select_lite72_subset.py), and
