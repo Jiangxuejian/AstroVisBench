@@ -62,7 +62,7 @@ def main() -> None:
     ax.tick_params(axis="x", colors="#596273", labelsize=10, length=0, pad=8)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=18, ha="right")
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.02), ncol=3,
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.07), ncol=3,
               frameon=False, fontsize=11, handlelength=1.8, columnspacing=1.5)
     fig.text(0.99, 0.015,
              "Hatched bars: independent local runs; parenthesized labels identify the fixed lite-72 subset.",
