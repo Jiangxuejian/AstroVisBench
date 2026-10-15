@@ -117,7 +117,7 @@ Apply the pinned visualization rubric and record three trials, the requested jud
 
 Verify task coverage and metric denominators. Publish a compact score record, configuration, checksums, and an explanation of any protocol differences. Preserve earlier runs rather than silently replacing them.
 
-Implementation follows the [original repository workflow](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench). The portable public runner and installation guide are being prepared; this draft does not advertise an unimplemented one-command interface.
+Implementation follows the [original repository workflow](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench). The portable public runner is not yet a one-command interface; the [Lite-72 run guide](../LITE72_RUN_GUIDE.md) documents the selector and original command sequence.
 
 ## A smaller benchmark
 
@@ -146,7 +146,7 @@ Each family contributes four workflows from each of three code-length bands. Cod
 
 These are provisional notebook-family labels, not verified classifications of individual tasks. A photometry notebook can contain a spectral plot, and the current spatial-structure family includes Galactic structures and HEALPix maps. Task-level labels and secondary tags need review before a public Lite release.
 
-[Download candidate UID manifest](data/lite72-candidate-v1.json) · [Download selected tasks and QWEN outcomes (CSV)](data/lite72-qwen-tasks.csv)
+[Download candidate UID manifest](data/lite72-candidate-v1.json) · [Download selected tasks and QWEN outcomes (CSV)](data/lite72-qwen-tasks.csv) · [Run the Lite-72 subset](../LITE72_RUN_GUIDE.md)
 
 ### Does the candidate reproduce the full result?
 

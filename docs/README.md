@@ -44,6 +44,11 @@ missing processing-only metrics as `n/a` rather than zero.
 The prose and table cells remain deliberately easy to edit as one Markdown page. When
 new scores are added, update the text, source selection, and checks together.
 
+For a fresh model evaluation, follow the repository-level
+[`LITE72_RUN_GUIDE.md`](../LITE72_RUN_GUIDE.md). It validates the frozen UID
+manifest and creates the 72-record input before invoking the original generation,
+execution, and visualization-judge scripts.
+
 ## Before enabling additional publication
 
 Keep the repository license/attribution aligned with the actual redistributed material,

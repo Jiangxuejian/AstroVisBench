@@ -18,6 +18,8 @@ the suite, judge, transport, and (for Claude Code) tool protocols differ.
 
 **Results page:** [AstroVisBench independent evaluations](docs/index.md)
 
+**Lite-72 reproducibility guide:** [LITE72_RUN_GUIDE.md](LITE72_RUN_GUIDE.md)
+
 The original benchmark, code, dataset, citation, and license remain the
 authority for the benchmark itself. See the upstream [website and leaderboard](https://astrovisbench.github.io/)
 and [repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench).
