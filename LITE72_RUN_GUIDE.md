@@ -52,7 +52,8 @@ cd AstroVisBench
 git checkout 7a1a655a24f8e664d6e311ce9241a4eb8b1baf8c
 ```
 
-Follow the upstream [environment setup](README.md#environment-setup) to obtain:
+Follow the [upstream environment setup](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench#environment-setup)
+to obtain:
 
 1. the full `astrovisbench_queries.json` (432 records),
 2. the benchmark environment archive, and
