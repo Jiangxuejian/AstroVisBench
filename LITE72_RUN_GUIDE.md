@@ -49,7 +49,7 @@ public results page:
 ```bash
 git clone https://github.com/Jiangxuejian/AstroVisBench.git
 cd AstroVisBench
-git checkout caf0746
+git checkout 7a1a655a24f8e664d6e311ce9241a4eb8b1baf8c
 ```
 
 Follow the upstream [environment setup](README.md#environment-setup) to obtain:
