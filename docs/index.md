@@ -13,7 +13,7 @@ This is an **independent evaluation project**, built on the original AstroVisBen
 
 [Results](#results) · [Workflow](#workflow) · [Lite benchmark](#a-smaller-benchmark) · [Coding agents](#coding-agents) · [Reproducibility](#reproducibility) · [Credits](#credits)
 
-**Content snapshot: 15 October 2026.** This page contains two audited Full-432 local-model results and a Claude Code + Kimi K3 Lite T1 agent result. Further models will be added after their results and provenance are checked.
+**Content snapshot: 23 October 2026.** This page contains two audited Full-432 local-model results and a Claude Code + Kimi K3 Lite T1 agent result. K3 execution metrics have been reconciled with its repaired judge inputs; network/input fairness remains under investigation. Further models will be added after their results and provenance are checked.
 
 ## What we measure
 
@@ -47,10 +47,12 @@ The figure and table below combine the published AstroVisBench reference rows wi
 | Qwen-2.5 | Full-432 | 43.10% | 0.527 | 64.60% | 10.40% | 3.70% | 20.10% | 29.90% |
 | Llama-4 Maverick | Full-432 | 44.70% | 0.546 | 71.30% | 9.70% | 9.00% | 21.50% | 30.60% |
 | Qwen3.8-27B Q4_K_M† | Full-432 | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
-| Kimi K3† | Full-432 | 63.89% | 0.722 | 84.95% | 16.05% | 10.88% | 18.13% | 31.79% |
+| Kimi K3† | Full-432 | 48.15% | 0.731 | 76.85% | 16.05% | 10.88% | 18.13% | 31.79% |
 | Claude Code + Kimi K3‡ | (lite-72 subset) T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
 
 † Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). ‡ Independent Lite-72 Claude Code + K3 run; see the [Claude Code + K3 provenance record](data/claude-k3-lite-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
+
+**Correction and fairness:** K3's previous execution metrics mixed an older execution artifact with repaired judge records. The corrected row reconciles all 432 records, with zero execution/judge Crash mismatches. Judge category percentages are unchanged. This fixes historical bookkeeping, not live-network variability; see the [execution fairness audit](execution-fairness.md). No controlled-rerun scores are published yet.
 
 **Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three recorded visualization outcomes per workflow. The plotted Claude Code + K3 row covers 72 Lite workflows and has 216 recorded visualization-judge outcomes. These are separate suite and protocol tracks, not one pooled ranking.
 

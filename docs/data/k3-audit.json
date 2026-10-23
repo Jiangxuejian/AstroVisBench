@@ -1,5 +1,5 @@
 {
-  "content_snapshot": "2026-10-05",
+  "content_snapshot": "2026-10-23",
   "suite": "AstroVisBench Full-432",
   "model": {
     "display_name": "Kimi K3",
@@ -21,7 +21,9 @@
   "run": {
     "run_id": "kimi-k3-original-20260928",
     "execution_records": 432,
-    "execution_sha256": "415b5491fa05e81ac964eafe5552b980935c07aaae5dd692c6fddeb793d787c8",
+    "execution_sha256": "b9324b827efd587d798c97d69705b157302eb4df25b0e97d0415b52f0690a4fc",
+    "historical_execution_sha256": "415b5491fa05e81ac964eafe5552b980935c07aaae5dd692c6fddeb793d787c8",
+    "execution_manifest_scope": "Original run; the reconciled artifact is described in reconciliation below.",
     "execution_manifest_sha256": "56d32f1751c8bbb840fd2f34a98f3c3f7112c3ed58a0cafc77341638e162eaf1",
     "execution_workflow": "Original upstream executor with the recorded serial-launcher adaptation; generated code was not manually repaired."
   },
@@ -54,16 +56,32 @@
     "Crash": 100
   },
   "metrics": {
-    "processing_no_error": 63.88888888888889,
-    "vi_score": 0.7220501474926254,
+    "processing_no_error": 48.148148148148145,
+    "vi_score": 0.7308997050147493,
     "vi_eligible_workflows": 113,
-    "visualization_no_error": 84.9537037037037,
+    "visualization_no_error": 76.85185185185185,
     "correct_v": 16.049382716049383,
     "correct_v_first_trial": 15.972222222222221,
     "vis_fail": 10.87962962962963,
     "minor": 18.132716049382715,
     "major": 31.790123456790123,
     "crash": 23.14814814814815
+  },
+  "reconciliation": {
+    "date": "2026-10-23",
+    "status": "validated",
+    "records": 432,
+    "replaced_records": 132,
+    "selection": "Retain execution records 1-300; replace 301-432 with existing repaired judge input batches from judge-repaired-301-406-gpt6-astra-medium-20261005/batches/records_*.json.",
+    "checks": "UID order and generated/reference code match original generation; all three judge trials agree with execution Crash status for all 432 records.",
+    "execution_judge_crash_mismatches": 0,
+    "judge_category_counts_changed": false,
+    "previous_metrics": {
+      "processing_no_error": 63.88888888888889,
+      "visualization_no_error": 84.9537037037037,
+      "vi_score": 0.7220501474926254
+    },
+    "scope": "Historical artifact reconciliation only; not a new execution or proof of network fairness. Original artifacts retained."
   },
   "judge_checkpoint_checksums": [
     {"batch": "judge-first50-gpt6-astra-medium-20260929/checkpoint.json", "sha256": "4836f66e1e6673bb78427e32adcbbf024ab9e7d26b7fe0a290d778746d7b0be7"},
@@ -85,6 +103,7 @@
     {"batch": "judge-repaired-301-406/.../batch_407_432/checkpoint.json", "sha256": "36f6c13c667537dbd158ca994b0c30f9a385711314634754479a1eff0f7e5ab1"}
   ],
   "limitations": [
+    "Live-network and reference-input failures can affect execution rates. A shared Lite-72 reference preflight is being prepared; controlled reruns await frozen-input offline replay validation.",
     "The Kimi K3 row is an independent local evaluation, not a rerun of the published reference rows.",
     "The provider exposes a model alias rather than an immutable backend weight revision in this record.",
     "The judge model is recorded as requested; the hosted backend snapshot was not exposed by the transport."

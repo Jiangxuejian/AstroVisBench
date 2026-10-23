@@ -33,6 +33,13 @@ the results page rather than plotted as complete leaderboard rows.
 
 See the [full table, metric definitions, and provenance](docs/index.md).
 
+**23 October 2026 correction:** Kimi K3's historical execution records were
+reconciled with the repaired records used for judging. Processing success is
+**48.15%**, visualization success **76.85%**, and VIscore **0.731**; judge
+category percentages are unchanged. Both figure formats and the table reflect
+this correction. Network/input fairness is still being investigated; these
+are not controlled-rerun scores. See the [audit note](docs/execution-fairness.md).
+
 ## Reproduce the Lite-72 subset
 
 Follow [`LITE72_RUN_GUIDE.md`](LITE72_RUN_GUIDE.md) to:

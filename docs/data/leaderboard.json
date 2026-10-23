@@ -1,6 +1,6 @@
 {
   "suite": "AstroVisBench Full-432 + Lite-72 snapshot",
-  "snapshot": "2026-10-08",
+  "snapshot": "2026-10-23",
   "metrics": [
     "processing_no_error",
     "vi_score",
@@ -134,9 +134,9 @@
       "suite": "Full-432",
       "source": "independent-local",
       "audit": "data/k3-audit.json",
-      "processing_no_error": 63.88888888888889,
-      "vi_score": 0.7220501474926254,
-      "visualization_no_error": 84.9537037037037,
+      "processing_no_error": 48.148148148148145,
+      "vi_score": 0.7308997050147493,
+      "visualization_no_error": 76.85185185185185,
       "correct_v": 16.049382716049383,
       "vis_fail": 10.87962962962963,
       "minor": 18.132716049382715,
@@ -165,6 +165,7 @@
     "independent-local-claude-k3": "data/claude-k3-lite-audit.json"
   },
   "notes": [
+    "2026-10-23: Kimi K3 historical execution metrics reconciled with repaired records 301-432 and existing judge checkpoints. Judge category counts unchanged. Network/input fairness remains under investigation; this is not a controlled rerun.",
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",
     "The chart's (lite-72 subset) row is the provisional fixed sampled-subset Claude Code + K3 T1 result.",
