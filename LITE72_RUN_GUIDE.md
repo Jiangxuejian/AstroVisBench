@@ -8,6 +8,11 @@ different model or harness while preserving the original AstroVisBench workflow:
 Lite-72 is a complete evaluation of a fixed sampled subset. It is **not** an
 incomplete or partially finished Full-432 run.
 
+**27 October update:** v1 remains the default below. The new
+[v2 task-selection guide and historical agent scores](docs/lite72-v2-historical.md)
+use a different explicit manifest. They are not a release of the frozen-input
+v2 benchmark and do not replace the v1 results.
+
 ## 1. What is fixed
 
 | Item | Lite-72 candidate v1 |

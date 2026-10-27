@@ -1,6 +1,6 @@
 {
-  "suite": "AstroVisBench Full-432 + Lite-72 snapshot",
-  "snapshot": "2026-10-23",
+  "suite": "AstroVisBench Full-432 + Lite-72 v1 + historical v2-selection snapshot",
+  "snapshot": "2026-10-27",
   "metrics": [
     "processing_no_error",
     "vi_score",
@@ -69,7 +69,7 @@
       "label": "GPT-4o",
       "source": "published-reference",
       "processing_no_error": 46.3,
-      "vi_score": 0.480,
+      "vi_score": 0.48,
       "visualization_no_error": 67.4,
       "correct_v": 8.6,
       "vis_fail": 6.0,
@@ -144,7 +144,7 @@
     },
     {
       "id": "claude-code-k3-lite72",
-      "label": "Claude Code + Kimi K3\n(lite-72 subset)",
+      "label": "Claude Code\n+ Kimi K3\n(lite-72 subset v1)",
       "table_label": "Claude Code + Kimi K3 (lite-72 subset, T1)",
       "suite": "lite-72 subset · coding-agent T1",
       "source": "independent-local",
@@ -156,15 +156,54 @@
       "vis_fail": 11.11111111111111,
       "minor": 19.444444444444443,
       "major": 35.648148148148145
+    },
+    {
+      "id": "gpt6-lite72-v2-selection",
+      "label": "GPT-6 Astra medium\n+ Codex\n(lite-72 v2 selection)\nhistorical · T1",
+      "table_label": "GPT-6 Astra medium + Codex (historical v2 selection, T1)",
+      "suite": "lite-72 v2 task selection · historical inputs · T1",
+      "source": "independent-local",
+      "audit": "data/gpt6-v2-selection-audit.json",
+      "official_frozen_input_v2_result": false,
+      "workflows": 72,
+      "judge_status": "pending",
+      "processing_no_error": 66.66666666666667,
+      "vi_score": 0.67,
+      "visualization_no_error": 83.33333333333333,
+      "correct_v": null,
+      "vis_fail": null,
+      "minor": null,
+      "major": null
+    },
+    {
+      "id": "claude-k3-lite72-v2-selection",
+      "label": "Claude Code\n+ Kimi K3\n(lite-72 v2 selection)\nhistorical · T1",
+      "table_label": "Claude Code + Kimi K3 (historical v2 selection, T1)",
+      "suite": "lite-72 v2 task selection · historical inputs · T1",
+      "source": "independent-local",
+      "audit": "data/claude-k3-v2-selection-audit.json",
+      "official_frozen_input_v2_result": false,
+      "workflows": 72,
+      "judge_status": "pending",
+      "processing_no_error": 61.111111111111114,
+      "vi_score": 0.6161616161616161,
+      "visualization_no_error": 86.11111111111111,
+      "correct_v": null,
+      "vis_fail": null,
+      "minor": null,
+      "major": null
     }
   ],
   "sources": {
     "published-reference": "https://astrovisbench.github.io/",
     "independent-local-qwen": "data/qwen38-audit.json",
     "independent-local-k3": "data/k3-audit.json",
-    "independent-local-claude-k3": "data/claude-k3-lite-audit.json"
+    "independent-local-claude-k3": "data/claude-k3-lite-audit.json",
+    "independent-local-gpt6-v2-selection": "data/gpt6-v2-selection-audit.json",
+    "independent-local-claude-k3-v2-selection": "data/claude-k3-v2-selection-audit.json"
   },
   "notes": [
+    "2026-10-27: Added GPT-6 + Codex and Claude Code + K3 T1 execution metrics for all 72 v2-selected UIDs. Historical inputs only; not frozen-input v2 results. New judge metrics pending/null; old v1 rows retained.",
     "2026-10-23: Kimi K3 historical execution metrics reconciled with repaired records 301-432 and existing judge checkpoints. Judge category counts unchanged. Network/input fairness remains under investigation; this is not a controlled rerun.",
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",

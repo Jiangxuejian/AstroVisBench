@@ -5,9 +5,21 @@ title: Execution fairness audit
 
 # Execution fairness audit
 
-Snapshot: **23 October 2026**. This is an audit of existing results, not a new
+Audit snapshot: **23 October 2026**, with a **27 October score-publication addendum**. This is an audit of existing results, not a new
 benchmark protocol or a claim that cross-model environmental differences have
 been resolved.
+
+## 27 October publication addendum
+
+GPT-6 + Codex and Claude + K3 now each have 72 completed executions for the
+**v2 task selection with historical inputs**: 65 preserved baseline records
+and seven supplements. Their new rows are not controlled frozen-input v2
+results, and their complete-72 visualization judge metrics remain unavailable.
+See [the selection, scores and version/recovery caveats](lite72-v2-historical.md).
+
+The preflight/rerun sections below retain their **23 October status**, not
+a live progress feed. The newly published execution metrics do not establish
+that cross-model network/data fairness has been resolved.
 
 ## Kimi K3 correction — complete
 
@@ -38,8 +50,8 @@ notebook cannot count as a success. Reference readiness failures are recorded
 separately from model failures.
 
 This diagnostic still uses live services. Archive copies and a dependency list
-alone do not freeze remote downloads or API responses. GPT-6 is not being added
-to the leaderboard by this update.
+alone do not freeze remote downloads or API responses. The 23 October correction
+did not add GPT-6; the separate 27 October historical-selection addition above does.
 
 ## Controlled reruns — not started
 

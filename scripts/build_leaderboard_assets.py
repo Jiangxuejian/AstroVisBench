@@ -7,6 +7,7 @@ from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
+matplotlib.rcParams['svg.hashsalt'] = 'astrovisbench-leaderboard'
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -26,13 +27,17 @@ def main() -> None:
         [np.nan if r.get(key) is None else r[key] for key in chart]
         for r in rows
     ], dtype=float)
-    x = np.arange(len(rows))
+    x = np.arange(len(rows), dtype=float)
+    # Extra space for the longer agent/suite labels; retain the reference style.
+    for index, row in enumerate(rows):
+        if 'T1' in row.get('suite', ''):
+            x[index:] += 0.55
     width = 0.24
     colors = ["#89a8ee", "#91dce9", "#8fe7a5"]
     names = ["Processing No Error %", "Visualization No Error %", "CorrectV %"]
 
     OUT.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(15.5, 7.8), dpi=180)
+    fig, ax = plt.subplots(figsize=(19.5, 8.2), dpi=180)
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
     for i, (metric, name, color) in enumerate(zip(chart, names, colors)):
@@ -59,16 +64,18 @@ def main() -> None:
     ax.spines[["top", "right", "left"]].set_visible(False)
     ax.spines["bottom"].set_color("#cbd1da")
     ax.tick_params(axis="y", colors="#596273", labelsize=10, length=0)
-    ax.tick_params(axis="x", colors="#596273", labelsize=10, length=0, pad=8)
+    ax.tick_params(axis="x", colors="#596273", labelsize=9.5, length=0, pad=8)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=18, ha="right")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.07), ncol=3,
               frameon=False, fontsize=11, handlelength=1.8, columnspacing=1.5)
     fig.text(0.99, 0.015,
-             "Hatched bars: independent local runs; parenthesized labels identify the fixed lite-72 subset.",
+             "Hatched: independent runs. Suites/tracks differ. Historical v2 selection ≠ frozen-input v2; n/a = judge pending.",
              ha="right", va="bottom", fontsize=9, color="#596273")
-    fig.subplots_adjust(left=0.07, right=0.99, bottom=0.22, top=0.82)
-    fig.savefig(OUT / "leaderboard-full.svg", bbox_inches="tight", facecolor="white")
+    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.30, top=0.82)
+    svg = OUT / "leaderboard-full.svg"
+    fig.savefig(svg, bbox_inches="tight", facecolor="white", metadata={"Date": None})
+    svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')
     fig.savefig(OUT / "leaderboard-full.png", bbox_inches="tight", facecolor="white")
     plt.close(fig)
     print(f"wrote {OUT / 'leaderboard-full.svg'} and {OUT / 'leaderboard-full.png'}")
