@@ -21,6 +21,16 @@ Lite-72 is a complete evaluation of a fixed sampled subset—not an unfinished
 Full-432 run. Standard no-tool model runs and coding-agent runs are reported as
 separate tracks because their tool access and interaction protocols differ.
 
+## Contribute a Lite-72 run
+
+Give your coordinating agent the [detailed copy-paste operator prompt](LITE72_AGENT_PROMPT.md).
+It covers the **v2 task selection**, T0/T1 tool boundaries, fixed budgets,
+generation, original execution, resume rules and a checked `.tar.gz` submission.
+Send the archive and SHA256 file to the maintainer for common judging—**you do
+not need to run judges or supply judge API credentials**. The guide includes a
+[run-manifest template](submission/run_manifest.example.json) and
+[allowlisted packager](scripts/package_lite72_submission.py).
+
 ## Current snapshot
 
 ![AstroVisBench portrait leaderboard, sorted by CorrectV](docs/assets/leaderboard-portrait.svg)
@@ -30,7 +40,9 @@ leaderboard with clearly labelled independent results from this fork. Hatched
 bars identify local evaluations. The **portrait horizontal chart** includes
 only **Full-432 and Lite-72 v2 task-selection** results, sorted by **CorrectV,
 highest first**. Suite/track labels distinguish reference, no-tool, T1 and
-recovery runs. This is a display order, not a controlled cross-track ranking.
+recovery runs in the table/audits. Figure labels use only model/harness names
+and `(lite-bench)` for Lite-72 v2; the no-tool Qwen row is omitted from the
+figure but retained in the table/audit. This is a display order, not a controlled cross-track ranking.
 Lite-72 v1 is excluded from the current figure/table; its historical audit is retained.
 
 See the [full table, metric definitions, and provenance](docs/index.md).

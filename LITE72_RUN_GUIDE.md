@@ -1,5 +1,10 @@
 # AstroVisBench Lite-72 subset run guide
 
+**New contributors:** use the [agent prompt and compressed-submission guide](LITE72_AGENT_PROMPT.md)
+for the current **v2 task selection with historical inputs**. It explains
+generation/execution without contributor-side judging. This page remains the
+legacy **v1** guide; do not use its default manifest for a v2 submission.
+
 This guide makes the **Lite-72 subset (candidate v1)** reproducible for a
 different model or harness while preserving the original AstroVisBench workflow:
 

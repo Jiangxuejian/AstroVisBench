@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "run_id": "REPLACE-model-harness-track-date",
+  "suite": "lite72-v2-selection-historical-inputs",
+  "track": "REPLACE-T0-or-T1-or-agent-pilot",
+  "selection_sha256": "a9ed93a935b2e984e546fdebbcfef7b0f14879e3b93064db6985e34ef4541f3b",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "upstream_revision": "707657f8fac4df50a6cf6c2c4671bf6a0258a201",
+  "fork_commit": "REPLACE-git-rev-parse-HEAD-before-running",
+  "started_utc": "REPLACE-ISO8601-UTC",
+  "finished_utc": "REPLACE-ISO8601-UTC",
+  "model": {
+    "requested_id": "REPLACE-exact-provider-model-id",
+    "returned_id": "REPLACE-record-or-not_disclosed",
+    "provider": "REPLACE-provider-or-local",
+    "immutable_revision": "REPLACE-weight-revision-or-not_disclosed",
+    "weights_sha256": "REPLACE-local-weight-hash-or-not_applicable",
+    "quantization": "REPLACE-quantization-or-not_applicable"
+  },
+  "harness": {
+    "name": "REPLACE-agent-or-generator-name",
+    "version": "REPLACE-exact-version-or-unknown",
+    "source_sha256": "REPLACE-harness-source-hash",
+    "adapter_revision": "REPLACE-adapter-revision-or-none",
+    "adapter_sha256": "REPLACE-adapter-source-hash-or-not_applicable"
+  },
+  "generation": {
+    "limits_enforcement": "REPLACE-external-or-prompt_only-or-not_applicable",
+    "temperature": "REPLACE-observed-value-or-provider_default_unobserved",
+    "seed": "REPLACE-observed-value-or-provider_default_unobserved",
+    "reasoning_effort": "REPLACE-observed-value-or-not_disclosed",
+    "context_tokens": "REPLACE-observed-value-or-not_disclosed",
+    "tool_output_cap": "REPLACE-cap-and-truncation-policy-or-not_applicable",
+    "tools": [],
+    "limits": {
+      "model_requests_per_stage": 20,
+      "total_output_tokens_per_stage": 32768,
+      "per_response_output_tokens": 8192,
+      "candidate_checks_per_stage": 3,
+      "candidate_timeout_seconds": 600,
+      "stage_wall_seconds": 2400
+    },
+    "selection_policy": "Last checked candidate; otherwise latest complete untested candidate; never best-of hidden scores",
+    "network_policy": "REPLACE-T0-no-tools-or-T1-approved-scientific-data-services-only",
+    "retry_policy": "REPLACE-predeclared-transport-policy-no-budget-refunds"
+  },
+  "execution": {
+    "executor_sha256": "2965b529fe74db1a4de9ea49955b324e91e80abbf5eb13c19ac59722fc2e2d89",
+    "exit_code": null,
+    "argv": [],
+    "cache_policy": "Fresh per-run generated and visualization caches; source/reference-cache provenance recorded",
+    "network_policy": "REPLACE-required-data-services-and-failures",
+    "runtime_overrides": [],
+    "reference_input_hashes": "REPLACE-path-to-inventory-or-identifier"
+  },
+  "environment": {
+    "os": "REPLACE-OS-and-version",
+    "python": "REPLACE-version-and-environment-name",
+    "cpu": "REPLACE-model-and-thread-count",
+    "ram_gib": "REPLACE-available-RAM",
+    "gpu": "REPLACE-model-VRAM-driver-or-none",
+    "package_lock": "requirements.freeze.txt"
+  },
+  "deviations": [],
+  "judge": {
+    "run_by_contributor": false,
+    "requested_policy": "Maintainer-side judging after execution; no contributor judge feedback during generation"
+  }
+}

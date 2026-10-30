@@ -77,6 +77,10 @@ track**, not the inputs used for these historical scores. The full frozen
 input package has not passed all 72 offline reference validations or been
 released. A fixed UID list alone does not establish identical remote data.
 
+For a new contribution, use the [copy-paste agent prompt and submission guide](../LITE72_AGENT_PROMPT.md).
+It packages generation/execution evidence for maintainer judging; it does not
+claim a portable audited T1 supervisor or a released frozen-input data bundle.
+
 Select these exact UIDs from the pinned original 432-record JSON:
 
 ```bash

@@ -51,6 +51,11 @@ class PublicationTests(unittest.TestCase):
         for extension in ['svg','png']:
             self.assertEqual((assets/f'leaderboard-portrait.{extension}').read_bytes(),
                              (assets/f'leaderboard-full.{extension}').read_bytes())
+        content=(assets/'leaderboard-portrait.svg').read_text()
+        self.assertNotIn('<!-- Qwen3.8 -->',content)
+        self.assertNotIn('<!-- Full-432 · published reference -->',content)
+        self.assertNotIn('<!-- Full-432 · independent · no tools -->',content)
+        self.assertEqual(content.count('<!-- (lite-bench) -->'),3)
 
     def test_sort_ties_and_missing_metrics(self):
         rows=[dict(id=id,source='published-reference',correct_v=value)
@@ -112,7 +117,7 @@ class PublicationTests(unittest.TestCase):
             text=(DATA/name).read_text()
             for forbidden in ['/mnt/','/home/','Bearer ','Authorization','access_token','refresh_token']:
                 self.assertNotIn(forbidden,text)
-        for name in ['README.md','LITE72_RUN_GUIDE.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md']:
+        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue

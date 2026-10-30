@@ -13,6 +13,9 @@ Claude + K3 and Codex + Qwen recovery historical-v2-selection rows. Keep
 the Full and Lite suites and the T0/T1 tracks distinct when interpreting it.
 Only Full-432 and the historical Lite-72 v2 selection appear in the current
 figure/table. Lite-72 v1 is retained as historical audit data, not displayed.
+The figure additionally omits no-tool Qwen while retaining that table/audit row.
+Its labels contain model/harness names and only `(lite-bench)` for Lite-72 v2;
+suite/tool/recovery qualifications remain in the caption and detailed table.
 
 ## Content decisions
 
@@ -27,6 +30,13 @@ figure/table. Lite-72 v1 is retained as historical audit data, not displayed.
   downloadable page data. Candidate UIDs and notebook names are sufficient here.
 
 ## Updating the content
+
+For contributor-side generation/execution and compressed submissions, link to
+[`LITE72_AGENT_PROMPT.md`](../LITE72_AGENT_PROMPT.md), not the old v1 default guide.
+The packager is `scripts/package_lite72_submission.py`; its offline tests are
+`python -m unittest discover -s scripts -p test_lite72_submission.py`.
+It does not invoke a judge or upload packages. Maintainer-side safety and
+eligibility checks still apply before common judging/publication.
 
 The existing audited sources are `results/lite72-candidate-v1/`, the QWEN and Kimi K3
 run manifests/provenance and the Claude Code

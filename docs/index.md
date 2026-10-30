@@ -34,10 +34,17 @@ The figure and table below combine published AstroVisBench reference rows with i
 
 ![AstroVisBench portrait leaderboard, sorted by CorrectV](assets/leaderboard-portrait.svg)
 
-*Portrait layout with horizontal bars. Labels identify Full-432, the historical Lite-72 v2 task selection, and Qwen's recovery track. Both [SVG](assets/leaderboard-portrait.svg) and [PNG](assets/leaderboard-portrait.png) are regenerated together. Published reference rows reproduce the official leaderboard snapshot available on 30 September 2026.*
+*Portrait layout with horizontal bars. Labels show model/harness names only,
+adding `(lite-bench)` for the historical Lite-72 v2 selection. The no-tool Qwen
+Full-432 row is omitted from the figure, but retained in the table/audit below.
+The Codex + Qwen lite-bench result is still the separately documented recovery
+track. Both [SVG](assets/leaderboard-portrait.svg) and [PNG](assets/leaderboard-portrait.png)
+are regenerated together. Published reference values use the official snapshot
+available on 30 September 2026.*
 
 **Display order:** **CorrectV descending across the displayed rows** (ties by
-model ID; missing scores last). Chart and table use the same order. Suite,
+model ID; missing scores last). The figure follows the table's relative order,
+omitting no-tool Qwen. Suite,
 tool-policy and recovery differences remain explicit; no scores were changed.
 
 | Model | Suite / track | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
@@ -104,6 +111,12 @@ The local upstream-compatible JSON export stores trial 1 in its single-result fi
 ## Workflow
 
 **Prepare → Generate → Execute → Judge → Aggregate**
+
+**Contribute a new run:** give your coordinating agent the
+[copy-paste operator prompt](../LITE72_AGENT_PROMPT.md). It covers the exact
+v2 selection, T0/T1 isolation/budgets, original execution and a checked compressed
+package. Contributors send execution evidence; the maintainer runs the common
+judge afterward. An unrestricted coding-agent session is not automatically T1.
 
 ### 1. Prepare a fixed experiment
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from leaderboard_order import group_id, ordered_rows
+from leaderboard_order import ordered_rows
 
 import matplotlib
 matplotlib.use('Agg')
@@ -24,19 +24,15 @@ def row_label(row):
         name = 'Qwen3.8\n27B Q4_K_M'
     elif row['id'] == 'codex-qwen38-lite72-v2-selection-recovery':
         name = 'Codex + Qwen3.8\n27B Q4_K_M'
-    track = {
-        'published-full': 'Full-432 · published reference',
-        'independent-full': 'Full-432 · independent · no tools',
-        'historical-v2-t1': 'Lite-72 v2 selection · T1',
-        'historical-v2-recovery': 'Lite-72 v2 selection · recovery',
-    }[group_id(row)]
-    return name + '\n' + track
+    return name + ('\n(lite-bench)' if 'v2-selection' in row['id'] else '')
 
 
 def main():
     payload = json.loads(DATA.read_text())
     rows = ordered_rows(payload['rows'])
     assert rows == payload['rows'], 'Run scripts/order_leaderboard.py first'
+    # Figure-only exclusion: retain the original no-tool Qwen audit/table row.
+    rows = [row for row in rows if row['id'] != 'qwen38-27b-q4-k-m']
     chart = payload['chart_metrics']
     y = np.arange(len(rows), dtype=float)
     height = 0.21
@@ -78,7 +74,7 @@ def main():
     ax.tick_params(axis='y', length=0, pad=12, colors='#3d4858')
     ax.tick_params(axis='x', length=0, pad=6, labelsize=9, colors='#596273')
     fig.suptitle('AstroVisBench Leaderboard', fontsize=19, fontweight='bold', y=0.975)
-    fig.text(0.5, 0.945, 'Full-432 and Lite-72 v2 selection · sorted by CorrectV ↓',
+    fig.text(0.5, 0.945, 'Sorted by CorrectV ↓ · lite-bench = Lite-72 v2 selection',
              ha='center', fontsize=11, color='#596273')
     fig.legend(*ax.get_legend_handles_labels(), loc='upper center',
                bbox_to_anchor=(0.5, 0.925), ncol=3, frameon=False,
@@ -87,7 +83,7 @@ def main():
              'Display order only: suites, tool access, judges and inputs differ.\n'
              'Lite-72 v2 selection uses historical inputs—not frozen-input v2.\n'
              'Qwen recovery includes supplemental attempts; not original capped T1.\n'
-             'Hatched bars: independent runs. Lite-72 v1 excluded.',
+             'Hatched bars: independent runs. Lite-72 v1 and no-tool Qwen omitted.',
              ha='left', va='bottom', fontsize=9, color='#596273', linespacing=1.5)
     fig.subplots_adjust(left=0.37, right=0.95, bottom=0.13, top=0.89)
     OUT.mkdir(parents=True, exist_ok=True)
