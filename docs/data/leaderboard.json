@@ -1,6 +1,6 @@
 {
   "suite": "AstroVisBench Full-432 + Lite-72 v1 + historical v2-selection snapshot",
-  "snapshot": "2026-10-27",
+  "snapshot": "2026-10-30",
   "metrics": [
     "processing_no_error",
     "vi_score",
@@ -166,14 +166,15 @@
       "audit": "data/gpt6-v2-selection-audit.json",
       "official_frozen_input_v2_result": false,
       "workflows": 72,
-      "judge_status": "pending",
+      "judge_status": "validated",
       "processing_no_error": 66.66666666666667,
       "vi_score": 0.67,
       "visualization_no_error": 83.33333333333333,
-      "correct_v": null,
-      "vis_fail": null,
-      "minor": null,
-      "major": null
+      "correct_v": 25.925925925925927,
+      "vis_fail": 8.333333333333334,
+      "minor": 25.0,
+      "major": 24.074074074074073,
+      "judge_outcomes": 216
     },
     {
       "id": "claude-k3-lite72-v2-selection",
@@ -184,14 +185,35 @@
       "audit": "data/claude-k3-v2-selection-audit.json",
       "official_frozen_input_v2_result": false,
       "workflows": 72,
-      "judge_status": "pending",
+      "judge_status": "validated",
       "processing_no_error": 61.111111111111114,
       "vi_score": 0.6161616161616161,
       "visualization_no_error": 86.11111111111111,
-      "correct_v": null,
-      "vis_fail": null,
-      "minor": null,
-      "major": null
+      "correct_v": 17.59259259259259,
+      "vis_fail": 12.5,
+      "minor": 21.75925925925926,
+      "major": 34.25925925925926,
+      "judge_outcomes": 216
+    },
+    {
+      "id": "codex-qwen38-lite72-v2-selection-recovery",
+      "label": "Codex + Qwen3.8\n27B Q4_K_M\n(lite-72 v2 selection)\nhistorical · recovery",
+      "table_label": "Codex + Qwen3.8-27B Q4_K_M (historical v2 selection, recovery)",
+      "suite": "lite-72 v2 task selection · historical inputs · T1 recovery",
+      "source": "independent-local",
+      "original_capped_run_result": false,
+      "processing_no_error": 34.72222222222222,
+      "vi_score": 0.5789473684210527,
+      "visualization_no_error": 54.166666666666664,
+      "correct_v": 6.944444444444445,
+      "vis_fail": 9.722222222222221,
+      "minor": 9.25925925925926,
+      "major": 28.24074074074074,
+      "audit": "data/codex-qwen38-v2-selection-recovery-audit.json",
+      "judge_status": "validated",
+      "workflows": 72,
+      "judge_outcomes": 216,
+      "official_frozen_input_v2_result": false
     }
   ],
   "sources": {
@@ -200,10 +222,11 @@
     "independent-local-k3": "data/k3-audit.json",
     "independent-local-claude-k3": "data/claude-k3-lite-audit.json",
     "independent-local-gpt6-v2-selection": "data/gpt6-v2-selection-audit.json",
-    "independent-local-claude-k3-v2-selection": "data/claude-k3-v2-selection-audit.json"
+    "independent-local-claude-k3-v2-selection": "data/claude-k3-v2-selection-audit.json",
+    "independent-local-codex-qwen-v2-recovery": "data/codex-qwen38-v2-selection-recovery-audit.json"
   },
   "notes": [
-    "2026-10-27: Added GPT-6 + Codex and Claude Code + K3 T1 execution metrics for all 72 v2-selected UIDs. Historical inputs only; not frozen-input v2 results. New judge metrics pending/null; old v1 rows retained.",
+    "2026-10-30: All three historical-v2-selection agent rows have 216 validated judge outcomes. Codex + Qwen is a separately labelled recovery track: task 51 retry used, missing processing 17/52 counted as failures. Not frozen-input v2 or a common controlled ranking.",
     "2026-10-23: Kimi K3 historical execution metrics reconciled with repaired records 301-432 and existing judge checkpoints. Judge category counts unchanged. Network/input fairness remains under investigation; this is not a controlled rerun.",
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",

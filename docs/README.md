@@ -8,14 +8,14 @@ separate public raw-artifact archive remain optional and are not assumed here.
 The page uses ordinary Markdown and relative download links. It can be placed in a
 GitHub Pages/Jekyll site when the public repository is chosen. The grouped bar chart
 contains the published reference rows, the audited QWEN and Kimi K3 Full-432
-runs, the explicitly labelled v1 Claude Code + K3 row, and execution-only GPT-6
-and Claude + K3 historical-v2-selection rows. Keep
+runs, the explicitly labelled v1 Claude Code + K3 row, and completed GPT-6,
+Claude + K3 and Codex + Qwen recovery historical-v2-selection rows. Keep
 the Full and Lite suites and the T0/T1 tracks distinct when interpreting it.
 
 ## Content decisions
 
 - Attribute the upstream benchmark prominently and identify this as independent work.
-- Publish metrics only after their own coverage is audited. New historical-v2-selection agent rows have 72 executions but pending judge metrics; mark the latter null/n/a. Do not call them frozen-input v2 results.
+- Publish metrics only after their own coverage is audited. Historical-v2-selection agent rows now have 72 records and 216 valid judge outcomes each. Qwen is a separately labelled supplemental recovery, not the original capped T1 baseline. Do not call any of these frozen-input v2 results.
 - Keep Lite-72 explicitly provisional, including its imperfect notebook-family labels.
 - Mark Smoke and the portable public runner as unfinished; identify the Claude Code + K3 agent comparison as a separate T1 track.
 - Describe the actual three-trial aggregation and eligible VIscore denominators.
@@ -45,11 +45,14 @@ missing metrics, including pending visualization judgments, as `n/a` rather than
 The prose and table cells remain deliberately easy to edit as one Markdown page. When
 new scores are added, update the text, source selection, and checks together.
 
-For the 27 October historical-selection agent scores, first run:
+The initial 27 October execution-only export is retained for provenance as
+`scripts/prepare_v2_selection_agent_scores.py`. It refuses to overwrite
+completed judge scores. To refresh the completed 30 October scores, run:
 
 ```bash
-python scripts/prepare_v2_selection_agent_scores.py --artifacts-root /path/to/operator-project
+python scripts/publish_completed_v2_scores.py --artifacts-root /path/to/operator-project
 python scripts/build_leaderboard_assets.py
+python -m unittest discover -s scripts -p test_v2_selection_publication.py
 ```
 
 This exports sanitized per-task scalars/checksums and the exact v2 candidate UID

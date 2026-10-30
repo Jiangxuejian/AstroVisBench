@@ -1,7 +1,7 @@
 {
-  "snapshot": "2026-10-27",
+  "snapshot": "2026-10-30",
   "suite": "Lite-72 v2 task selection — historical inputs",
-  "result_status": "generation and execution complete; visualization judging incomplete",
+  "result_status": "execution and 216 visualization judge outcomes validated",
   "official_frozen_input_v2_result": false,
   "track": "coding-agent T1",
   "selection_manifest": "lite72-v2-candidate.json",
@@ -55,16 +55,44 @@
     "visualization_no_error": 86.11111111111111,
     "vi_score": 0.6161616161616161,
     "vi_eligible_workflows": 33,
-    "correct_v": null,
-    "vis_fail": null,
-    "minor": null,
-    "major": null
+    "correct_v": 17.59259259259259,
+    "vis_fail": 12.5,
+    "minor": 21.75925925925926,
+    "major": 34.25925925925926,
+    "crash": 13.88888888888889
   },
   "judge": {
-    "new_trials_run": 0,
-    "coverage_workflows": 65,
-    "full_72_metrics_available": false,
-    "note": "Original 65 overlapping judgments are retained but not extrapolated to 72."
+    "status": "validated",
+    "coverage_workflows": 72,
+    "trials_per_workflow": 3,
+    "valid_outcomes": 216,
+    "full_72_metrics_available": true,
+    "counts": {
+      "No Error": 38,
+      "Major Error": 74,
+      "Minor Error": 47,
+      "Crash": 30,
+      "VisFail": 27
+    },
+    "model_requested": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "codex_cli_version": "0.153.4",
+    "python_version": "3.10.12",
+    "ijson_version": "3.5.1",
+    "immutable_backend_snapshot_available": false,
+    "desktop_app_version_current": null,
+    "checkpoint_sha256": "7db7612e6ea7ece519fe30c3ddff8cf38b4c58a6f6a69b531a9b088477f2e177",
+    "scores_sha256": "e2056aada7d139d78bf3fa82e08b051ed5e4af1d77ada419a88e5d55c8632e0f",
+    "adapter_provenance_sha256": "626787b3d15b26c9f3a5518f6276d06ef8d77f413a5c30de20e7063052f01347",
+    "input_sha256": "02a4d355a01e007928c6616983e4ae9adad6e9da6b74dd82dc67b95a4ff87fbf",
+    "completed_utc": "2026-10-27T02:35:40.099885+00:00",
+    "aggregation": "Counts / (72 workflows × 3 trials); no majority vote.",
+    "protocol": "Original rubric, image order and Crash/VisFail semantics; Codex provider adapter, not upstream Anthropic transport.",
+    "human_expert_review_included": false,
+    "adapter_sha256": "7d56fe338a9cbbcbcfdfc4ea1fe618a0a3918be0662c97de072583ea5e5503e4",
+    "prompt_csv_sha256": "442df31fcf52cae36cc99ef975c66505b09a88855579e5afe6eeeb718602b281",
+    "cli_launcher_sha256": "61b0194f3bb6534439c8d26a3ed57d0805f84b884588b761795323eeb92fcf70",
+    "cli_native_sha256": "56ef98ab4032d317ab26e9b5e5a175650717351edb16ed9cde0cb6d1734d62da"
   },
   "execution_sources": [
     {
@@ -100,7 +128,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "9cc4b7c6-5e7d-48aa-8fc3-7eaa088dc84f",
@@ -108,7 +141,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "47e8e149-b8b5-4343-8aec-2325694f04f6",
@@ -116,7 +154,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "c775d8bc-edd4-4c57-9294-a631b382ddcd",
@@ -124,7 +167,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "a74f8fe0-bc6b-41e5-b31a-f6594fa1c886",
@@ -132,7 +180,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.6666666666666666,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "17a02a01-af49-4ee7-b017-d0c71acdb57b",
@@ -140,7 +193,12 @@
       "processing_success": true,
       "visualization_success": false,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "7fd80af6-da2b-40a5-91e4-d44e6ff805dd",
@@ -148,7 +206,12 @@
       "processing_success": true,
       "visualization_success": false,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "7d56c314-8d6c-439e-ba64-bc803ce897e8",
@@ -156,7 +219,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "2e1a9726-5b3b-4da3-99b7-4419cf891159",
@@ -164,7 +232,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "2197f927-5def-4303-96e1-3aec9ae4a74e",
@@ -172,7 +245,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "85369b15-43ed-4de1-996e-f215f31fd9cb",
@@ -180,7 +258,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "c8ab6aa2-8e9c-4d03-a60e-11554e29d664",
@@ -188,7 +271,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "ec751b1b-48e9-4248-9bb8-dd080498e33f",
@@ -196,7 +284,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "a37aec5d-d6f1-4000-8648-3bade2959adf",
@@ -204,7 +297,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "c62dc8ee-0bec-4b41-9549-acd1e2d3af50",
@@ -212,7 +310,12 @@
       "processing_success": true,
       "visualization_success": false,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "002f11b3-627d-4b95-ae2e-067d056da5d7",
@@ -220,7 +323,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "355af9d3-179a-4e3d-af73-472fb3c0799d",
@@ -228,7 +336,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "238220a8-8cdc-41ab-93a8-0ae0ec62fd15",
@@ -236,7 +349,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "dbaf0eac-4de5-4c4c-8721-13c9c4432cb8",
@@ -244,7 +362,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "627613e5-84a4-467b-a166-ec9ec5bfca11",
@@ -252,7 +375,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "afd81858-3389-483b-a0d7-d3d74cf7e876",
@@ -260,7 +388,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "7cae0e5e-6266-4004-a12f-73dde40ee152",
@@ -268,7 +401,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "No Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "07e96fae-1f1a-44f1-9c09-fc5c395097fc",
@@ -276,7 +414,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "9537fb6f-f1c5-4f40-a1d8-5d5bcb45e3b8",
@@ -284,7 +427,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "f7850e8d-b4cd-41e5-8b9c-3522000cfea7",
@@ -292,7 +440,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "d4804e8e-80b5-4417-b3a2-e3f508100129",
@@ -300,7 +453,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "33295b64-6b01-4666-bc42-99f8bd05735c",
@@ -308,7 +466,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "d8a30a5e-6a09-4661-beae-0e0c221efa57",
@@ -316,7 +479,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "7744c49c-18d4-4cf8-b732-7fe76fc4437a",
@@ -324,7 +492,12 @@
       "processing_success": true,
       "visualization_success": false,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "fb50a146-7c98-4b44-ab0b-82ac586332ff",
@@ -332,7 +505,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "89a5d0de-2406-4a5b-9d0a-ddeb202b5788",
@@ -340,7 +518,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "fa664ea9-1590-4bad-829a-382d6fb0fb6c",
@@ -348,7 +531,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "9c357ad3-f7ae-4342-8bc6-9906ec414f6e",
@@ -356,7 +544,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "188c4b77-354f-4e75-9acb-820db4944f83",
@@ -364,7 +557,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "80831816-3a6a-44c3-8c03-f4c1d9dbf206",
@@ -372,7 +570,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Minor Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "23aa6396-1e0e-4f88-a2cc-51f6989938bd",
@@ -380,7 +583,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "5c60db9b-c287-4a84-a61b-715487d1c845",
@@ -388,7 +596,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "eca69933-152c-41a2-a3dc-38d8c48b9d4f",
@@ -396,7 +609,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.6666666666666666,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "625a8a7c-0dce-4316-8085-1f41771b7201",
@@ -404,7 +622,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "160f483a-5273-4f5f-a993-df3217e2394e",
@@ -412,7 +635,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "76d5d28c-b147-4312-97ad-75e9056ba3b6",
@@ -420,7 +648,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "8b7ac5df-b70f-4125-a4e0-b5c2626c471f",
@@ -428,7 +661,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "9960a5ea-64db-4583-8c50-37ba381f8666",
@@ -436,7 +674,12 @@
       "processing_success": false,
       "visualization_success": false,
       "vi_score": null,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "a570878c-8f42-48f7-9819-2713d9d0bb29",
@@ -444,7 +687,12 @@
       "processing_success": true,
       "visualization_success": false,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "4cbe0a87-8bf8-4bed-a99d-4c3085287986",
@@ -452,7 +700,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "48f1992d-36e1-4459-bdc4-5add59da05e9",
@@ -460,7 +713,12 @@
       "processing_success": false,
       "visualization_success": false,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "41d15f0f-d58b-4b8d-bd8b-4b2d085b2e97",
@@ -468,7 +726,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "dd7d9594-d70d-4218-9a16-17aca965718d",
@@ -476,7 +739,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "7e3490f5-1574-4cf8-80ea-327ee709f40b",
@@ -484,7 +752,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "d2bbf16f-061d-4f23-9b29-fd6d29effe2f",
@@ -492,7 +765,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "07079aeb-c8f4-4ea3-aa04-7c926bd1dc9e",
@@ -500,7 +778,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "7788e881-9e90-47b3-8c05-25de5f330ae7",
@@ -508,7 +791,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "951db797-6b07-4686-9fba-7ce477df2876",
@@ -516,7 +804,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "07c8eb39-2946-4a2c-aa7a-84b28c1eaf47",
@@ -524,7 +817,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "4469562e-cc01-40e1-896c-a262585b2767",
@@ -532,7 +830,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "2128e9c3-4b3a-4833-a430-48d9c8cbf1eb",
@@ -540,7 +843,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "1ff69f41-f150-4f7a-be05-63c99df0318e",
@@ -548,7 +856,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "c8b33d23-e294-4cf1-a001-6cf62c5dcf97",
@@ -556,7 +869,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "41adb5f6-deda-40bf-8479-0d96facfc207",
@@ -564,7 +882,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 0.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "c4764483-281e-493c-b064-4abd55c8eb73",
@@ -572,7 +895,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "bd5ddae7-a452-4dad-a9cf-c95873249434",
@@ -580,7 +908,12 @@
       "processing_success": false,
       "visualization_success": false,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "86f7a70c-9cf8-4742-8aa4-9515a2de55cb",
@@ -588,7 +921,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "50da158f-4fa9-4dc8-82ad-1b1797e52677",
@@ -596,7 +934,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
     },
     {
       "uid": "3340a274-e53f-444c-bb13-81a3c21101d0",
@@ -604,7 +947,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "e8f3a414-1dfb-4765-b3bc-9a0afbf5efb2",
@@ -612,7 +960,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "cd8ab4d6-9cf5-44ec-8897-92a94fe125b2",
@@ -620,7 +973,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     },
     {
       "uid": "ef078b25-1a76-44e0-a045-9dc5afdd5131",
@@ -628,7 +986,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
     },
     {
       "uid": "395134b0-eeaa-462f-b45a-cd2dc80b6d26",
@@ -636,7 +999,12 @@
       "processing_success": true,
       "visualization_success": false,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "5d5b3425-21aa-4a5e-b23d-17c571582b91",
@@ -644,7 +1012,12 @@
       "processing_success": false,
       "visualization_success": false,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
     },
     {
       "uid": "6ed80aaa-370f-4726-a2cf-827836941c45",
@@ -652,7 +1025,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "supplement_execution"
+      "execution_artifact": "supplement_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "cb97c3f7-3b6a-466c-abd6-1721d25be091",
@@ -660,7 +1038,12 @@
       "processing_success": true,
       "visualization_success": true,
       "vi_score": 1.0,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
     },
     {
       "uid": "47ea8025-f66f-43cf-b991-58d384722dfc",
@@ -668,7 +1051,12 @@
       "processing_success": false,
       "visualization_success": true,
       "vi_score": null,
-      "execution_artifact": "baseline_execution"
+      "execution_artifact": "baseline_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
     }
   ],
   "aggregation": "Execution percentages use all 72 UIDs, including crashes; VIscore uses successful processing with nonempty inspections.",
@@ -677,6 +1065,7 @@
     "65 immutable baseline executions plus seven supplements, never best-of outcomes. Live network availability and run dates differ.",
     "Hosted aliases cannot establish immutable model weights. Tool-enabled T1 results are not no-tool model results.",
     "Claude baseline has recorded CLI version drift (2.1.285/2.1.289); the supplement is pinned to 2.1.285.",
-    "Missing judge metrics are null, not zero. Raw execution artifacts remain local; their public availability is not claimed."
+    "Automated GPT-6 judging is not human expert validation; same-model bias is possible for GPT-6 generation.",
+    "Automated GPT-6 judging is not human expert validation; same-model bias is possible for GPT-6 generation."
   ]
 }

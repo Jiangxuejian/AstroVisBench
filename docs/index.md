@@ -13,7 +13,7 @@ This is an **independent evaluation project**, built on the original AstroVisBen
 
 [Results](#results) · [Workflow](#workflow) · [Lite benchmark](#a-smaller-benchmark) · [Coding agents](#coding-agents) · [Reproducibility](#reproducibility) · [Credits](#credits)
 
-**Content snapshot: 27 October 2026.** This page retains the audited Full-432 and Lite-72 v1 results and adds complete-72 execution metrics for GPT-6 + Codex and Claude Code + K3 on the **v2 task selection with historical inputs**. These new rows are **not frozen-input v2 scores**; complete-72 visualization judging remains pending. K3's Full-432 bookkeeping correction is retained; cross-model network/input fairness is not resolved by these additions.
+**Content snapshot: 30 October 2026.** Historical-v2-selection GPT-6 + Codex, Claude Code + K3 and the separate Codex + Qwen recovery track now each have **216 validated judge outcomes over 72 workflows**. These are **not frozen-input v2 scores**. Full-432 and v1 results are retained; historical/live-network variability and Qwen's supplemental retries preclude a controlled common ranking.
 
 ## What we measure
 
@@ -34,7 +34,7 @@ The figure and table below combine the published AstroVisBench reference rows wi
 
 ![AstroVisBench leaderboard snapshot](assets/leaderboard-full.svg)
 
-*Hatched bars identify independent local evaluations. Labels distinguish **lite-72 subset v1** from the **historical v2 task selection**; missing judge bars are `n/a`, not zero. Both [SVG](assets/leaderboard-full.svg) and [PNG](assets/leaderboard-full.png) are regenerated together. Published reference rows reproduce the official leaderboard snapshot available on 30 September 2026.*
+*Hatched bars identify independent local evaluations. Labels distinguish **lite-72 subset v1**, the **historical v2 task selection**, and Qwen's **recovery** track. Both [SVG](assets/leaderboard-full.svg) and [PNG](assets/leaderboard-full.png) are regenerated together. Published reference rows reproduce the official leaderboard snapshot available on 30 September 2026.*
 
 | Model | Suite | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -49,20 +49,23 @@ The figure and table below combine the published AstroVisBench reference rows wi
 | Qwen3.8-27B Q4_K_M† | Full-432 | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
 | Kimi K3† | Full-432 | 48.15% | 0.731 | 76.85% | 16.05% | 10.88% | 18.13% | 31.79% |
 | Claude Code + Kimi K3‡ | (lite-72 subset v1) T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
-| GPT-6 Astra medium + Codex§ | (lite-72 v2 selection) historical inputs, T1 | 66.67% | 0.6700 | 83.33% | n/a | n/a | n/a | n/a |
-| Claude Code + Kimi K3§ | (lite-72 v2 selection) historical inputs, T1 | 61.11% | 0.6162 | 86.11% | n/a | n/a | n/a | n/a |
+| GPT-6 Astra medium + Codex§ | (lite-72 v2 selection) historical inputs, T1 | 66.67% | 0.6700 | 83.33% | 25.93% | 8.33% | 25.00% | 24.07% |
+| Claude Code + Kimi K3§ | (lite-72 v2 selection) historical inputs, T1 | 61.11% | 0.6162 | 86.11% | 17.59% | 12.50% | 21.76% | 34.26% |
+| Codex + Qwen3.8-27B Q4_K_M¶ | (lite-72 v2 selection) historical inputs, recovery | 34.72% | 0.5789 | 54.17% | 6.94% | 9.72% | 9.26% | 28.24% |
 
 † Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). ‡ Independent Lite-72 Claude Code + K3 run; see the [Claude Code + K3 provenance record](data/claude-k3-lite-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
 
-§ Both new agent rows have **72/72 generated and executed workflows**, but use historical inputs, **not the new frozen-file/SQLite distribution**. Each combines 65 unchanged overlapping baseline executions with seven supplemental tasks; no best-of selection or generated-code repair. VIscore uses 40 GPT-6 and 33 Claude + K3 inspections. Complete-72 judge metrics are unavailable: GPT-6 is unjudged; Claude's 65 overlapping old judgments are not extrapolated to the seven new plots. See the [selection and provenance guide](lite72-v2-historical.md), [GPT-6 audit](data/gpt6-v2-selection-audit.json) and [Claude + K3 audit](data/claude-k3-v2-selection-audit.json).
+§ GPT-6 and Claude + K3 each combine 65 unchanged baseline executions with seven supplemental tasks; no best-of selection or generated-code repair. VIscore uses 40 and 33 eligible inspections. All 72 workflows now have three judge outcomes, including Crash/VisFail. See the [selection and provenance guide](lite72-v2-historical.md), [GPT-6 audit](data/gpt6-v2-selection-audit.json) and [Claude + K3 audit](data/claude-k3-v2-selection-audit.json).
+
+¶ **Separate recovery track, not the original capped T1 score.** Qwen's original generation lacked processing code for tasks 17/51/52. One fresh bounded processing attempt each for 51/52 produced code only for 51, which alone was substituted. Missing 17/52 count as failures across the full 72-task denominator and are excluded from VIscore (19 eligible). Raw upstream blank-cell execution results remain untouched; a separate accounting view prevents missing code from inflating success. All 72 visualization submissions are original. External-download timeouts affected execution. [Qwen recovery audit and per-task outcomes](data/codex-qwen38-v2-selection-recovery-audit.json).
 
 **Correction and fairness:** K3's previous execution metrics mixed an older execution artifact with repaired judge records. The corrected row reconciles all 432 records, with zero execution/judge Crash mismatches. Judge category percentages are unchanged. This fixes historical bookkeeping, not live-network variability; see the [execution fairness audit](execution-fairness.md). No controlled-rerun scores are published yet.
 
-**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three recorded visualization outcomes per workflow. The older Claude Code + K3 v1 row covers 72 workflows and has 216 judge outcomes. The two historical-v2-selection rows each have 72 executions but no complete-72 judge aggregation. These are separate suite and protocol tracks, not one pooled ranking.
+**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three visualization outcomes per workflow. The older Claude + K3 v1 row and all three historical-v2-selection rows each cover 72 workflows and 216 valid judge outcomes. Coverage includes crashes and Qwen's missing processing stages; it is not a success count. These are separate suite/protocol tracks, not one pooled ranking.
 
 **Generation track:** No tools were supplied to the Qwen3.8 or Kimi K3 Full-432 model runs. Qwen3.8 ran through the local model harness; Kimi K3 used the Kimi Code API with `tool_choice=none`. Claude Code + K3 is deliberately separate: its Lite T1 agent could inspect approved text inputs, edit its candidate, run bounded checks, and submit. The operator's use of software to run the benchmark is separate from the evaluated system's permitted capabilities.
 
-**Judge:** All local visualization rows that have judge values requested `gpt-6-astra`, reasoning effort `medium`, and three trials through Codex CLI `0.153.4`. No new judges were run for the historical-v2-selection additions; Codex `0.162.1` is their GPT-6 generation harness, not an asserted judge version. Mac app version `26.908.70816` was supplied for the historical runs, not detected or asserted current. A requested model name is not proof of an immutable backend model snapshot.
+**Judge:** All local visualization rows request `gpt-6-astra`, effort `medium`, three trials through Codex CLI `0.153.4`. Historical-v2-selection judges completed on 28 October (GPT-6/Claude) and 30 October (Qwen recovery). Their runtime is Python `3.10.12`, ijson `3.5.1`; per-trial outcomes and checkpoint hashes are in the audits. Codex `0.162.1` is the GPT-6/Qwen generation harness, not the judge version. The original rubric, image order and Crash/VisFail rules are retained with a different provider adapter. Current Mac app version and immutable served-model build are unobserved; the old user-supplied app version `26.908.70816` is not asserted current. Automated judging is not expert validation; same-model bias is possible for GPT-6-generated plots.
 
 [Download Qwen3.8 provenance](data/qwen38-audit.json) · [Download Kimi K3 provenance](data/k3-audit.json) · [Download Claude Code + K3 provenance](data/claude-k3-lite-audit.json) · [Original AstroVisBench leaderboard](https://astrovisbench.github.io/)
 
@@ -72,18 +75,20 @@ This row evaluates the **Claude Code + K3** system, not K3 in isolation. It is a
 
 See the [Claude Code + K3 audit record](data/claude-k3-lite-audit.json) for the stage limits, execution checksum, judge provenance, and metric denominators.
 
-### GPT-6 + Codex and Claude + K3 · historical v2 selection
+### Coding agents · historical v2 selection
 
 These are execution-complete T1 supplements, not replacements for v1 or a release of frozen-input v2. GPT-6 requested `gpt-6-astra` / medium via Codex CLI `0.162.1`. Claude requested `k3` with the original low-effort target; its preserved baseline includes CLI `2.1.285`/`2.1.289`, while the seven-task supplement is pinned to `2.1.285`. Both retain 20 requests, 32,768 output tokens and three candidate checks per independent stage, no image viewing, and the original final processing inspection tests. Hosted aliases and baseline CLI drift limit exact reproducibility.
 
 Claude's outer executor segfaulted after three supplemental records. All three were preserved; the remaining four completed through separate unchanged executor processes, with **no native thread-setting overrides**. No generated code was repaired. GPT-6's final executor completed normally. [Details and downloadable per-task scalars](lite72-v2-historical.md).
+
+Codex + Qwen uses pinned **Qwen3.8-27B Q4_K_M** weights, Codex `0.162.1`, llama.cpp `b10679`, and a recorded Responses/compaction adapter. Its original capped run remains unchanged; the chart adds only a clearly labelled supplemental recovery result. See the [recovery procedure and model checksum](lite72-v2-historical.md#qwen-supplemental-recovery).
 
 ### Reading the metrics
 
 | Metric | Interpretation |
 |---|---|
 | Processing no error | Percentage of workflows whose generated processing code executes without crashing. |
-| VIscore | Mean upstream unweighted variable-inspection score among successful processing runs with nonempty inspections. Full-432 Qwen/K3 use 108/113 eligible workflows; Claude v1 uses 33; historical-v2-selection GPT-6/Claude use 40/33. |
+| VIscore | Mean upstream unweighted variable-inspection score among successful processing runs with nonempty inspections. Full-432 Qwen/K3 use 108/113 eligible workflows; Claude v1 uses 33; historical-v2-selection GPT-6/Claude/Qwen recovery use 40/33/19. |
 | Visualization no error | Percentage of workflows whose generated visualization code executes without crashing. |
 | CorrectV | Percentage assigned “No Error” by the visualization judge. |
 | VisFail | Percentage that fail the evaluator's requirement to produce the expected single visualization. |
@@ -219,6 +224,7 @@ Results will be added after completed runs are audited. Each update should state
 - **5 October 2026:** Added the audited Kimi K3 Full-432 result.
 - **8 October 2026:** Added the Claude Code + K3 Lite-72 T1 result to the snapshot figure.
 - **27 October 2026:** Added complete-72 GPT-6 + Codex and Claude + K3 execution metrics for the historical v2 task selection, retaining the old v1 row. Updated SVG and PNG; new judge metrics remain pending. This is not a frozen-input v2 score release.
+- **30 October 2026:** Published all 216 validated judge outcomes per historical-v2-selection agent, including the separately labelled Codex + Qwen recovery track. Updated table, SVG, PNG and scalar audits; original Full-432/v1 results remain unchanged.
 
 ### Limits of interpretation
 

@@ -37,7 +37,7 @@ def main() -> None:
     names = ["Processing No Error %", "Visualization No Error %", "CorrectV %"]
 
     OUT.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(19.5, 8.2), dpi=180)
+    fig, ax = plt.subplots(figsize=(21, 8.5), dpi=180)
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
     for i, (metric, name, color) in enumerate(zip(chart, names, colors)):
@@ -70,7 +70,7 @@ def main() -> None:
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.07), ncol=3,
               frameon=False, fontsize=11, handlelength=1.8, columnspacing=1.5)
     fig.text(0.99, 0.015,
-             "Hatched: independent runs. Suites/tracks differ. Historical v2 selection ≠ frozen-input v2; n/a = judge pending.",
+             "Hatched: independent runs. Suites/tracks differ. Historical v2 selection ≠ frozen-input v2. Qwen recovery ≠ original capped T1.",
              ha="right", va="bottom", fontsize=9, color="#596273")
     fig.subplots_adjust(left=0.06, right=0.99, bottom=0.30, top=0.82)
     svg = OUT / "leaderboard-full.svg"

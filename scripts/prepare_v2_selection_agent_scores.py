@@ -36,6 +36,11 @@ def write(path,value):
     Path(path).write_text(json.dumps(value,indent=2,ensure_ascii=False,allow_nan=False)+'\n')
 
 def export(artifacts):
+    # This first-stage exporter must not silently erase completed judge scores.
+    existing=load(OUT/'leaderboard.json')
+    if any('v2-selection' in r['id'] and r.get('judge_status')=='validated'
+           for r in existing['rows']):
+        raise RuntimeError('Completed scores already published; use publish_completed_v2_scores.py, not the execution-only exporter.')
     selected_path=artifacts/'results/lite72-v2-candidate/manifest.json'
     selected=load(selected_path)
     selected_hash=sha(selected_path)

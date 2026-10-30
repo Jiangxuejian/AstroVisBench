@@ -1,4 +1,4 @@
-"""Validate public scalar provenance, null judge scores and linked content."""
+"""Validate public scalar provenance, completed judge coverage and linked content."""
 from collections import Counter
 import hashlib
 import json
@@ -34,7 +34,7 @@ class PublicationTests(unittest.TestCase):
             self.assertEqual(Counter(r['execution_artifact'] for r in rows),
                              {'baseline_execution':65,'supplement_execution':7})
 
-    def test_new_chart_rows_match_audits_and_do_not_invent_judgments(self):
+    def test_new_chart_rows_match_audits_and_judge_counts(self):
         leaderboard=json.loads((DATA/'leaderboard.json').read_text())
         self.assertEqual(len({r['id'] for r in leaderboard['rows']}),len(leaderboard['rows']))
         for row in leaderboard['rows']:
@@ -42,14 +42,24 @@ class PublicationTests(unittest.TestCase):
             audit=json.loads((ROOT/'docs'/row['audit']).read_text())
             for metric in leaderboard['metrics']:
                 self.assertEqual(row[metric],audit['metrics'][metric])
-            for metric in ['correct_v','vis_fail','minor','major']:
-                self.assertIsNone(row[metric])
-            self.assertEqual(row['judge_status'],'pending')
+            self.assertEqual(row['judge_status'],'validated')
+            counts=Counter(outcome for r in audit['records'] for outcome in r['judge_outcomes'])
+            self.assertEqual(sum(counts.values()),216)
+            self.assertTrue(all(len(r['judge_outcomes'])==3 for r in audit['records']))
+            self.assertEqual(dict(counts),audit['judge']['counts'])
+            for category,metric in [('No Error','correct_v'),('Minor Error','minor'),
+                                    ('Major Error','major'),('VisFail','vis_fail'),('Crash','crash')]:
+                self.assertAlmostEqual(100*counts[category]/216,audit['metrics'][metric])
+            self.assertAlmostEqual(audit['metrics']['crash'],100-audit['metrics']['visualization_no_error'])
+            self.assertEqual(audit['judge']['valid_outcomes'],216)
+            self.assertEqual(audit['judge']['codex_cli_version'],'0.153.4')
+            self.assertFalse(audit['judge']['human_expert_review_included'])
         qwen=next(r for r in leaderboard['rows'] if r['id']=='qwen38-27b-q4-k-m')
         self.assertEqual(qwen['label'].splitlines()[1],'27B Q4_K_M')
 
     def test_sanitized_exports_and_local_links(self):
-        for name in ['gpt6-v2-selection-audit.json','claude-k3-v2-selection-audit.json','lite72-v2-candidate.json']:
+        for name in ['gpt6-v2-selection-audit.json','claude-k3-v2-selection-audit.json',
+                     'codex-qwen38-v2-selection-recovery-audit.json','lite72-v2-candidate.json']:
             text=(DATA/name).read_text()
             for forbidden in ['/mnt/','/home/','Bearer ','Authorization','access_token','refresh_token']:
                 self.assertNotIn(forbidden,text)
@@ -59,6 +69,37 @@ class PublicationTests(unittest.TestCase):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue
                 target=target.split('#',1)[0]
                 self.assertTrue((path.parent/target).exists(),f'{name}: {target}')
+
+    def test_recovery_is_separate_and_missing_submissions_are_failures(self):
+        audit=json.loads((DATA/'codex-qwen38-v2-selection-recovery-audit.json').read_text())
+        self.assertFalse(audit['original_capped_run_result'])
+        self.assertFalse(audit['official_frozen_input_v2_result'])
+        manifest=json.loads((DATA/'lite72-v2-candidate.json').read_text())
+        self.assertEqual({r['uid'] for r in audit['records']},{r['uid'] for r in manifest['tasks']})
+        self.assertEqual(len(audit['records']),72)
+        self.assertEqual(audit['recovery']['fresh_processing_attempts'],[51,52])
+        self.assertEqual(audit['recovery']['successful_retry_used'],51)
+        missing=[r for r in audit['records'] if r['missing_processing']]
+        self.assertEqual({r['selection_task_1based'] for r in missing},{17,52})
+        self.assertTrue(all(not r['processing_success'] and r['vi_score'] is None for r in missing))
+        self.assertEqual(sum(r['processing_success'] for r in audit['records']),25)
+        self.assertEqual(sum(r['visualization_success'] for r in audit['records']),39)
+        vi=[r['vi_score'] for r in audit['records'] if r['processing_success'] and r['vi_score'] is not None]
+        self.assertEqual(len(vi),19)
+        self.assertAlmostEqual(mean(vi),audit['metrics']['vi_score'])
+
+    def test_markdown_table_matches_leaderboard_data(self):
+        text=(ROOT/'docs/index.md').read_text()
+        leaderboard=json.loads((DATA/'leaderboard.json').read_text())
+        for row in leaderboard['rows']:
+            if 'v2-selection' not in row['id']:continue
+            name=row['table_label'].split(' (',1)[0]
+            line=next(line for line in text.splitlines() if line.startswith('| '+name) and 'historical inputs' in line)
+            cells=[c.strip() for c in line.split('|')[1:-1]]
+            for index,key in enumerate(['processing_no_error','vi_score','visualization_no_error','correct_v','vis_fail','minor','major'],2):
+                decimals=4 if key=='vi_score' else 2
+                suffix='' if key=='vi_score' else '%'
+                self.assertEqual(cells[index],f'{row[key]:.{decimals}f}{suffix}')
 
 
 if __name__=='__main__':unittest.main()
