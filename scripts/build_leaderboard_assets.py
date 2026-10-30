@@ -58,27 +58,27 @@ def main():
             ax.text((value + 0.8) if value is not None else 0.8,
                     bar.get_y() + bar.get_height() / 2,
                     f'{value:.2f}' if value is not None else 'n/a',
-                    va='center', ha='left', fontsize=8.5,
+                    va='center', ha='left', fontsize=11.5,
                     fontweight='bold' if correct else 'normal',
                     color='#237445' if correct else '#596273', zorder=4)
     ax.set_yticks(y)
-    ax.set_yticklabels([row_label(row) for row in rows], fontsize=9.5, linespacing=1.35)
+    ax.set_yticklabels([row_label(row) for row in rows], fontsize=12.5, linespacing=1.35)
     ax.set_ylim(len(rows) - 0.5, -0.5)
     ax.set_xlim(0, 90)
     ax.set_xticks(np.arange(0, 91, 10))
-    ax.set_xlabel('Percent (%)', fontsize=11, labelpad=12)
+    ax.set_xlabel('Percent (%)', fontsize=14, labelpad=12)
     ax.grid(axis='x', color='#d9dde5', linewidth=0.7, zorder=1)
     ax.set_axisbelow(True)
     ax.spines[['top', 'right', 'left']].set_visible(False)
     ax.spines['bottom'].set_color('#cbd1da')
     ax.tick_params(axis='y', length=0, pad=12, colors='#3d4858')
-    ax.tick_params(axis='x', length=0, pad=6, labelsize=9, colors='#596273')
-    fig.suptitle('AstroVisBench Leaderboard', fontsize=19, fontweight='bold', y=0.975)
+    ax.tick_params(axis='x', length=0, pad=6, labelsize=11.5, colors='#596273')
+    fig.suptitle('AstroVisBench Leaderboard', fontsize=24, fontweight='bold', y=0.975)
     fig.text(0.5, 0.945, 'Sorted by CorrectV ↓ · lite-bench = selected 144 tasks from the full 864 tasks',
-             ha='center', fontsize=11, color='#596273')
+             ha='center', fontsize=12.5, color='#596273')
     fig.legend(*ax.get_legend_handles_labels(), loc='upper center',
                bbox_to_anchor=(0.5, 0.925), ncol=3, frameon=False,
-               fontsize=9, handlelength=1.6, columnspacing=1.2)
+               fontsize=11.5, handlelength=1.6, columnspacing=1.2)
     fig.subplots_adjust(left=0.37, right=0.95, bottom=0.055, top=0.89)
     # Center the complete plot, including model labels and numeric annotations,
     # not just the bar axes (which would clip long model names on the left).
