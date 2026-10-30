@@ -4,8 +4,10 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import struct
 from statistics import mean
 import unittest
+import xml.etree.ElementTree as ET
 
 from leaderboard_order import GROUPS, group_id, ordered_rows
 from order_leaderboard import reorder_markdown
@@ -20,21 +22,42 @@ class PublicationTests(unittest.TestCase):
         rows=leaderboard['rows']
         self.assertEqual(rows,ordered_rows(rows))
         self.assertEqual([r['id'] for r in rows],[
-            'gemini-2.5-pro','o3-mini','qwen-2.5','llama-4-maverick',
-            'claude-sonnet-3.7','claude-opus-4.0','gpt-4o','qwq',
-            'kimi-k3','qwen38-27b-q4-k-m','claude-code-k3-lite72',
             'gpt6-lite72-v2-selection','claude-k3-lite72-v2-selection',
+            'kimi-k3','gemini-2.5-pro','o3-mini','qwen-2.5','llama-4-maverick',
+            'claude-sonnet-3.7','claude-opus-4.0','gpt-4o','qwq',
+            'qwen38-27b-q4-k-m',
             'codex-qwen38-lite72-v2-selection-recovery'])
         self.assertEqual([g['id'] for g in leaderboard['display_order']['groups']],
-                         [g[0] for g in GROUPS])
+                         [g[0] for g in GROUPS if g[0]!='lite-v1-t1'])
+        self.assertEqual(leaderboard['display_order']['sort_by'],'correct_v')
+        self.assertEqual([r['correct_v'] for r in rows],sorted([r['correct_v'] for r in rows],reverse=True))
+        archived=leaderboard['archived_rows']
+        self.assertEqual([r['id'] for r in archived],['claude-code-k3-lite72'])
+        self.assertAlmostEqual(archived[0]['correct_v'],18.51851851851852)
+        self.assertEqual(group_id(archived[0]),'lite-v1-t1')
         text=(ROOT/'docs/index.md').read_text()
         self.assertEqual(text,reorder_markdown(text,list(reversed(rows)),rows))
         self.assertEqual(group_id(rows[-1]),'historical-v2-recovery')
+
+    def test_portrait_assets_and_compatibility_aliases(self):
+        assets=ROOT/'docs/assets'
+        png=(assets/'leaderboard-portrait.png').read_bytes()
+        self.assertEqual(png[:8],b'\x89PNG\r\n\x1a\n')
+        width,height=struct.unpack('>II',png[16:24])
+        self.assertGreater(height,width)
+        svg=ET.parse(assets/'leaderboard-portrait.svg').getroot()
+        self.assertGreater(float(svg.attrib['height'].removesuffix('pt')),
+                           float(svg.attrib['width'].removesuffix('pt')))
+        for extension in ['svg','png']:
+            self.assertEqual((assets/f'leaderboard-portrait.{extension}').read_bytes(),
+                             (assets/f'leaderboard-full.{extension}').read_bytes())
 
     def test_sort_ties_and_missing_metrics(self):
         rows=[dict(id=id,source='published-reference',correct_v=value)
               for id,value in [('missing',None),('b',10),('a',10),('c',20)]]
         self.assertEqual([r['id'] for r in ordered_rows(rows)],['c','a','b','missing'])
+        legacy=dict(id='claude-code-k3-lite72',source='independent-local',correct_v=99)
+        self.assertEqual([r['id'] for r in ordered_rows(rows+[legacy])],['c','a','b','missing'])
         with self.assertRaises(ValueError):
             group_id(dict(id='unknown',source='independent-local'))
 

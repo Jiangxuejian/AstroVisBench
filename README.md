@@ -23,22 +23,19 @@ separate tracks because their tool access and interaction protocols differ.
 
 ## Current snapshot
 
-![AstroVisBench independent leaderboard snapshot](docs/assets/leaderboard-full.svg)
+![AstroVisBench portrait leaderboard, sorted by CorrectV](docs/assets/leaderboard-portrait.svg)
 
 The chart combines published reference rows from the official AstroVisBench
 leaderboard with clearly labelled independent results from this fork. Hatched
-bars identify local evaluations, and `(lite-72 subset)` identifies the sampled
-suite. Historical-v2-selection rows now include all 216 judge outcomes each;
-Codex + Qwen is explicitly labelled **recovery**. Full-432, Lite-72 v1, and the v2 task selection are
-different suites, not one directly comparable ranking.
-
-Rows are grouped by **suite and track**, then sorted by **CorrectV, highest
-first within each group**. Published references, independent no-tool runs,
-v1/v2 agents and supplemental recovery remain separate; there is no global rank.
+bars identify local evaluations. The **portrait horizontal chart** includes
+only **Full-432 and Lite-72 v2 task-selection** results, sorted by **CorrectV,
+highest first**. Suite/track labels distinguish reference, no-tool, T1 and
+recovery runs. This is a display order, not a controlled cross-track ranking.
+Lite-72 v1 is excluded from the current figure/table; its historical audit is retained.
 
 See the [full table, metric definitions, and provenance](docs/index.md).
-Both [SVG](docs/assets/leaderboard-full.svg) and
-[PNG](docs/assets/leaderboard-full.png) are updated together.
+Both [SVG](docs/assets/leaderboard-portrait.svg) and
+[PNG](docs/assets/leaderboard-portrait.png) are updated together.
 
 ### Latest completed results · 30 October 2026
 

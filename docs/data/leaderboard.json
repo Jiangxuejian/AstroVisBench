@@ -1,5 +1,5 @@
 {
-  "suite": "AstroVisBench Full-432 + Lite-72 v1 + historical v2-selection snapshot",
+  "suite": "AstroVisBench Full-432 + historical Lite-72 v2-selection snapshot",
   "snapshot": "2026-10-30",
   "metrics": [
     "processing_no_error",
@@ -16,6 +16,59 @@
     "correct_v"
   ],
   "rows": [
+    {
+      "id": "gpt6-lite72-v2-selection",
+      "label": "GPT-6 Astra medium\n+ Codex\n(lite-72 v2 selection)\nhistorical · T1",
+      "table_label": "GPT-6 Astra medium + Codex (historical v2 selection, T1)",
+      "suite": "lite-72 v2 task selection · historical inputs · T1",
+      "source": "independent-local",
+      "audit": "data/gpt6-v2-selection-audit.json",
+      "official_frozen_input_v2_result": false,
+      "workflows": 72,
+      "judge_status": "validated",
+      "processing_no_error": 66.66666666666667,
+      "vi_score": 0.67,
+      "visualization_no_error": 83.33333333333333,
+      "correct_v": 25.925925925925927,
+      "vis_fail": 8.333333333333334,
+      "minor": 25.0,
+      "major": 24.074074074074073,
+      "judge_outcomes": 216
+    },
+    {
+      "id": "claude-k3-lite72-v2-selection",
+      "label": "Claude Code\n+ Kimi K3\n(lite-72 v2 selection)\nhistorical · T1",
+      "table_label": "Claude Code + Kimi K3 (historical v2 selection, T1)",
+      "suite": "lite-72 v2 task selection · historical inputs · T1",
+      "source": "independent-local",
+      "audit": "data/claude-k3-v2-selection-audit.json",
+      "official_frozen_input_v2_result": false,
+      "workflows": 72,
+      "judge_status": "validated",
+      "processing_no_error": 61.111111111111114,
+      "vi_score": 0.6161616161616161,
+      "visualization_no_error": 86.11111111111111,
+      "correct_v": 17.59259259259259,
+      "vis_fail": 12.5,
+      "minor": 21.75925925925926,
+      "major": 34.25925925925926,
+      "judge_outcomes": 216
+    },
+    {
+      "id": "kimi-k3",
+      "label": "Kimi K3",
+      "table_label": "Kimi K3",
+      "suite": "Full-432",
+      "source": "independent-local",
+      "audit": "data/k3-audit.json",
+      "processing_no_error": 48.148148148148145,
+      "vi_score": 0.7308997050147493,
+      "visualization_no_error": 76.85185185185185,
+      "correct_v": 16.049382716049383,
+      "vis_fail": 10.87962962962963,
+      "minor": 18.132716049382715,
+      "major": 31.790123456790123
+    },
     {
       "id": "gemini-2.5-pro",
       "label": "Gemini 2.5 Pro",
@@ -113,21 +166,6 @@
       "major": 14.9
     },
     {
-      "id": "kimi-k3",
-      "label": "Kimi K3",
-      "table_label": "Kimi K3",
-      "suite": "Full-432",
-      "source": "independent-local",
-      "audit": "data/k3-audit.json",
-      "processing_no_error": 48.148148148148145,
-      "vi_score": 0.7308997050147493,
-      "visualization_no_error": 76.85185185185185,
-      "correct_v": 16.049382716049383,
-      "vis_fail": 10.87962962962963,
-      "minor": 18.132716049382715,
-      "major": 31.790123456790123
-    },
-    {
       "id": "qwen38-27b-q4-k-m",
       "label": "Qwen3.8\n27B Q4_K_M",
       "table_label": "Qwen3.8-27B Q4_K_M",
@@ -141,59 +179,6 @@
       "vis_fail": 9.953703703703704,
       "minor": 10.493827160493828,
       "major": 24.92283950617284
-    },
-    {
-      "id": "claude-code-k3-lite72",
-      "label": "Claude Code\n+ Kimi K3\n(lite-72 subset v1)",
-      "table_label": "Claude Code + Kimi K3 (lite-72 subset, T1)",
-      "suite": "lite-72 subset · coding-agent T1",
-      "source": "independent-local",
-      "audit": "data/claude-k3-lite-audit.json",
-      "processing_no_error": 62.5,
-      "vi_score": 0.6565656565656566,
-      "visualization_no_error": 84.72222222222221,
-      "correct_v": 18.51851851851852,
-      "vis_fail": 11.11111111111111,
-      "minor": 19.444444444444443,
-      "major": 35.648148148148145
-    },
-    {
-      "id": "gpt6-lite72-v2-selection",
-      "label": "GPT-6 Astra medium\n+ Codex\n(lite-72 v2 selection)\nhistorical · T1",
-      "table_label": "GPT-6 Astra medium + Codex (historical v2 selection, T1)",
-      "suite": "lite-72 v2 task selection · historical inputs · T1",
-      "source": "independent-local",
-      "audit": "data/gpt6-v2-selection-audit.json",
-      "official_frozen_input_v2_result": false,
-      "workflows": 72,
-      "judge_status": "validated",
-      "processing_no_error": 66.66666666666667,
-      "vi_score": 0.67,
-      "visualization_no_error": 83.33333333333333,
-      "correct_v": 25.925925925925927,
-      "vis_fail": 8.333333333333334,
-      "minor": 25.0,
-      "major": 24.074074074074073,
-      "judge_outcomes": 216
-    },
-    {
-      "id": "claude-k3-lite72-v2-selection",
-      "label": "Claude Code\n+ Kimi K3\n(lite-72 v2 selection)\nhistorical · T1",
-      "table_label": "Claude Code + Kimi K3 (historical v2 selection, T1)",
-      "suite": "lite-72 v2 task selection · historical inputs · T1",
-      "source": "independent-local",
-      "audit": "data/claude-k3-v2-selection-audit.json",
-      "official_frozen_input_v2_result": false,
-      "workflows": 72,
-      "judge_status": "validated",
-      "processing_no_error": 61.111111111111114,
-      "vi_score": 0.6161616161616161,
-      "visualization_no_error": 86.11111111111111,
-      "correct_v": 17.59259259259259,
-      "vis_fail": 12.5,
-      "minor": 21.75925925925926,
-      "major": 34.25925925925926,
-      "judge_outcomes": 216
     },
     {
       "id": "codex-qwen38-lite72-v2-selection-recovery",
@@ -226,14 +211,17 @@
     "independent-local-codex-qwen-v2-recovery": "data/codex-qwen38-v2-selection-recovery-audit.json"
   },
   "notes": [
+    "2026-10-30: Portrait horizontal chart, Full-432 and historical Lite-72 v2 selection only, globally sorted by CorrectV. Lite-72 v1 retained in archived_rows, not displayed. No scores changed.",
     "2026-10-30: All three historical-v2-selection agent rows have 216 validated judge outcomes. Codex + Qwen is a separately labelled recovery track: task 51 retry used, missing processing 17/52 counted as failures. Not frozen-input v2 or a common controlled ranking.",
     "2026-10-23: Kimi K3 historical execution metrics reconciled with repaired records 301-432 and existing judge checkpoints. Judge category counts unchanged. Network/input fairness remains under investigation; this is not a controlled rerun.",
     "Published-reference rows reproduce the official website snapshot available on 2026-09-30.",
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",
-    "The chart's (lite-72 subset) row is the provisional fixed sampled-subset Claude Code + K3 T1 result.",
     "Claude Code + K3 is a separate T1 coding-agent track with approved tools, a bounded correction loop, and Lite-72 coverage; it must not be ranked as a no-tool model result."
   ],
   "display_order": {
+    "sort_by": "correct_v",
+    "direction": "descending",
+    "scope": "Full-432 and Lite-72 v2 task selection; Lite-72 v1 excluded",
     "groups": [
       {
         "id": "published-full",
@@ -244,10 +232,6 @@
         "label": "Full-432 · independent no-tool"
       },
       {
-        "id": "lite-v1-t1",
-        "label": "Lite-72 v1 · T1 agents"
-      },
-      {
         "id": "historical-v2-t1",
         "label": "Lite-72 v2 selection · historical inputs · T1 agents"
       },
@@ -256,7 +240,24 @@
         "label": "Lite-72 v2 selection · historical inputs · recovery"
       }
     ],
-    "within_group": "CorrectV descending; missing values last; ties by model ID",
-    "note": "Display order only. Different suites, judges and recovery budgets do not form one comparable ranking."
-  }
+    "tie_break": "model ID; missing metrics last",
+    "note": "Globally sorted for display only. Different suites, judges and recovery budgets do not form one comparable ranking."
+  },
+  "archived_rows": [
+    {
+      "id": "claude-code-k3-lite72",
+      "label": "Claude Code\n+ Kimi K3\n(lite-72 subset v1)",
+      "table_label": "Claude Code + Kimi K3 (lite-72 subset, T1)",
+      "suite": "lite-72 subset · coding-agent T1",
+      "source": "independent-local",
+      "audit": "data/claude-k3-lite-audit.json",
+      "processing_no_error": 62.5,
+      "vi_score": 0.6565656565656566,
+      "visualization_no_error": 84.72222222222221,
+      "correct_v": 18.51851851851852,
+      "vis_fail": 11.11111111111111,
+      "minor": 19.444444444444443,
+      "major": 35.648148148148145
+    }
+  ]
 }

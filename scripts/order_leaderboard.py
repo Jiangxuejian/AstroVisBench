@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reorder existing rows without altering metrics or provenance."""
+"""Display Full-432/v2 by CorrectV; archive v1 without changing any score."""
 import argparse
 import json
 from pathlib import Path
@@ -38,11 +38,22 @@ def main(check=False):
     before = payload['rows']
     after = ordered_rows(before)
     payload['rows'] = after
+    archived = {row['id']: row for row in payload.get('archived_rows', [])}
+    archived.update({row['id']: row for row in before if group_id(row) == 'lite-v1-t1'})
+    payload['archived_rows'] = list(archived.values())
+    payload['suite'] = 'AstroVisBench Full-432 + historical Lite-72 v2-selection snapshot'
+    payload['notes'] = [note for note in payload['notes']
+                        if not note.startswith("The chart's (lite-72 subset) row")]
+    display_note = '2026-10-30: Portrait horizontal chart, Full-432 and historical Lite-72 v2 selection only, globally sorted by CorrectV. Lite-72 v1 retained in archived_rows, not displayed. No scores changed.'
+    if display_note not in payload['notes']:
+        payload['notes'].insert(0, display_note)
     payload['display_order'] = dict(
+        sort_by='correct_v', direction='descending',
+        scope='Full-432 and Lite-72 v2 task selection; Lite-72 v1 excluded',
         groups=[dict(id=key, label=label) for key, label, _ in GROUPS
                 if any(group_id(row) == key for row in after)],
-        within_group='CorrectV descending; missing values last; ties by model ID',
-        note='Display order only. Different suites, judges and recovery budgets do not form one comparable ranking.')
+        tie_break='model ID; missing metrics last',
+        note='Globally sorted for display only. Different suites, judges and recovery budgets do not form one comparable ranking.')
     outputs = {path: json.dumps(payload, indent=2, ensure_ascii=False, allow_nan=False) + '\n'}
     markdown = ROOT / 'docs/index.md'
     outputs[markdown] = reorder_markdown(markdown.read_text(), before, after)
@@ -52,7 +63,9 @@ def main(check=False):
         for path, content in outputs.items():
             path.write_text(content)
     for key, label, _ in GROUPS:
-        print(label + ': ' + ', '.join(row['id'] for row in after if group_id(row) == key))
+        matches = [row['id'] for row in after if group_id(row) == key]
+        if matches:
+            print(label + ': ' + ', '.join(matches))
 
 
 if __name__ == '__main__':

@@ -28,20 +28,23 @@ The original benchmark deliberately evaluates visualization with **reference pro
 
 ## Results
 
-### Leaderboard snapshot · Full-432 and Lite-72
+### Leaderboard snapshot · Full-432 and Lite-72 v2 selection
 
-The figure and table below combine the published AstroVisBench reference rows with independently audited Full-432, Lite-72 v1 and historical-v2-selection runs. The published rows reproduce the official leaderboard snapshot; hatched rows are our local evaluations. **Because the judge, transport, suite, inputs and tool protocols differ, these rows are shown for context and are not one directly comparable ranking or replacements for the published rows.**
+The figure and table below combine published AstroVisBench reference rows with independently audited **Full-432 and historical Lite-72 v2-selection** runs. Lite-72 v1 is excluded from this current display. The published rows reproduce the official leaderboard snapshot; hatched bars are our local evaluations. **Because the judge, transport, suite, inputs and tool protocols differ, this sorted display is not one directly comparable ranking or a replacement for the published rows.**
 
-![AstroVisBench leaderboard snapshot](assets/leaderboard-full.svg)
+![AstroVisBench portrait leaderboard, sorted by CorrectV](assets/leaderboard-portrait.svg)
 
-*Hatched bars identify independent local evaluations. Labels distinguish **lite-72 subset v1**, the **historical v2 task selection**, and Qwen's **recovery** track. Both [SVG](assets/leaderboard-full.svg) and [PNG](assets/leaderboard-full.png) are regenerated together. Published reference rows reproduce the official leaderboard snapshot available on 30 September 2026.*
+*Portrait layout with horizontal bars. Labels identify Full-432, the historical Lite-72 v2 task selection, and Qwen's recovery track. Both [SVG](assets/leaderboard-portrait.svg) and [PNG](assets/leaderboard-portrait.png) are regenerated together. Published reference rows reproduce the official leaderboard snapshot available on 30 September 2026.*
 
-**Display order:** grouped by suite and track, then **CorrectV descending within
-each group** (ties by model ID; missing scores last). Chart and table use the
-same order. Group placement is not a cross-track performance ranking.
+**Display order:** **CorrectV descending across the displayed rows** (ties by
+model ID; missing scores last). Chart and table use the same order. Suite,
+tool-policy and recovery differences remain explicit; no scores were changed.
 
 | Model | Suite / track | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
+| GPT-6 Astra medium + Codex§ | (lite-72 v2 selection) historical inputs, T1 | 66.67% | 0.6700 | 83.33% | 25.93% | 8.33% | 25.00% | 24.07% |
+| Claude Code + Kimi K3§ | (lite-72 v2 selection) historical inputs, T1 | 61.11% | 0.6162 | 86.11% | 17.59% | 12.50% | 21.76% | 34.26% |
+| Kimi K3† | Full-432 · independent no-tool | 48.15% | 0.731 | 76.85% | 16.05% | 10.88% | 18.13% | 31.79% |
 | Gemini 2.5 Pro | Full-432 · published reference | 69.20% | 0.600 | 79.90% | 15.70% | 9.30% | 25.90% | 28.50% |
 | o3-mini | Full-432 · published reference | 48.60% | 0.694 | 69.70% | 10.40% | 2.80% | 26.40% | 29.60% |
 | Qwen-2.5 | Full-432 · published reference | 43.10% | 0.527 | 64.60% | 10.40% | 3.70% | 20.10% | 29.90% |
@@ -50,14 +53,10 @@ same order. Group placement is not a cross-track performance ranking.
 | Claude Opus 4.0 | Full-432 · published reference | 49.80% | 0.644 | 66.90% | 9.30% | 12.70% | 28.90% | 16.00% |
 | GPT-4o | Full-432 · published reference | 46.30% | 0.480 | 67.40% | 8.60% | 6.00% | 23.40% | 28.50% |
 | QwQ | Full-432 · published reference | 35.90% | 0.472 | 39.10% | 8.20% | 3.90% | 12.60% | 14.90% |
-| Kimi K3† | Full-432 · independent no-tool | 48.15% | 0.731 | 76.85% | 16.05% | 10.88% | 18.13% | 31.79% |
 | Qwen3.8-27B Q4_K_M† | Full-432 · independent no-tool | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
-| Claude Code + Kimi K3‡ | (lite-72 subset v1) T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
-| GPT-6 Astra medium + Codex§ | (lite-72 v2 selection) historical inputs, T1 | 66.67% | 0.6700 | 83.33% | 25.93% | 8.33% | 25.00% | 24.07% |
-| Claude Code + Kimi K3§ | (lite-72 v2 selection) historical inputs, T1 | 61.11% | 0.6162 | 86.11% | 17.59% | 12.50% | 21.76% | 34.26% |
 | Codex + Qwen3.8-27B Q4_K_M¶ | (lite-72 v2 selection) historical inputs, recovery | 34.72% | 0.5789 | 54.17% | 6.94% | 9.72% | 9.26% | 28.24% |
 
-† Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). ‡ Independent Lite-72 Claude Code + K3 run; see the [Claude Code + K3 provenance record](data/claude-k3-lite-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project.
+† Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project. The excluded [Lite-72 v1 Claude + K3 audit](data/claude-k3-lite-audit.json) remains historical evidence, not a current leaderboard row.
 
 § GPT-6 and Claude + K3 each combine 65 unchanged baseline executions with seven supplemental tasks; no best-of selection or generated-code repair. VIscore uses 40 and 33 eligible inspections. All 72 workflows now have three judge outcomes, including Crash/VisFail. See the [selection and provenance guide](lite72-v2-historical.md), [GPT-6 audit](data/gpt6-v2-selection-audit.json) and [Claude + K3 audit](data/claude-k3-v2-selection-audit.json).
 
@@ -65,7 +64,7 @@ same order. Group placement is not a cross-track performance ranking.
 
 **Correction and fairness:** K3's previous execution metrics mixed an older execution artifact with repaired judge records. The corrected row reconciles all 432 records, with zero execution/judge Crash mismatches. Judge category percentages are unchanged. This fixes historical bookkeeping, not live-network variability; see the [execution fairness audit](execution-fairness.md). No controlled-rerun scores are published yet.
 
-**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three visualization outcomes per workflow. The older Claude + K3 v1 row and all three historical-v2-selection rows each cover 72 workflows and 216 valid judge outcomes. Coverage includes crashes and Qwen's missing processing stages; it is not a success count. These are separate suite/protocol tracks, not one pooled ranking.
+**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three visualization outcomes per workflow. All three displayed historical-v2-selection rows cover 72 workflows and 216 valid judge outcomes each. Coverage includes crashes and Qwen's missing processing stages; it is not a success count. These are separate suite/protocol tracks, not one pooled ranking.
 
 **Generation track:** No tools were supplied to the Qwen3.8 or Kimi K3 Full-432 model runs. Qwen3.8 ran through the local model harness; Kimi K3 used the Kimi Code API with `tool_choice=none`. Claude Code + K3 is deliberately separate: its Lite T1 agent could inspect approved text inputs, edit its candidate, run bounded checks, and submit. The operator's use of software to run the benchmark is separate from the evaluated system's permitted capabilities.
 
@@ -73,9 +72,9 @@ same order. Group placement is not a cross-track performance ranking.
 
 [Download Qwen3.8 provenance](data/qwen38-audit.json) · [Download Kimi K3 provenance](data/k3-audit.json) · [Download Claude Code + K3 provenance](data/claude-k3-lite-audit.json) · [Original AstroVisBench leaderboard](https://astrovisbench.github.io/)
 
-### Claude Code + Kimi K3 · Lite-72 T1
+### Archived Claude Code + Kimi K3 · Lite-72 v1 T1
 
-This row evaluates the **Claude Code + K3** system, not K3 in isolation. It is a separate T1 coding-agent experiment with a fresh session for each stage, approved text/tools, three candidate checks, two feedback corrections, and no image viewing. The agent result is therefore not directly comparable to the no-tool Full-432 rows or to the Kimi K3 Full-432 row.
+This historical result is **excluded from the current figure/table**. It evaluated the Claude Code + K3 system, not K3 in isolation: a fresh session for each stage, approved text/tools, three candidate checks, two feedback corrections, and no image viewing. The unchanged audit is retained for reproducibility.
 
 See the [Claude Code + K3 audit record](data/claude-k3-lite-audit.json) for the stage limits, execution checksum, judge provenance, and metric denominators.
 
@@ -92,7 +91,7 @@ Codex + Qwen uses pinned **Qwen3.8-27B Q4_K_M** weights, Codex `0.162.1`, llama.
 | Metric | Interpretation |
 |---|---|
 | Processing no error | Percentage of workflows whose generated processing code executes without crashing. |
-| VIscore | Mean upstream unweighted variable-inspection score among successful processing runs with nonempty inspections. Full-432 Qwen/K3 use 108/113 eligible workflows; Claude v1 uses 33; historical-v2-selection GPT-6/Claude/Qwen recovery use 40/33/19. |
+| VIscore | Mean upstream unweighted variable-inspection score among successful processing runs with nonempty inspections. Full-432 Qwen/K3 use 108/113 eligible workflows; historical-v2-selection GPT-6/Claude/Qwen recovery use 40/33/19. |
 | Visualization no error | Percentage of workflows whose generated visualization code executes without crashing. |
 | CorrectV | Percentage assigned “No Error” by the visualization judge. |
 | VisFail | Percentage that fail the evaluator's requirement to produce the expected single visualization. |
@@ -143,7 +142,7 @@ A full run can be expensive. We are preparing a smaller, fixed suite for routine
 
 Lite uses one-sixth as many workflows as Full, but this is **not a promise of one-sixth the runtime or cost**. Task runtimes vary, and setup has fixed costs. Three visualization-judge trials give up to 216 LLM calls for Lite before retries; crashes and VisFail outcomes do not require those calls.
 
-### Lite-72 candidate v1
+### Archived Lite-72 candidate v1 study
 
 The current candidate selects **72 workflows from 62 source notebooks**, with 12 from each provisional source-notebook family:
 
@@ -192,7 +191,7 @@ The draft protocol distinguishes three profiles:
 
 Tool-assisted runs must declare iteration, execution, token, and wall-clock limits. Reference answers, hidden evaluation feedback, other models' results, and reference plots remain outside the evaluated agent's accessible workspace. The original reference processing context is still supplied in the visualization stage.
 
-Agent scores are displayed separately from T0 scores. Manually supervised pilots or products with unobservable budgets will be identified as such. The Claude Code + K3 Lite row is the first T1 agent entry in this snapshot and is labelled accordingly; it is not part of the no-tool ranking.
+Every displayed row identifies its suite and tool track, even when globally sorted by CorrectV. Manually supervised pilots or products with unobservable budgets will be identified as such. T1 agent results are not no-tool model results; the v1 Claude + K3 entry is now archived rather than displayed.
 
 ## Reproducibility
 

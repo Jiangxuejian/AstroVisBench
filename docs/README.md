@@ -6,11 +6,13 @@ repository's `main` branch; GitHub Pages configuration, a custom domain, and a
 separate public raw-artifact archive remain optional and are not assumed here.
 
 The page uses ordinary Markdown and relative download links. It can be placed in a
-GitHub Pages/Jekyll site when the public repository is chosen. The grouped bar chart
+GitHub Pages/Jekyll site when the public repository is chosen. The portrait horizontal bar chart
 contains the published reference rows, the audited QWEN and Kimi K3 Full-432
-runs, the explicitly labelled v1 Claude Code + K3 row, and completed GPT-6,
+runs and completed GPT-6,
 Claude + K3 and Codex + Qwen recovery historical-v2-selection rows. Keep
 the Full and Lite suites and the T0/T1 tracks distinct when interpreting it.
+Only Full-432 and the historical Lite-72 v2 selection appear in the current
+figure/table. Lite-72 v1 is retained as historical audit data, not displayed.
 
 ## Content decisions
 
@@ -40,7 +42,9 @@ The first script exports the QWEN evidence; it does not rerun generation, execut
 judging. Kimi K3 and Claude Code + K3 compact records are retained as
 `docs/data/k3-audit.json` and
 `docs/data/claude-k3-lite-audit.json`. The second script reads
-`docs/data/leaderboard.json` and regenerates the matching SVG/PNG figure, rendering
+`docs/data/leaderboard.json` and regenerates `leaderboard-portrait.svg` and
+`leaderboard-portrait.png` (and the matching `leaderboard-full.*` compatibility
+aliases), rendering
 missing metrics, including pending visualization judgments, as `n/a` rather than zero.
 The prose and table cells remain deliberately easy to edit as one Markdown page. When
 new scores are added, update the text, source selection, and checks together.
@@ -57,13 +61,15 @@ python -m unittest discover -s scripts -p test_v2_selection_publication.py
 ```
 
 This exports sanitized per-task scalars/checksums and the exact v2 candidate UID
-manifest, preserving the older Full-432 and v1 rows. The default Lite selector
+manifest, preserving Full-432 scores and archived v1 rows. The default Lite selector
 still uses v1. See [the historical-v2-selection guide](lite72-v2-historical.md).
 
-`leaderboard_order.py` defines the shared display policy: suite/track groups,
-CorrectV descending within each, missing metrics last, ties by model ID.
-`order_leaderboard.py` moves existing table lines verbatim and orders the JSON;
-it does not recompute or change scores. Run it after any data export, then
+`leaderboard_order.py` defines the shared display policy: Full-432/v2 only,
+CorrectV descending across all displayed rows, missing metrics last, ties by
+model ID. Suite/track classifications remain in labels, not sorting groups.
+`order_leaderboard.py` moves existing table lines verbatim, orders the JSON,
+and preserves excluded v1 rows under `archived_rows`; it does not change scores.
+Run it after any data export, then
 rebuild both figure formats. `python scripts/order_leaderboard.py --check`
 verifies that the committed table and data already follow this policy.
 

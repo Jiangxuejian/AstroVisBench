@@ -26,7 +26,8 @@ def group_id(row):
 
 
 def ordered_rows(rows):
-    ranks = {key: index for index, (key, _, _) in enumerate(GROUPS)}
-    return sorted(rows, key=lambda row: (
-        ranks[group_id(row)], row.get('correct_v') is None,
+    # Current display excludes v1 but keeps its immutable audit/history.
+    eligible = [row for row in rows if group_id(row) != 'lite-v1-t1']
+    return sorted(eligible, key=lambda row: (
+        row.get('correct_v') is None,
         -row['correct_v'] if row.get('correct_v') is not None else 0, row['id']))

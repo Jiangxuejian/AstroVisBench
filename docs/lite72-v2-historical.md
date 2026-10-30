@@ -207,8 +207,8 @@ verifies source execution checksums, and checks 65+7 origins and all 72 UIDs.
 Then run `scripts/publish_completed_v2_scores.py --artifacts-root <operator-project>`
 to validate completed checkpoints, export all three agents' scalar categories,
 apply Qwen's explicit missing-submission accounting and update leaderboard data.
-Run `python scripts/order_leaderboard.py` to keep the JSON/table display grouped
-by suite/track and sorted by CorrectV within each group. Then run
+Run `python scripts/order_leaderboard.py` to keep the current JSON/table display
+limited to Full-432/v2 and sorted by CorrectV, preserving v1 in the archive. Then run
 `python scripts/build_leaderboard_assets.py` to regenerate SVG and PNG, and
 `python -m unittest discover -s scripts -p 'test_v2_selection_publication.py'`
 to check metrics, coverage, track labels, sanitization and local links.
