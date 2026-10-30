@@ -80,6 +80,17 @@ def main():
                bbox_to_anchor=(0.5, 0.925), ncol=3, frameon=False,
                fontsize=9, handlelength=1.6, columnspacing=1.2)
     fig.subplots_adjust(left=0.37, right=0.95, bottom=0.055, top=0.89)
+    # Center the complete plot, including model labels and numeric annotations,
+    # not just the bar axes (which would clip long model names on the left).
+    fig.canvas.draw()
+    bounds = ax.get_tightbbox(fig.canvas.get_renderer()).transformed(fig.transFigure.inverted())
+    shift = 0.5 - (bounds.x0 + bounds.x1) / 2
+    position = ax.get_position()
+    ax.set_position([position.x0 + shift, position.y0, position.width, position.height])
+    fig.canvas.draw()
+    centered = ax.get_tightbbox(fig.canvas.get_renderer()).transformed(fig.transFigure.inverted())
+    assert abs((centered.x0 + centered.x1) / 2 - 0.5) < 0.001, 'Plot is not centered'
+    assert centered.x0 >= 0 and centered.x1 <= 1, 'Plot labels would be clipped'
     OUT.mkdir(parents=True, exist_ok=True)
     svg, png = OUT / 'leaderboard-portrait.svg', OUT / 'leaderboard-portrait.png'
     fig.savefig(svg, facecolor='white', metadata={'Date': None})
