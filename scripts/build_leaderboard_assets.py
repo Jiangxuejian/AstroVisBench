@@ -74,18 +74,12 @@ def main():
     ax.tick_params(axis='y', length=0, pad=12, colors='#3d4858')
     ax.tick_params(axis='x', length=0, pad=6, labelsize=9, colors='#596273')
     fig.suptitle('AstroVisBench Leaderboard', fontsize=19, fontweight='bold', y=0.975)
-    fig.text(0.5, 0.945, 'Sorted by CorrectV ↓ · lite-bench = Lite-72 v2 selection',
+    fig.text(0.5, 0.945, 'Sorted by CorrectV ↓ · lite-bench = selected 144 tasks from the full 864 tasks',
              ha='center', fontsize=11, color='#596273')
     fig.legend(*ax.get_legend_handles_labels(), loc='upper center',
                bbox_to_anchor=(0.5, 0.925), ncol=3, frameon=False,
                fontsize=9, handlelength=1.6, columnspacing=1.2)
-    fig.text(0.04, 0.022,
-             'Display order only: suites, tool access, judges and inputs differ.\n'
-             'Lite-72 v2 selection uses historical inputs—not frozen-input v2.\n'
-             'Qwen recovery includes supplemental attempts; not original capped T1.\n'
-             'Hatched bars: independent runs. Lite-72 v1 and no-tool Qwen omitted.',
-             ha='left', va='bottom', fontsize=9, color='#596273', linespacing=1.5)
-    fig.subplots_adjust(left=0.37, right=0.95, bottom=0.13, top=0.89)
+    fig.subplots_adjust(left=0.37, right=0.95, bottom=0.055, top=0.89)
     OUT.mkdir(parents=True, exist_ok=True)
     svg, png = OUT / 'leaderboard-portrait.svg', OUT / 'leaderboard-portrait.png'
     fig.savefig(svg, facecolor='white', metadata={'Date': None})

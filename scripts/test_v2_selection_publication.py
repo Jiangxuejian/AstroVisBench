@@ -56,6 +56,11 @@ class PublicationTests(unittest.TestCase):
         self.assertNotIn('<!-- Full-432 · published reference -->',content)
         self.assertNotIn('<!-- Full-432 · independent · no tools -->',content)
         self.assertEqual(content.count('<!-- (lite-bench) -->'),3)
+        self.assertIn('selected 144 tasks from the full 864 tasks',content)
+        self.assertNotIn('Lite-72 v2 selection',content)
+        self.assertNotIn('Display order only:',content)
+        self.assertNotIn('Qwen recovery includes supplemental attempts',content)
+        self.assertNotIn('Hatched bars: independent runs',content)
 
     def test_sort_ties_and_missing_metrics(self):
         rows=[dict(id=id,source='published-reference',correct_v=value)
