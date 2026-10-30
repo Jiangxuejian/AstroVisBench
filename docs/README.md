@@ -51,6 +51,7 @@ completed judge scores. To refresh the completed 30 October scores, run:
 
 ```bash
 python scripts/publish_completed_v2_scores.py --artifacts-root /path/to/operator-project
+python scripts/order_leaderboard.py
 python scripts/build_leaderboard_assets.py
 python -m unittest discover -s scripts -p test_v2_selection_publication.py
 ```
@@ -58,6 +59,13 @@ python -m unittest discover -s scripts -p test_v2_selection_publication.py
 This exports sanitized per-task scalars/checksums and the exact v2 candidate UID
 manifest, preserving the older Full-432 and v1 rows. The default Lite selector
 still uses v1. See [the historical-v2-selection guide](lite72-v2-historical.md).
+
+`leaderboard_order.py` defines the shared display policy: suite/track groups,
+CorrectV descending within each, missing metrics last, ties by model ID.
+`order_leaderboard.py` moves existing table lines verbatim and orders the JSON;
+it does not recompute or change scores. Run it after any data export, then
+rebuild both figure formats. `python scripts/order_leaderboard.py --check`
+verifies that the committed table and data already follow this policy.
 
 For a fresh model evaluation, follow the repository-level
 [`LITE72_RUN_GUIDE.md`](../LITE72_RUN_GUIDE.md). It validates the frozen UID

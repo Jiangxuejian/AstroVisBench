@@ -11,6 +11,8 @@ import json
 from pathlib import Path
 from statistics import mean
 
+from leaderboard_order import ordered_rows
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'docs/data'
 SNAPSHOT = '2026-10-30'
@@ -201,6 +203,7 @@ def export(artifacts):
     note = '2026-10-30: All three historical-v2-selection agent rows have 216 validated judge outcomes. Codex + Qwen is a separately labelled recovery track: task 51 retry used, missing processing 17/52 counted as failures. Not frozen-input v2 or a common controlled ranking.'
     if note not in leaderboard['notes']:
         leaderboard['notes'].insert(0, note)
+    leaderboard['rows'] = ordered_rows(leaderboard['rows'])
     write(DATA / 'leaderboard.json', leaderboard)
 
 

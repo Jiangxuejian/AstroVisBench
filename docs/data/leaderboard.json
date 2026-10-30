@@ -29,30 +29,6 @@
       "major": 28.5
     },
     {
-      "id": "claude-sonnet-3.7",
-      "label": "Claude Sonnet 3.7",
-      "source": "published-reference",
-      "processing_no_error": 49.1,
-      "vi_score": 0.633,
-      "visualization_no_error": 65.3,
-      "correct_v": 9.5,
-      "vis_fail": 21.3,
-      "minor": 14.6,
-      "major": 19.2
-    },
-    {
-      "id": "claude-opus-4.0",
-      "label": "Claude Opus 4.0",
-      "source": "published-reference",
-      "processing_no_error": 49.8,
-      "vi_score": 0.644,
-      "visualization_no_error": 66.9,
-      "correct_v": 9.3,
-      "vis_fail": 12.7,
-      "minor": 28.9,
-      "major": 16.0
-    },
-    {
       "id": "o3-mini",
       "label": "o3-mini",
       "source": "published-reference",
@@ -63,30 +39,6 @@
       "vis_fail": 2.8,
       "minor": 26.4,
       "major": 29.6
-    },
-    {
-      "id": "gpt-4o",
-      "label": "GPT-4o",
-      "source": "published-reference",
-      "processing_no_error": 46.3,
-      "vi_score": 0.48,
-      "visualization_no_error": 67.4,
-      "correct_v": 8.6,
-      "vis_fail": 6.0,
-      "minor": 23.4,
-      "major": 28.5
-    },
-    {
-      "id": "qwq",
-      "label": "QwQ",
-      "source": "published-reference",
-      "processing_no_error": 35.9,
-      "vi_score": 0.472,
-      "visualization_no_error": 39.1,
-      "correct_v": 8.2,
-      "vis_fail": 3.9,
-      "minor": 12.6,
-      "major": 14.9
     },
     {
       "id": "qwen-2.5",
@@ -113,19 +65,52 @@
       "major": 30.6
     },
     {
-      "id": "qwen38-27b-q4-k-m",
-      "label": "Qwen3.8\n27B Q4_K_M",
-      "table_label": "Qwen3.8-27B Q4_K_M",
-      "suite": "Full-432",
-      "source": "independent-local",
-      "audit": "data/qwen38-audit.json",
-      "processing_no_error": 32.175925925925924,
-      "vi_score": 0.4737654320987654,
-      "visualization_no_error": 52.5462962962963,
-      "correct_v": 7.175925925925926,
-      "vis_fail": 9.953703703703704,
-      "minor": 10.493827160493828,
-      "major": 24.92283950617284
+      "id": "claude-sonnet-3.7",
+      "label": "Claude Sonnet 3.7",
+      "source": "published-reference",
+      "processing_no_error": 49.1,
+      "vi_score": 0.633,
+      "visualization_no_error": 65.3,
+      "correct_v": 9.5,
+      "vis_fail": 21.3,
+      "minor": 14.6,
+      "major": 19.2
+    },
+    {
+      "id": "claude-opus-4.0",
+      "label": "Claude Opus 4.0",
+      "source": "published-reference",
+      "processing_no_error": 49.8,
+      "vi_score": 0.644,
+      "visualization_no_error": 66.9,
+      "correct_v": 9.3,
+      "vis_fail": 12.7,
+      "minor": 28.9,
+      "major": 16.0
+    },
+    {
+      "id": "gpt-4o",
+      "label": "GPT-4o",
+      "source": "published-reference",
+      "processing_no_error": 46.3,
+      "vi_score": 0.48,
+      "visualization_no_error": 67.4,
+      "correct_v": 8.6,
+      "vis_fail": 6.0,
+      "minor": 23.4,
+      "major": 28.5
+    },
+    {
+      "id": "qwq",
+      "label": "QwQ",
+      "source": "published-reference",
+      "processing_no_error": 35.9,
+      "vi_score": 0.472,
+      "visualization_no_error": 39.1,
+      "correct_v": 8.2,
+      "vis_fail": 3.9,
+      "minor": 12.6,
+      "major": 14.9
     },
     {
       "id": "kimi-k3",
@@ -141,6 +126,21 @@
       "vis_fail": 10.87962962962963,
       "minor": 18.132716049382715,
       "major": 31.790123456790123
+    },
+    {
+      "id": "qwen38-27b-q4-k-m",
+      "label": "Qwen3.8\n27B Q4_K_M",
+      "table_label": "Qwen3.8-27B Q4_K_M",
+      "suite": "Full-432",
+      "source": "independent-local",
+      "audit": "data/qwen38-audit.json",
+      "processing_no_error": 32.175925925925924,
+      "vi_score": 0.4737654320987654,
+      "visualization_no_error": 52.5462962962963,
+      "correct_v": 7.175925925925926,
+      "vis_fail": 9.953703703703704,
+      "minor": 10.493827160493828,
+      "major": 24.92283950617284
     },
     {
       "id": "claude-code-k3-lite72",
@@ -232,5 +232,31 @@
     "The Qwen3.8 and Kimi K3 rows are independent Full-432 runs. Both used the local GPT-6 Astra medium judge adapter, and Kimi K3 used the Kimi Code API for generation; neither is directly comparable to the published rows because judge and transport protocols differ.",
     "The chart's (lite-72 subset) row is the provisional fixed sampled-subset Claude Code + K3 T1 result.",
     "Claude Code + K3 is a separate T1 coding-agent track with approved tools, a bounded correction loop, and Lite-72 coverage; it must not be ranked as a no-tool model result."
-  ]
+  ],
+  "display_order": {
+    "groups": [
+      {
+        "id": "published-full",
+        "label": "Full-432 · published reference"
+      },
+      {
+        "id": "independent-full",
+        "label": "Full-432 · independent no-tool"
+      },
+      {
+        "id": "lite-v1-t1",
+        "label": "Lite-72 v1 · T1 agents"
+      },
+      {
+        "id": "historical-v2-t1",
+        "label": "Lite-72 v2 selection · historical inputs · T1 agents"
+      },
+      {
+        "id": "historical-v2-recovery",
+        "label": "Lite-72 v2 selection · historical inputs · recovery"
+      }
+    ],
+    "within_group": "CorrectV descending; missing values last; ties by model ID",
+    "note": "Display order only. Different suites, judges and recovery budgets do not form one comparable ranking."
+  }
 }

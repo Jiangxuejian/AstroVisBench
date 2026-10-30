@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from leaderboard_order import GROUPS, group_id, ordered_rows
+
 import matplotlib
 matplotlib.use("Agg")
 matplotlib.rcParams['svg.hashsalt'] = 'astrovisbench-leaderboard'
@@ -18,7 +20,8 @@ OUT = ROOT / "docs/assets"
 
 def main() -> None:
     payload = json.loads(DATA.read_text())
-    rows = payload["rows"]
+    rows = ordered_rows(payload["rows"])
+    assert rows == payload['rows'], 'Run scripts/order_leaderboard.py first'
     chart = payload["chart_metrics"]
     labels = [r["label"] for r in rows]
     # Missing metrics are rendered as gaps rather than zeros.  This matters for
@@ -28,16 +31,18 @@ def main() -> None:
         for r in rows
     ], dtype=float)
     x = np.arange(len(rows), dtype=float)
-    # Extra space for the longer agent/suite labels; retain the reference style.
+    # Separate suites/tracks, retaining space for the longer agent labels.
     for index, row in enumerate(rows):
-        if 'T1' in row.get('suite', ''):
+        if index and group_id(row) != group_id(rows[index - 1]):
+            x[index:] += 0.9
+        elif index and 'T1' in row.get('suite', ''):
             x[index:] += 0.55
     width = 0.24
     colors = ["#89a8ee", "#91dce9", "#8fe7a5"]
     names = ["Processing No Error %", "Visualization No Error %", "CorrectV %"]
 
     OUT.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=(21, 8.5), dpi=180)
+    fig, ax = plt.subplots(figsize=(23, 9), dpi=180)
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
     for i, (metric, name, color) in enumerate(zip(chart, names, colors)):
@@ -54,7 +59,18 @@ def main() -> None:
                 ax.text(bar.get_x() + bar.get_width() / 2, 1.2, "n/a",
                         ha="center", va="bottom", fontsize=8,
                         color="#8b95a7", rotation=90)
-    ax.set_title("AstroVisBench Leaderboard Snapshot", fontsize=22, fontweight="bold", pad=20)
+    fig.suptitle("AstroVisBench Leaderboard Snapshot", fontsize=22, fontweight="bold", y=0.97)
+    for key, _, chart_label in GROUPS:
+        indices = [i for i, row in enumerate(rows) if group_id(row) == key]
+        if not indices:
+            continue
+        left, right = indices[0], indices[-1]
+        ax.text((x[left] + x[right]) / 2, 1.025, chart_label,
+                transform=ax.get_xaxis_transform(), ha='center', va='bottom',
+                fontsize=10, color='#596273', linespacing=1.3)
+        if left:
+            ax.axvline((x[left - 1] + x[left]) / 2,
+                       color='#cbd1da', linewidth=0.8, linestyle='--')
     ax.set_ylabel("Percent (%)", fontsize=13)
     ax.set_xlabel("Models", fontsize=13, labelpad=18)
     ax.set_ylim(0, 90)
@@ -67,12 +83,12 @@ def main() -> None:
     ax.tick_params(axis="x", colors="#596273", labelsize=9.5, length=0, pad=8)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=18, ha="right")
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.07), ncol=3,
+    fig.legend(*ax.get_legend_handles_labels(), loc="upper center", bbox_to_anchor=(0.5, 0.91), ncol=3,
               frameon=False, fontsize=11, handlelength=1.8, columnspacing=1.5)
     fig.text(0.99, 0.015,
              "Hatched: independent runs. Suites/tracks differ. Historical v2 selection ≠ frozen-input v2. Qwen recovery ≠ original capped T1.",
              ha="right", va="bottom", fontsize=9, color="#596273")
-    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.30, top=0.82)
+    fig.subplots_adjust(left=0.06, right=0.99, bottom=0.30, top=0.77)
     svg = OUT / "leaderboard-full.svg"
     fig.savefig(svg, bbox_inches="tight", facecolor="white", metadata={"Date": None})
     svg.write_text('\n'.join(line.rstrip() for line in svg.read_text().splitlines())+'\n')

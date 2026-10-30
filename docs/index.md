@@ -36,18 +36,22 @@ The figure and table below combine the published AstroVisBench reference rows wi
 
 *Hatched bars identify independent local evaluations. Labels distinguish **lite-72 subset v1**, the **historical v2 task selection**, and Qwen's **recovery** track. Both [SVG](assets/leaderboard-full.svg) and [PNG](assets/leaderboard-full.png) are regenerated together. Published reference rows reproduce the official leaderboard snapshot available on 30 September 2026.*
 
-| Model | Suite | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
+**Display order:** grouped by suite and track, then **CorrectV descending within
+each group** (ties by model ID; missing scores last). Chart and table use the
+same order. Group placement is not a cross-track performance ranking.
+
+| Model | Suite / track | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| Gemini 2.5 Pro | Full-432 | 69.20% | 0.600 | 79.90% | 15.70% | 9.30% | 25.90% | 28.50% |
-| Claude Sonnet 3.7 | Full-432 | 49.10% | 0.633 | 65.30% | 9.50% | 21.30% | 14.60% | 19.20% |
-| Claude Opus 4.0 | Full-432 | 49.80% | 0.644 | 66.90% | 9.30% | 12.70% | 28.90% | 16.00% |
-| o3-mini | Full-432 | 48.60% | 0.694 | 69.70% | 10.40% | 2.80% | 26.40% | 29.60% |
-| GPT-4o | Full-432 | 46.30% | 0.480 | 67.40% | 8.60% | 6.00% | 23.40% | 28.50% |
-| QwQ | Full-432 | 35.90% | 0.472 | 39.10% | 8.20% | 3.90% | 12.60% | 14.90% |
-| Qwen-2.5 | Full-432 | 43.10% | 0.527 | 64.60% | 10.40% | 3.70% | 20.10% | 29.90% |
-| Llama-4 Maverick | Full-432 | 44.70% | 0.546 | 71.30% | 9.70% | 9.00% | 21.50% | 30.60% |
-| Qwen3.8-27B Q4_K_M† | Full-432 | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
-| Kimi K3† | Full-432 | 48.15% | 0.731 | 76.85% | 16.05% | 10.88% | 18.13% | 31.79% |
+| Gemini 2.5 Pro | Full-432 · published reference | 69.20% | 0.600 | 79.90% | 15.70% | 9.30% | 25.90% | 28.50% |
+| o3-mini | Full-432 · published reference | 48.60% | 0.694 | 69.70% | 10.40% | 2.80% | 26.40% | 29.60% |
+| Qwen-2.5 | Full-432 · published reference | 43.10% | 0.527 | 64.60% | 10.40% | 3.70% | 20.10% | 29.90% |
+| Llama-4 Maverick | Full-432 · published reference | 44.70% | 0.546 | 71.30% | 9.70% | 9.00% | 21.50% | 30.60% |
+| Claude Sonnet 3.7 | Full-432 · published reference | 49.10% | 0.633 | 65.30% | 9.50% | 21.30% | 14.60% | 19.20% |
+| Claude Opus 4.0 | Full-432 · published reference | 49.80% | 0.644 | 66.90% | 9.30% | 12.70% | 28.90% | 16.00% |
+| GPT-4o | Full-432 · published reference | 46.30% | 0.480 | 67.40% | 8.60% | 6.00% | 23.40% | 28.50% |
+| QwQ | Full-432 · published reference | 35.90% | 0.472 | 39.10% | 8.20% | 3.90% | 12.60% | 14.90% |
+| Kimi K3† | Full-432 · independent no-tool | 48.15% | 0.731 | 76.85% | 16.05% | 10.88% | 18.13% | 31.79% |
+| Qwen3.8-27B Q4_K_M† | Full-432 · independent no-tool | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
 | Claude Code + Kimi K3‡ | (lite-72 subset v1) T1 agent | 62.50% | 0.657 | 84.72% | 18.52% | 11.11% | 19.44% | 35.65% |
 | GPT-6 Astra medium + Codex§ | (lite-72 v2 selection) historical inputs, T1 | 66.67% | 0.6700 | 83.33% | 25.93% | 8.33% | 25.00% | 24.07% |
 | Claude Code + Kimi K3§ | (lite-72 v2 selection) historical inputs, T1 | 61.11% | 0.6162 | 86.11% | 17.59% | 12.50% | 21.76% | 34.26% |

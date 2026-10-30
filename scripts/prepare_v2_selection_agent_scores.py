@@ -11,6 +11,8 @@ import json
 from pathlib import Path
 import statistics
 
+from leaderboard_order import ordered_rows
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT/'docs/data'
 MODELS = {
@@ -144,6 +146,7 @@ def export(artifacts):
     if note not in leaderboard['notes']:leaderboard['notes'].insert(0,note)
     for row in leaderboard['rows']:
         if row['id']=='claude-code-k3-lite72':row['label']='Claude Code\n+ Kimi K3\n(lite-72 subset v1)'
+    leaderboard['rows']=ordered_rows(leaderboard['rows'])
     write(OUT/'leaderboard.json',leaderboard)
 
 if __name__=='__main__':

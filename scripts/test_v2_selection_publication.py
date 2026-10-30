@@ -7,11 +7,37 @@ import re
 from statistics import mean
 import unittest
 
+from leaderboard_order import GROUPS, group_id, ordered_rows
+from order_leaderboard import reorder_markdown
+
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/'docs/data'
 
 
 class PublicationTests(unittest.TestCase):
+    def test_display_order_and_table_match(self):
+        leaderboard=json.loads((DATA/'leaderboard.json').read_text())
+        rows=leaderboard['rows']
+        self.assertEqual(rows,ordered_rows(rows))
+        self.assertEqual([r['id'] for r in rows],[
+            'gemini-2.5-pro','o3-mini','qwen-2.5','llama-4-maverick',
+            'claude-sonnet-3.7','claude-opus-4.0','gpt-4o','qwq',
+            'kimi-k3','qwen38-27b-q4-k-m','claude-code-k3-lite72',
+            'gpt6-lite72-v2-selection','claude-k3-lite72-v2-selection',
+            'codex-qwen38-lite72-v2-selection-recovery'])
+        self.assertEqual([g['id'] for g in leaderboard['display_order']['groups']],
+                         [g[0] for g in GROUPS])
+        text=(ROOT/'docs/index.md').read_text()
+        self.assertEqual(text,reorder_markdown(text,list(reversed(rows)),rows))
+        self.assertEqual(group_id(rows[-1]),'historical-v2-recovery')
+
+    def test_sort_ties_and_missing_metrics(self):
+        rows=[dict(id=id,source='published-reference',correct_v=value)
+              for id,value in [('missing',None),('b',10),('a',10),('c',20)]]
+        self.assertEqual([r['id'] for r in ordered_rows(rows)],['c','a','b','missing'])
+        with self.assertRaises(ValueError):
+            group_id(dict(id='unknown',source='independent-local'))
+
     def test_complete_selection_and_metric_denominators(self):
         manifest=DATA/'lite72-v2-candidate.json'
         digest=hashlib.sha256(manifest.read_bytes()).hexdigest()
