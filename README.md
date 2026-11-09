@@ -29,6 +29,8 @@ See the [full table, metric definitions and limitations](docs/index.md).
 2. Give your coordinating agent the [benchmark prompt](LITE72_AGENT_PROMPT.md).
 3. Send the compressed generation/execution results to the maintainer for common judging. You do not need judge credentials.
 
+Data downloads: [GitHub](https://github.com/Jiangxuejian/AstroVisBench/releases/tag/lite72-data-20261109) · [GitLab](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1).
+
 Lite-72 spans spectroscopy, photometry, imaging, time series, cosmology and
 simulation/modeling, using provisional notebook-family labels. It is a fixed
 sample, not a replacement for the full benchmark.

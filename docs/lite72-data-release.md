@@ -9,7 +9,8 @@ The **~9.9 GB download** supports all **72 workflows / 144 tasks** across
 61 astronomy notebooks. It includes notebook data and shared calibration files;
 you will still need a scientific Python environment.
 
-[Data on GitLab](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1) ·
+[Download from GitHub](https://github.com/Jiangxuejian/AstroVisBench/releases/tag/lite72-data-20261109) ·
+[GitLab mirror](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1) ·
 [Benchmark prompt for your agent](../LITE72_AGENT_PROMPT.md)
 
 ## Start here
@@ -21,8 +22,23 @@ execution outputs. Downloads are public; no account is needed.
 <details>
 <summary>Download and preparation commands for you or your agent</summary>
 
-Requires Git, [Git LFS](https://git-lfs.com/) and Python 3.10+.
-Use these commands rather than downloading a source ZIP.
+Requires Python 3.10+. Choose one download source; do not use the automatically
+generated Source code ZIP. Start in a new directory.
+
+**GitHub:** download the release files without installing Git LFS.
+
+```bash
+mkdir astrovisbench-data && cd astrovisbench-data
+base=https://github.com/Jiangxuejian/AstroVisBench/releases/download/lite72-data-20261109
+for file in README.md BUNDLE.sha256 SHA256SUMS UPLOAD_READY.json \
+    INSTALLER_REVIEW.json NIRISS_INTEGRITY.json PAYLOAD_REVIEW.json \
+    RESTORE_HEADER_REVIEW.json lite72_share_bundle.py \
+    lite72-share.tar.xz.part-{00..04}; do
+  curl --fail --location --retry 3 --output "$file" "$base/$file" || exit 1
+done
+```
+
+**GitLab alternative:** requires Git and [Git LFS](https://git-lfs.com/).
 
 ```bash
 git lfs install
@@ -31,6 +47,11 @@ git clone --single-branch --branch data/lite72-20261109-curated-v1 \
 cd astrovisbench-data
 git lfs pull
 cd lite72-data/20261109-curated-v1
+```
+
+**After either download:**
+
+```bash
 sha256sum -c SHA256SUMS
 cat lite72-share.tar.xz.part-00 lite72-share.tar.xz.part-01 \
     lite72-share.tar.xz.part-02 lite72-share.tar.xz.part-03 \
