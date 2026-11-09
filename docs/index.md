@@ -1,55 +1,37 @@
 ---
 title: AstroVisBench — Independent Model Evaluations
-description: Reproducible evaluations of language models and coding agents on astronomical data processing and visualization.
+description: How well can AI analyse astronomical data and create scientifically correct plots?
 ---
 
-# Astronomy workflows. Reproducible model evaluations.
+# AI for astronomical analysis and visualization
 
-How well can a language model turn an astronomy request into working analysis code and a scientifically correct visualization?
+We test whether models can turn an astronomy request into working analysis code
+and a scientifically correct plot. This is an independent extension of
+[AstroVisBench](https://astrovisbench.github.io/), following its original workflow.
 
-We evaluate models on **AstroVisBench**, preserve their generated code and evaluation records, and report what succeeds, what fails, and under which conditions. Our aim is to make new evaluations easier to run and results easier to compare over time.
+[Results](#results) · [Run Lite-72](#run-lite-72) · [Data](lite72-data-release.md) · [Detailed methods](lite72-v2-historical.md)
 
-This is an **independent evaluation project**, built on the original AstroVisBench benchmark. It is not the official AstroVisBench website or leaderboard.
+## What is tested?
 
-[Results](#results) · [Workflow](#workflow) · [Lite benchmark](#a-smaller-benchmark) · [Data](#data-sharing) · [Coding agents](#coding-agents) · [Reproducibility](#reproducibility) · [Credits](#credits)
+The full benchmark contains **432 workflows**, each with an analysis task and a
+visualization task. **Lite-72** is a fixed sample of 72 workflows
+(**144 tasks**) for a lower-cost evaluation.
 
-**Content snapshot: 30 October 2026.** Historical-v2-selection GPT-6 + Codex, Claude Code + K3 and the separate Codex + Qwen recovery track now each have **216 validated judge outcomes over 72 workflows**. These are **not frozen-input v2 scores**. Full-432 and v1 results are retained; historical/live-network variability and Qwen's supplemental retries preclude a controlled common ranking.
-
-**9 November documentation update:** a verified **9.88 GB** Lite-72 sharing
-bundle is publicly shared on GitLab; see [data sharing](#data-sharing).
-No model scores or scientific validation claims changed.
-
-## What we measure
-
-AstroVisBench contains **432 workflows from 110 source notebooks**. Each workflow contains a processing task and a visualization task: **864 code-generation tasks in total**.
-
-- **Processing:** Can the model produce the data products needed for the analysis?
-- **Visualization:** Can it create a plot that communicates the requested scientific information correctly?
-
-Successful execution alone does not establish scientific correctness. We report execution success, variable inspection, and visualization quality separately.
-
-The original benchmark deliberately evaluates visualization with **reference processing code supplied as context**. It does not require the visualization stage to rely on the model's own processing output. We preserve that distinction.
+Lite covers spectroscopy, photometry, imaging, time series, cosmology and
+simulation/modeling using provisional source-notebook families. It is not
+guaranteed to reproduce full-benchmark scores or model rankings.
 
 ## Results
 
-### Leaderboard snapshot · Full-432 and Lite-72 v2 selection
+*Results through 30 October 2026. Data-sharing guide updated 9 November.*
 
-The figure and table below combine published AstroVisBench reference rows with independently audited **Full-432 and historical Lite-72 v2-selection** runs. Lite-72 v1 is excluded from this current display. The published rows reproduce the official leaderboard snapshot; hatched bars are our local evaluations. **Because the judge, transport, suite, inputs and tool protocols differ, this sorted display is not one directly comparable ranking or a replacement for the published rows.**
+![AstroVisBench model comparison](assets/leaderboard-portrait.svg)
 
-![AstroVisBench portrait leaderboard, sorted by CorrectV](assets/leaderboard-portrait.svg)
-
-*Portrait layout with horizontal bars. Labels show model/harness names only,
-adding `(lite-bench)` for the historical Lite-72 v2 selection. The no-tool Qwen
-Full-432 row is omitted from the figure, but retained in the table/audit below.
-The Codex + Qwen lite-bench result is still the separately documented recovery
-track. Both [SVG](assets/leaderboard-portrait.svg) and [PNG](assets/leaderboard-portrait.png)
-are regenerated together. Published reference values use the official snapshot
-available on 30 September 2026.*
-
-**Display order:** **CorrectV descending across the displayed rows** (ties by
-model ID; missing scores last). The figure follows the table's relative order,
-omitting no-tool Qwen. Suite,
-tool-policy and recovery differences remain explicit; no scores were changed.
+Hatched bars are our independent runs; `(lite-bench)` marks Lite-72.
+Models are displayed by CorrectV, but differences in task sample, tools,
+judge and execution conditions mean this is **not one controlled ranking**.
+The no-tool Qwen result appears in the table only.
+[Download PNG](assets/leaderboard-portrait.png).
 
 | Model | Suite / track | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -67,217 +49,56 @@ tool-policy and recovery differences remain explicit; no scores were changed.
 | Qwen3.8-27B Q4_K_M† | Full-432 · independent no-tool | 32.18% | 0.474 | 52.55% | 7.18% | 9.95% | 10.49% | 24.92% |
 | Codex + Qwen3.8-27B Q4_K_M¶ | (lite-72 v2 selection) historical inputs, recovery | 34.72% | 0.5789 | 54.17% | 6.94% | 9.72% | 9.26% | 28.24% |
 
-† Independent Full-432 local run, three GPT-6 Astra medium judge trials; see the [Qwen3.8 provenance record](data/qwen38-audit.json) and [Kimi K3 provenance record](data/k3-audit.json). Published rows are reference values from the [official leaderboard](https://astrovisbench.github.io/), not rerun in this project. The excluded [Lite-72 v1 Claude + K3 audit](data/claude-k3-lite-audit.json) remains historical evidence, not a current leaderboard row.
+† Independent full-benchmark model runs without tools.
+§ Tool-assisted agents on the current Lite-72 selection.
+¶ A separate Qwen recovery run with extra attempts; missing submissions count
+as failures. See the [run records](lite72-v2-historical.md).
 
-§ GPT-6 and Claude + K3 each combine 65 unchanged baseline executions with seven supplemental tasks; no best-of selection or generated-code repair. VIscore uses 40 and 33 eligible inspections. All 72 workflows now have three judge outcomes, including Crash/VisFail. See the [selection and provenance guide](lite72-v2-historical.md), [GPT-6 audit](data/gpt6-v2-selection-audit.json) and [Claude + K3 audit](data/claude-k3-v2-selection-audit.json).
+### How to read the scores
 
-¶ **Separate recovery track, not the original capped T1 score.** Qwen's original generation lacked processing code for tasks 17/51/52. One fresh bounded processing attempt each for 51/52 produced code only for 51, which alone was substituted. Missing 17/52 count as failures across the full 72-task denominator and are excluded from VIscore (19 eligible). Raw upstream blank-cell execution results remain untouched; a separate accounting view prevents missing code from inflating success. All 72 visualization submissions are original. External-download timeouts affected execution. [Qwen recovery audit and per-task outcomes](data/codex-qwen38-v2-selection-recovery-audit.json).
-
-**Correction and fairness:** K3's previous execution metrics mixed an older execution artifact with repaired judge records. The corrected row reconciles all 432 records, with zero execution/judge Crash mismatches. Judge category percentages are unchanged. This fixes historical bookkeeping, not live-network variability; see the [execution fairness audit](execution-fairness.md). No controlled-rerun scores are published yet.
-
-**Coverage:** Qwen3.8 and Kimi K3 each have 432 executed workflows and three visualization outcomes per workflow. All three displayed historical-v2-selection rows cover 72 workflows and 216 valid judge outcomes each. Coverage includes crashes and Qwen's missing processing stages; it is not a success count. These are separate suite/protocol tracks, not one pooled ranking.
-
-**Generation track:** No tools were supplied to the Qwen3.8 or Kimi K3 Full-432 model runs. Qwen3.8 ran through the local model harness; Kimi K3 used the Kimi Code API with `tool_choice=none`. Claude Code + K3 is deliberately separate: its Lite T1 agent could inspect approved text inputs, edit its candidate, run bounded checks, and submit. The operator's use of software to run the benchmark is separate from the evaluated system's permitted capabilities.
-
-**Judge:** All local visualization rows request `gpt-6-astra`, effort `medium`, three trials through Codex CLI `0.153.4`. Historical-v2-selection judges completed on 28 October (GPT-6/Claude) and 30 October (Qwen recovery). Their runtime is Python `3.10.12`, ijson `3.5.1`; per-trial outcomes and checkpoint hashes are in the audits. Codex `0.162.1` is the GPT-6/Qwen generation harness, not the judge version. The original rubric, image order and Crash/VisFail rules are retained with a different provider adapter. Current Mac app version and immutable served-model build are unobserved; the old user-supplied app version `26.908.70816` is not asserted current. Automated judging is not expert validation; same-model bias is possible for GPT-6-generated plots.
-
-[Download Qwen3.8 provenance](data/qwen38-audit.json) · [Download Kimi K3 provenance](data/k3-audit.json) · [Download Claude Code + K3 provenance](data/claude-k3-lite-audit.json) · [Original AstroVisBench leaderboard](https://astrovisbench.github.io/)
-
-### Archived Claude Code + Kimi K3 · Lite-72 v1 T1
-
-This historical result is **excluded from the current figure/table**. It evaluated the Claude Code + K3 system, not K3 in isolation: a fresh session for each stage, approved text/tools, three candidate checks, two feedback corrections, and no image viewing. The unchanged audit is retained for reproducibility.
-
-See the [Claude Code + K3 audit record](data/claude-k3-lite-audit.json) for the stage limits, execution checksum, judge provenance, and metric denominators.
-
-### Coding agents · historical v2 selection
-
-These are execution-complete T1 supplements, not replacements for v1 or a release of frozen-input v2. GPT-6 requested `gpt-6-astra` / medium via Codex CLI `0.162.1`. Claude requested `k3` with the original low-effort target; its preserved baseline includes CLI `2.1.285`/`2.1.289`, while the seven-task supplement is pinned to `2.1.285`. Both retain 20 requests, 32,768 output tokens and three candidate checks per independent stage, no image viewing, and the original final processing inspection tests. Hosted aliases and baseline CLI drift limit exact reproducibility.
-
-Claude's outer executor segfaulted after three supplemental records. All three were preserved; the remaining four completed through separate unchanged executor processes, with **no native thread-setting overrides**. No generated code was repaired. GPT-6's final executor completed normally. [Details and downloadable per-task scalars](lite72-v2-historical.md).
-
-Codex + Qwen uses pinned **Qwen3.8-27B Q4_K_M** weights, Codex `0.162.1`, llama.cpp `b10679`, and a recorded Responses/compaction adapter. Its original capped run remains unchanged; the chart adds only a clearly labelled supplemental recovery result. See the [recovery procedure and model checksum](lite72-v2-historical.md#qwen-supplemental-recovery).
-
-### Reading the metrics
-
-| Metric | Interpretation |
+| Metric | Scientific interpretation |
 |---|---|
-| Processing no error | Percentage of workflows whose generated processing code executes without crashing. |
-| VIscore | Mean upstream unweighted variable-inspection score among successful processing runs with nonempty inspections. Full-432 Qwen/K3 use 108/113 eligible workflows; historical-v2-selection GPT-6/Claude/Qwen recovery use 40/33/19. |
-| Visualization no error | Percentage of workflows whose generated visualization code executes without crashing. |
-| CorrectV | Percentage assigned “No Error” by the visualization judge. |
-| VisFail | Percentage that fail the evaluator's requirement to produce the expected single visualization. |
-| Minor / Major error | Percentage assigned the corresponding visualization-error category. |
+| Processing no error | Analysis code ran without crashing—not proof that its answer is correct. |
+| VIscore | Agreement with reference data products among eligible successful analysis runs. Higher is better. |
+| Visualization no error | Plotting code ran without crashing. |
+| CorrectV | Visualizations judged to have no errors. Higher is better. |
+| VisFail | Outputs that do not meet the single-visualization requirement. |
+| Minor / Major error | Visualizations judged to contain the corresponding errors. Lower is better. |
 
-For this page, visualization category percentages are **averaged across the three trials**, using all workflows as the denominator for each trial. They are not majority-vote scores and are not restricted to successful plots. For the Qwen3.8 Full-432 row, the visualization crash rate is **47.45%**; crash, VisFail, CorrectV, minor error, and major error together account for all outcomes, apart from rounding.
+Visualization percentages average three judgments over all workflows, including
+execution failures. Local judgments use GPT-6 Astra medium, not human expert
+validation; judging GPT-6's own outputs may introduce bias.
 
-The local upstream-compatible JSON export stores trial 1 in its single-result field. We explicitly identify our three-trial aggregation so that an export convention is not mistaken for a different model result. For QWEN, first-trial CorrectV happens to equal the three-trial mean.
+Network failures and differing inputs can affect scores. The existing Lite
+results use historical inputs, not a fully offline benchmark. K3's historical
+bookkeeping correction is included. Details are retained in the
+[execution audit](execution-fairness.md) and
+[model-by-model run records](lite72-v2-historical.md).
 
-## Workflow
+## Run Lite-72
 
-**Prepare → Generate → Execute → Judge → Aggregate**
+1. [Prepare the data](lite72-data-release.md): about **9.9 GB** to download; allow **50 GB free**, plus scientific software and execution outputs.
+2. Give your coordinating agent the [run prompt](../LITE72_AGENT_PROMPT.md). It preserves the original task definitions and evaluation procedure.
+3. Submit the compressed generated code and execution results to the maintainer for common judging. You do not need to run a judge.
 
-**Contribute a new run:** give your coordinating agent the
-[copy-paste operator prompt](../LITE72_AGENT_PROMPT.md). It covers the exact
-v2 selection, T0/T1 isolation/budgets, original execution and a checked compressed
-package. Contributors send execution evidence; the maintainer runs the common
-judge afterward. An unrestricted coding-agent session is not automatically T1.
+The workflow is **prepare → generate → execute → judge → aggregate**.
+Standard model runs have no tools; coding-agent runs declare their tools and
+budgets separately. Reference answers and hidden tests stay unavailable to the
+evaluated agent. As upstream, visualization tasks receive reference processing
+code rather than the model's own analysis output.
 
-### 1. Prepare a fixed experiment
-
-Pin the upstream source revision, dataset, model weights, dependencies, and evaluation configuration. Choose either the full benchmark or an explicitly versioned subset of task UIDs. Check that reference workflows and required inputs are available in the execution environment.
-
-### 2. Generate code
-
-Use the pinned upstream prompt construction for processing and visualization. Preserve the original stage-specific context and capture raw requests and responses. Record any transport adaptation or response extraction, including removal of a model's native reasoning block.
-
-For the standard model track, generation has no tool calls, execution feedback, or iterative code repair. Complete and checkpoint generation for the declared suite before final execution.
-
-### 3. Execute the frozen submissions
-
-Run generated code through the pinned upstream executor. Preserve variable-inspection checks, visualization outputs, exceptions, and relevant environment details. Keep generated submissions unchanged; do not manually repair code to improve scores.
-
-### 4. Judge completed visualization outputs
-
-Apply the pinned visualization rubric and record three trials, the requested judge model and settings, and the returned metadata that the provider exposes. Keep crashes, visualization-format failures, and judge invocation failures distinguishable. Invocation failures remain pending until resolved; they are not scientific judgments of the model.
-
-### 5. Aggregate and publish
-
-Verify task coverage and metric denominators. Publish a compact score record, configuration, checksums, and an explanation of any protocol differences. Preserve earlier runs rather than silently replacing them.
-
-Implementation follows the [original repository workflow](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench). The portable public runner is not yet a one-command interface; the [Lite-72 run guide](../LITE72_RUN_GUIDE.md) documents the selector and original command sequence.
-
-## A smaller benchmark
-
-A full run can be expensive. We are preparing a smaller, fixed suite for routine model screening while retaining both processing and visualization tasks and the same evaluation procedure.
-
-| Suite | Workflows | Generation tasks | Intended use | Status |
-|---|---:|---:|---|---|
-| Smoke | 12 | 24 | Verify the installation and complete pipeline | Planned; task list not yet frozen |
-| Lite v1 (archived) | 72 | 144 | Original screening study | Archived; not the current submission selection |
-| Lite v2 task selection | 72 | 144 | Data-ready subset development | Candidate; historical-input scores only, frozen-input suite not released |
-| Full | 432 | 864 | Reference evaluation | Completed Qwen and Kimi K3 results above |
-
-Lite uses one-sixth as many workflows as Full, but this is **not a promise of one-sixth the runtime or cost**. Task runtimes vary, and setup has fixed costs. Three visualization-judge trials give up to 216 LLM calls for Lite before retries; crashes and VisFail outcomes do not require those calls.
-
-### Archived Lite-72 candidate v1 study
-
-The current candidate selects **72 workflows from 62 source notebooks**, with 12 from each provisional source-notebook family:
-
-- Spectroscopy
-- Photometry
-- Image processing
-- Time-series analysis
-- Cosmology and spatial structure
-- Simulation and modeling
-
-Each family contributes four workflows from each of three code-length bands. Code length is a complexity proxy, not a measured difficulty score. A fixed seed and recorded selection procedure favor notebook diversity. **Selection did not use QWEN outcomes, and the subset was not tuned afterward to match its full-run scores.**
-
-These are provisional notebook-family labels, not verified classifications of individual tasks. A photometry notebook can contain a spectral plot, and the current spatial-structure family includes Galactic structures and HEALPix maps. Task-level labels and secondary tags need review before a public Lite release.
-
-[Download candidate UID manifest](data/lite72-candidate-v1.json) · [Download selected tasks and QWEN outcomes (CSV)](data/lite72-qwen-tasks.csv) · [Run the Lite-72 subset](../LITE72_RUN_GUIDE.md)
-
-### Does the candidate reproduce the full result?
-
-Not closely enough to claim that it replaces the full benchmark.
-
-| Qwen3.8-27B Q4_K_M | Full-432 | Lite-72 candidate |
-|---|---:|---:|
-| Processing no error | 32.18% | 37.50% |
-| VIscore | 0.474 | 0.381 |
-| Visualization no error | 52.55% | 56.94% |
-| CorrectV | 7.18% | 11.11% |
-| VisFail | 9.95% | 13.89% |
-
-Lite's VIscore uses 21 eligible workflows, compared with 108 for Full. All percentages use the same definitions as the full result above.
-
-Equal family allocation changes the mixture of tasks relative to Full. This first candidate gives higher execution success and CorrectV, but lower VIscore. One model cannot establish ranking stability across models. We will review scientific coverage and compare fixed-subset results across additional completed models before freezing Lite v1.
-
-Lite results will be presented separately from Full results. Arbitrary custom subsets are useful for development, but do not belong in the standard rankings. A first-N slice is not our selection method.
-
-## Data sharing
-
-The [GitLab code mirror](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/)
-also hosts a separate Lite-72 data branch. **No data package is
-committed to GitHub.** The shared package is **9,879,807,635 bytes (9.88 GB)**:
-five archive parts plus a standalone restore helper, checksums and review records.
-It retains all **72 workflows / 144 stages across 61 notebook environments**.
-Download from the public
-[GitLab-only data branch](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1)
-using Git LFS and the commands in the guide below; `main` remains code-only.
-
-This is an **operator-only convenience bundle**, not a fully offline or
-licence-cleared dataset release. Some live services remain. A declared compact
-NIRISS input preserves all 70 SCI arrays but omits unused HDUs; unused installer
-copies are removed while expanded calibration files are retained. Record this
-data variant with new runs; do not silently pool them with historical scores.
-Never expose reference/solution material to the evaluated coding agent.
-
-See the [bundle scope, checksums and restoration guide](lite72-data-release.md).
-For a new contribution, follow the [current agent prompt](../LITE72_AGENT_PROMPT.md),
-not the archived v1 run guide. Existing leaderboard results are unchanged.
-
-## Coding agents
-
-Tool-assisted coding is a separate experimental track. Its unit of comparison is **model + harness/version + permitted tools + budget**, rather than the model name alone.
-
-The draft protocol distinguishes three profiles:
-
-| Profile | Evaluated system may do |
-|---|---|
-| T0 | Generate code using the original no-tool protocol |
-| T1 | Read approved inputs, edit its code, and run a bounded number of candidate checks |
-| T2 | T1 plus inspect images produced by its own candidate code |
-
-Tool-assisted runs must declare iteration, execution, token, and wall-clock limits. Reference answers, hidden evaluation feedback, other models' results, and reference plots remain outside the evaluated agent's accessible workspace. The original reference processing context is still supplied in the visualization stage.
-
-Every displayed row identifies its suite and tool track, even when globally sorted by CorrectV. Manually supervised pilots or products with unobservable budgets will be identified as such. T1 agent results are not no-tool model results; the v1 Claude + K3 entry is now archived rather than displayed.
-
-## Reproducibility
-
-Each published result should identify:
-
-- The model repository, immutable weight revision, parameter size, and quantization.
-- The runtime and harness versions, generation settings, prompt construction, and tool policy.
-- The source revision, dataset checksum, subset manifest, and task coverage.
-- The execution environment, hardware, executor settings, and declared modifications.
-- The judge prompt, requested model, reasoning settings, trial count, transport version, and available response metadata.
-- The aggregation rule, metric denominators, pending records, and known limitations.
-
-The current reference inputs are:
-
-| Component | Pinned identifier |
-|---|---|
-| Upstream source | `707657f8fac4df50a6cf6c2c4671bf6a0258a201` |
-| Dataset revision | `43e4784c638f946b8362bc5ecaef4117d3dc7752` |
-| Dataset SHA-256 | `c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2` |
-| QWEN weight revision | `0669b98607d47046c7c2b3f801011d54a08cfccf` |
-| Kimi generation transport | Kimi Code API, requested model `k3` |
-| Claude Code harness | `2.1.285`; K3 requested; T1 protocol |
-| Historical-v2-selection GPT-6 harness | Codex CLI `0.162.1`; `gpt-6-astra`, medium; T1 |
-| Historical-v2-selection Claude harness | Baseline CLI `2.1.285`/`2.1.289`; supplement `2.1.285`; K3, T1 |
-
-Reproducibility includes stating what cannot be pinned. Hosted model aliases, unavailable provider metadata, external data services, and nondeterministic execution can limit exact replay. A changed judge or tool policy defines a new evaluation series; it does not silently replace the old one.
-
-### Updates
-
-Results will be added after completed runs are audited. Each update should state the model and protocol, suite, coverage, and any corrections. We do not commit to a fixed update schedule.
-
-- **30 September 2026:** Prepared this public-content draft with the audited QWEN Full-432 result and the exploratory Lite-72 comparison. These are local artifacts; this entry does not indicate that the website has been deployed.
-- **5 October 2026:** Added the audited Kimi K3 Full-432 result.
-- **8 October 2026:** Added the Claude Code + K3 Lite-72 T1 result to the snapshot figure.
-- **27 October 2026:** Added complete-72 GPT-6 + Codex and Claude + K3 execution metrics for the historical v2 task selection, retaining the old v1 row. Updated SVG and PNG; new judge metrics remain pending. This is not a frozen-input v2 score release.
-- **30 October 2026:** Published all 216 validated judge outcomes per historical-v2-selection agent, including the separately labelled Codex + Qwen recovery track. Updated table, SVG, PNG and scalar audits; original Full-432/v1 results remain unchanged.
-
-### Limits of interpretation
-
-These results describe performance on a public collection of astronomy workflows under the recorded conditions. They do not establish general scientific reliability or independence from training-data contamination. Automated visualization judgments can disagree with astronomers. Our GPT-6 judge adapter has not been presented here as a new expert-validated judge calibration.
+Use the current **v2 task selection**. The older v1 study is
+[archived](../LITE72_RUN_GUIDE.md); do not mix the selections.
+A fully offline data release is still in development.
 
 ## Credits
 
-AstroVisBench was introduced by Sebastian Antony Joseph and collaborators. Please cite the original work when using its benchmark, and distinguish this project's new runs and evaluation adaptations from the authors' published results.
+AstroVisBench was introduced by Sebastian Antony Joseph and collaborators.
+Please cite the original work and distinguish these independent evaluations
+from the authors' published results.
 
-[Paper: AstroVisBench](https://arxiv.org/abs/2505.20538) · [Original code](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench) · [Dataset](https://huggingface.co/datasets/sebajoe/AstroVisBench) · [Official website](https://astrovisbench.github.io/)
-
-> Sebastian Antony Joseph et al. (2025). *AstroVisBench: A Code Benchmark for Scientific Computing and Visualization in Astronomy*. arXiv:2505.20538.
-
-Upstream benchmark material retains its applicable attribution and share-alike requirements; model weights remain governed by their own licenses. This project does not redistribute model weights or large execution datasets through the website.
+[Paper](https://arxiv.org/abs/2505.20538) ·
+[Original code](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench) ·
+[Dataset](https://huggingface.co/datasets/sebajoe/AstroVisBench) ·
+[Official leaderboard](https://astrovisbench.github.io/) ·
+[Reproducibility records](data/leaderboard.json)

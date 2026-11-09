@@ -1,7 +1,6 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "package_version": "20261109-curated-v1",
-  "public_download_verified_at": "2026-11-09T04:20:17.415248+00:00",
   "method": "anonymous Git LFS batch download; full SHA256 streaming verification",
   "repository": "https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite",
   "branch": "data/lite72-20261109-curated-v1",
@@ -55,8 +54,8 @@
     },
     {
       "name": "README.md",
-      "bytes": 4272,
-      "sha256": "54f05b383b0a7e9a1af5a61a891b947bafe1cb133fc0659b4e49437126a12902"
+      "bytes": 1237,
+      "sha256": "d84bd847bc766ea31090e2a5a240935e562404b5b9ec8e34ebd226ae9fea10c8"
     },
     {
       "name": "RESTORE_HEADER_REVIEW.json",
@@ -66,7 +65,7 @@
     {
       "name": "SHA256SUMS",
       "bytes": 1154,
-      "sha256": "daa52acfeb93d575bd17e9999fd81a9d580eccb13b2cdbfd40e91090e6a90655"
+      "sha256": "4b39986301eea8fd1ff4bc592f5aac5b979aa4852030672ed62f2289f7b8f8fc"
     },
     {
       "name": "UPLOAD_READY.json",
@@ -79,10 +78,15 @@
       "sha256": "13e5491919a29a17e04207b9bfb3a615790ebd6a58e18645aeaddfa85967a0d9"
     }
   ],
-  "total_package_bytes": 9879807635,
+  "total_package_bytes": 9879804600,
   "total_part_bytes": 9879775056,
   "archive_sha256": "3c529d7f389db96d7d652f9749391c443c4b5fad4e8e96c96b88fbaffb9dc06a",
   "offline_complete": false,
   "redistribution_review_complete": false,
-  "note": "Preparation metadata remains immutable. Public download authorized by owner; not a licence-clearance certificate."
+  "note": "README shortened for astronomers; SHA256SUMS updated. Scientific archive and all five LFS part identities unchanged. Parts retain their original full-download verification date; current metadata were anonymously downloaded and verified separately. Public sharing is not licence clearance.",
+  "initial_public_download_verified_at": "2026-11-09T04:20:17.415248+00:00",
+  "parts_verified_at": "2026-11-09T04:20:17.415248+00:00",
+  "metadata_verified_at": "2026-11-09T07:15:21.936115+00:00",
+  "documentation_revision": 2,
+  "data_archive_unchanged": true
 }

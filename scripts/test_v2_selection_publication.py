@@ -119,7 +119,7 @@ class PublicationTests(unittest.TestCase):
     def test_sanitized_exports_and_local_links(self):
         for name in ['gpt6-v2-selection-audit.json','claude-k3-v2-selection-audit.json',
                      'codex-qwen38-v2-selection-recovery-audit.json','lite72-v2-candidate.json',
-                     'lite72-share-publication.json']:
+                     'lite72-share-publication.json','lite72-share-publication-initial.json']:
             text=(DATA/name).read_text()
             for forbidden in ['/mnt/','/home/','Bearer ','Authorization','access_token','refresh_token']:
                 self.assertNotIn(forbidden,text)
@@ -127,12 +127,17 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(publication['package_version'],'20261109-curated-v1')
         self.assertEqual(len(publication['parts']),5)
         self.assertEqual(len(publication['metadata']),9)
-        self.assertEqual(publication['total_package_bytes'],9879807635)
+        self.assertLess(publication['total_package_bytes'],10000000000)
+        self.assertEqual(publication['total_part_bytes'],9879775056)
+        initial=json.loads((DATA/'lite72-share-publication-initial.json').read_text())
+        self.assertEqual(publication['parts'],initial['parts'])
+        self.assertEqual(publication['archive_sha256'],initial['archive_sha256'])
+        self.assertTrue(publication['data_archive_unchanged'])
         self.assertEqual(sum(p['bytes'] for p in publication['parts']+publication['metadata']),
                          publication['total_package_bytes'])
         self.assertFalse(publication['offline_complete'])
         self.assertFalse(publication['redistribution_review_complete'])
-        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md']:
+        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue

@@ -2,116 +2,42 @@
 
 ## TL;DR
 
-- Test astronomy **data analysis and visualization**, following the original AstroVisBench workflow.
-- Run **Lite-72: 72 workflows / 144 generation tasks** instead of all 432 workflows / 864 tasks. Give your operator agent [this prompt](LITE72_AGENT_PROMPT.md), then send the compressed results to us for judging.
-- See the [leaderboard and provenance](docs/index.md). No-tool models and coding agents are separate tracks; Lite results are not Full-432 scores.
-- Download the [9.88 GB data bundle from GitLab](docs/lite72-data-release.md), not GitHub. It is operator-only and **not fully offline**.
+- How well can AI analyse astronomical data and make scientifically correct plots?
+- **Lite-72** tests 72 workflows: 72 analysis tasks and 72 visualization tasks, selected from the full 432-workflow benchmark.
+- [See the results](docs/index.md), [get the data (~9.9 GB)](docs/lite72-data-release.md), or [ask your agent to run the benchmark](LITE72_AGENT_PROMPT.md).
 
-This fork of the
-[original AstroVisBench repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench)
-adds independently run model evaluations, reproducibility records, and a fixed
-lower-cost benchmark subset. It does not replace the upstream benchmark or its
-official leaderboard.
+This fork adds independent evaluations and a lower-cost subset to
+[AstroVisBench](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench).
+It follows the original generation → execution → judging workflow and is not
+the official leaderboard.
 
-## What this fork adds
+## Results
 
-- An [independent results page](docs/index.md) with audited Full-432 and Lite-72
-  results.
-- Full-432 local evaluations for Qwen3.8-27B Q4_K_M and Kimi K3.
-- Separate Lite-72 T1 coding-agent evaluations for GPT-6 + Codex and Claude Code + Kimi K3, plus a labelled Codex + Qwen recovery track.
-- A fixed, deterministic [Lite-72 v2 subset manifest](docs/data/lite72-v2-candidate.json),
-  [UID selector](scripts/select_lite72_subset.py), and
-  [current reproducibility guide](docs/lite72-v2-historical.md).
-- Machine-readable provenance and leaderboard data under [docs/data](docs/data/).
+![AstroVisBench model comparison](docs/assets/leaderboard-portrait.svg)
 
-Lite-72 is a complete evaluation of a fixed sampled subset—not an unfinished
-Full-432 run. Standard no-tool model runs and coding-agent runs are reported as
-separate tracks because their tool access and interaction protocols differ.
+**CorrectV** is the percentage of all visualization tasks judged free of errors.
+A program that runs successfully is not necessarily scientifically correct.
 
-## Contribute a Lite-72 run
+The figure includes full-benchmark and Lite results. Tool-assisted agents and
+models without tools are different experiments; the display is not a controlled
+ranking across tracks. Qwen's recovery run includes extra attempts.
+See the [full table, metric definitions and limitations](docs/index.md).
 
-Give your coordinating agent the [detailed copy-paste operator prompt](LITE72_AGENT_PROMPT.md).
-It covers the **v2 task selection**, T0/T1 tool boundaries, fixed budgets,
-generation, original execution, resume rules and a checked `.tar.gz` submission.
-Send the archive and SHA256 file to the maintainer for common judging—**you do
-not need to run judges or supply judge API credentials**. The guide includes a
-[run-manifest template](submission/run_manifest.example.json) and
-[allowlisted packager](scripts/package_lite72_submission.py).
+## Run Lite-72
 
-**Data:** the [Lite-72 GitLab sharing bundle](docs/lite72-data-release.md)
-contains all 61 notebook environments, in five parts totalling **9.8798 GB**
-including helpers and checksums. It is publicly shared through a
-[GitLab-only LFS data branch](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1).
-It is not a complete offline release; current leaderboard results
-remain unchanged and use the documented historical inputs.
+1. [Download and prepare the data](docs/lite72-data-release.md).
+2. Give your coordinating agent the [benchmark prompt](LITE72_AGENT_PROMPT.md).
+3. Send the compressed generation/execution results to the maintainer for common judging. You do not need judge credentials.
 
-## Current snapshot
+Lite-72 spans spectroscopy, photometry, imaging, time series, cosmology and
+simulation/modeling, using provisional notebook-family labels. It is a fixed
+sample, not a replacement for the full benchmark.
 
-![AstroVisBench portrait leaderboard, sorted by CorrectV](docs/assets/leaderboard-portrait.svg)
+Some tasks still need online services. Keep reference solutions hidden from
+the evaluated model. The shared data include a declared compact NIRISS variant;
+record the input version when comparing new runs.
 
-The chart combines published reference rows from the official AstroVisBench
-leaderboard with clearly labelled independent results from this fork. Hatched
-bars identify local evaluations. The **portrait horizontal chart** includes
-only **Full-432 and Lite-72 v2 task-selection** results, sorted by **CorrectV,
-highest first**. Suite/track labels distinguish reference, no-tool, T1 and
-recovery runs in the table/audits. Figure labels use only model/harness names
-and `(lite-bench)` for Lite-72 v2; the no-tool Qwen row is omitted from the
-figure but retained in the table/audit. This is a display order, not a controlled cross-track ranking.
-Lite-72 v1 is excluded from the current figure/table; its historical audit is retained.
-
-See the [full table, metric definitions, and provenance](docs/index.md).
-Both [SVG](docs/assets/leaderboard-portrait.svg) and
-[PNG](docs/assets/leaderboard-portrait.png) are updated together.
-
-### Latest completed results · 30 October 2026
-
-| Coding agent | Coverage | Processing no error | Visualization no error | VIscore | CorrectV |
-|---|---:|---:|---:|---:|---:|
-| GPT-6 Astra medium + Codex · T1 | 72/72 | 66.67% | 83.33% | 0.6700 | 25.93% |
-| Claude Code + Kimi K3 · T1 | 72/72 | 61.11% | 86.11% | 0.6162 | 17.59% |
-| Codex + Qwen3.8-27B Q4_K_M · recovery | 72/72 | 34.72% | 54.17% | 0.5789 | 6.94% |
-
-These use the **Lite-72 v2 task selection with historical inputs**, combining
-65 preserved baseline executions with seven supplements for GPT-6 and Claude + K3.
-They are **not official frozen-input v2 scores**. VIscore denominators are
-40, 33 and 19 respectively; visualization percentages average three trials
-over all 72 workflows. Judge: GPT-6 Astra medium, Codex CLI 0.153.4.
-
-**Qwen recovery caveat:** one fresh bounded processing attempt was authorized
-for tasks 51/52; only task 51 produced code and was substituted. Missing
-processing tasks 17/52 count as failures, never successful blank cells. This
-is not the original capped T1 baseline. Original artifacts and old v1 results
-are retained. External-service timeouts and differing run conditions still
-limit cross-model fairness; these are not a controlled common ranking.
-See the [selection, protocol/version caveats and checksums](docs/lite72-v2-historical.md).
-
-**23 October 2026 correction:** Kimi K3's historical execution records were
-reconciled with the repaired records used for judging. Processing success is
-**48.15%**, visualization success **76.85%**, and VIscore **0.731**; judge
-category percentages are unchanged. Both figure formats and the table reflect
-this correction. Network/input fairness is still being investigated; these
-are not controlled-rerun scores. See the [audit note](docs/execution-fairness.md).
-
-## Reproduce the Lite-72 subset
-
-Follow the [current operator prompt](LITE72_AGENT_PROMPT.md) and
-[v2 task-selection guide](docs/lite72-v2-historical.md) to:
-
-1. validate the pinned 432-task source dataset and frozen UID manifest;
-2. generate the exact 72-record benchmark input;
-3. run the original generation, execution, visualization-judge, and aggregation
-   sequence; and
-4. record the model, harness, environment, tool policy, checksums, and judge
-   configuration needed for comparison.
-
-[`LITE72_RUN_GUIDE.md`](LITE72_RUN_GUIDE.md) remains the archived v1 guide;
-do not use its default selection for a new v2 submission.
-
-Code mirror: [GitLab Zhejiang Lab](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/).
-Large data files are distributed separately from the code repository.
-
-For the original environment setup, benchmark schema, usage instructions,
-citation, and license, use the
-[upstream README](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench#readme).
-The [official website](https://astrovisbench.github.io/) remains the authority
-for the published AstroVisBench leaderboard.
+[Detailed methods and run records](docs/lite72-v2-historical.md) ·
+[GitLab mirror](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/) ·
+[Original paper](https://arxiv.org/abs/2505.20538) ·
+[Official leaderboard](https://astrovisbench.github.io/)
