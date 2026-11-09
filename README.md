@@ -1,5 +1,12 @@
 # AstroVisBench independent evaluations
 
+## TL;DR
+
+- Test astronomy **data analysis and visualization**, following the original AstroVisBench workflow.
+- Run **Lite-72: 72 workflows / 144 generation tasks** instead of all 432 workflows / 864 tasks. Give your operator agent [this prompt](LITE72_AGENT_PROMPT.md), then send the compressed results to us for judging.
+- See the [leaderboard and provenance](docs/index.md). No-tool models and coding agents are separate tracks; Lite results are not Full-432 scores.
+- The [9.88 GB data bundle](docs/lite72-data-release.md) is prepared for GitLab sharing, not stored on GitHub. Upload is pending; it is operator-only and **not fully offline**.
+
 This fork of the
 [original AstroVisBench repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench)
 adds independently run model evaluations, reproducibility records, and a fixed
@@ -12,9 +19,9 @@ official leaderboard.
   results.
 - Full-432 local evaluations for Qwen3.8-27B Q4_K_M and Kimi K3.
 - Separate Lite-72 T1 coding-agent evaluations for GPT-6 + Codex and Claude Code + Kimi K3, plus a labelled Codex + Qwen recovery track.
-- A frozen, deterministic [Lite-72 subset manifest](docs/data/lite72-candidate-v1.json),
+- A fixed, deterministic [Lite-72 v2 subset manifest](docs/data/lite72-v2-candidate.json),
   [UID selector](scripts/select_lite72_subset.py), and
-  [reproducibility guide](LITE72_RUN_GUIDE.md).
+  [current reproducibility guide](docs/lite72-v2-historical.md).
 - Machine-readable provenance and leaderboard data under [docs/data](docs/data/).
 
 Lite-72 is a complete evaluation of a fixed sampled subset—not an unfinished
@@ -30,6 +37,12 @@ Send the archive and SHA256 file to the maintainer for common judging—**you do
 not need to run judges or supply judge API credentials**. The guide includes a
 [run-manifest template](submission/run_manifest.example.json) and
 [allowlisted packager](scripts/package_lite72_submission.py).
+
+**Data:** the [Lite-72 GitLab sharing bundle](docs/lite72-data-release.md)
+contains all 61 notebook environments, in five parts totalling **9.8798 GB**
+including helpers and checksums. Upload awaits package authentication and access
+confirmation. It is not a complete offline release; current leaderboard results
+remain unchanged and use the documented historical inputs.
 
 ## Current snapshot
 
@@ -80,7 +93,8 @@ are not controlled-rerun scores. See the [audit note](docs/execution-fairness.md
 
 ## Reproduce the Lite-72 subset
 
-Follow [`LITE72_RUN_GUIDE.md`](LITE72_RUN_GUIDE.md) to:
+Follow the [current operator prompt](LITE72_AGENT_PROMPT.md) and
+[v2 task-selection guide](docs/lite72-v2-historical.md) to:
 
 1. validate the pinned 432-task source dataset and frozen UID manifest;
 2. generate the exact 72-record benchmark input;
@@ -88,6 +102,12 @@ Follow [`LITE72_RUN_GUIDE.md`](LITE72_RUN_GUIDE.md) to:
    sequence; and
 4. record the model, harness, environment, tool policy, checksums, and judge
    configuration needed for comparison.
+
+[`LITE72_RUN_GUIDE.md`](LITE72_RUN_GUIDE.md) remains the archived v1 guide;
+do not use its default selection for a new v2 submission.
+
+Code mirror: [GitLab Zhejiang Lab](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/).
+Large data files are distributed separately from the code repository.
 
 For the original environment setup, benchmark schema, usage instructions,
 citation, and license, use the

@@ -11,9 +11,13 @@ We evaluate models on **AstroVisBench**, preserve their generated code and evalu
 
 This is an **independent evaluation project**, built on the original AstroVisBench benchmark. It is not the official AstroVisBench website or leaderboard.
 
-[Results](#results) · [Workflow](#workflow) · [Lite benchmark](#a-smaller-benchmark) · [Coding agents](#coding-agents) · [Reproducibility](#reproducibility) · [Credits](#credits)
+[Results](#results) · [Workflow](#workflow) · [Lite benchmark](#a-smaller-benchmark) · [Data](#data-sharing) · [Coding agents](#coding-agents) · [Reproducibility](#reproducibility) · [Credits](#credits)
 
 **Content snapshot: 30 October 2026.** Historical-v2-selection GPT-6 + Codex, Claude Code + K3 and the separate Codex + Qwen recovery track now each have **216 validated judge outcomes over 72 workflows**. These are **not frozen-input v2 scores**. Full-432 and v1 results are retained; historical/live-network variability and Qwen's supplemental retries preclude a controlled common ranking.
+
+**9 November documentation update:** a verified **9.88 GB** Lite-72 sharing
+bundle has been prepared for GitLab. Upload is pending; see [data sharing](#data-sharing).
+No model scores or scientific validation claims changed.
 
 ## What we measure
 
@@ -149,9 +153,9 @@ A full run can be expensive. We are preparing a smaller, fixed suite for routine
 | Suite | Workflows | Generation tasks | Intended use | Status |
 |---|---:|---:|---|---|
 | Smoke | 12 | 24 | Verify the installation and complete pipeline | Planned; task list not yet frozen |
-| Lite | 72 | 144 | Lower-cost screening across scientific applications | Candidate v1; requires validation |
+| Lite v1 (archived) | 72 | 144 | Original screening study | Archived; not the current submission selection |
 | Lite v2 task selection | 72 | 144 | Data-ready subset development | Candidate; historical-input scores only, frozen-input suite not released |
-| Full | 432 | 864 | Reference evaluation | Completed QWEN result above |
+| Full | 432 | 864 | Reference evaluation | Completed Qwen and Kimi K3 results above |
 
 Lite uses one-sixth as many workflows as Full, but this is **not a promise of one-sixth the runtime or cost**. Task runtimes vary, and setup has fixed costs. Three visualization-judge trials give up to 216 LLM calls for Lite before retries; crashes and VisFail outcomes do not require those calls.
 
@@ -189,6 +193,27 @@ Lite's VIscore uses 21 eligible workflows, compared with 108 for Full. All perce
 Equal family allocation changes the mixture of tasks relative to Full. This first candidate gives higher execution success and CorrectV, but lower VIscore. One model cannot establish ranking stability across models. We will review scientific coverage and compare fixed-subset results across additional completed models before freezing Lite v1.
 
 Lite results will be presented separately from Full results. Arbitrary custom subsets are useful for development, but do not belong in the standard rankings. A first-N slice is not our selection method.
+
+## Data sharing
+
+The [GitLab code mirror](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/)
+is the intended home for a separate Lite-72 data download. **No data package is
+committed to GitHub.** The prepared upload is **9,879,807,635 bytes (9.88 GB)**:
+five archive parts plus a standalone restore helper, checksums and review records.
+It retains all **72 workflows / 144 stages across 61 notebook environments**.
+Package upload awaits authentication and access confirmation; there is no live
+download yet.
+
+This is an **operator-only convenience bundle**, not a fully offline or
+licence-cleared dataset release. Some live services remain. A declared compact
+NIRISS input preserves all 70 SCI arrays but omits unused HDUs; unused installer
+copies are removed while expanded calibration files are retained. Record this
+data variant with new runs; do not silently pool them with historical scores.
+Never expose reference/solution material to the evaluated coding agent.
+
+See the [bundle scope, checksums and restoration guide](lite72-data-release.md).
+For a new contribution, follow the [current agent prompt](../LITE72_AGENT_PROMPT.md),
+not the archived v1 run guide. Existing leaderboard results are unchanged.
 
 ## Coding agents
 

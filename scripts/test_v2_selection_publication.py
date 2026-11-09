@@ -122,7 +122,7 @@ class PublicationTests(unittest.TestCase):
             text=(DATA/name).read_text()
             for forbidden in ['/mnt/','/home/','Bearer ','Authorization','access_token','refresh_token']:
                 self.assertNotIn(forbidden,text)
-        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md']:
+        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue
