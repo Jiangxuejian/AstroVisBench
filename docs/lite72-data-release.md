@@ -5,8 +5,8 @@ title: Lite-72 data sharing
 
 # Lite-72 data sharing
 
-**Status: GitLab sharing candidate prepared on 9 November 2026;
-not uploaded and not a complete offline release.**
+**Status: publicly shared on GitLab on 9 November 2026;
+not a complete offline release or a licence-cleared dataset publication.**
 The fixed v2 selection has 72 workflows / 144 generation stages, drawn from
 61 notebooks. The original selected environment archives total 13.95 GiB;
 this excludes additional runtime downloads and is not a final bundle size.
@@ -14,10 +14,11 @@ this excludes additional runtime downloads and is not a final bundle size.
 The maintainer selected [GitLab Zhejiang Lab](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/)
 for convenient file sharing, not a formal ScienceDB publication. Scripts and
 public instructions remain on GitHub; no data package is committed there.
-The GitLab code mirror and the data download are separate: package upload
-awaits registry authentication and confirmation of recipient access. The code
-repository is currently anonymously readable; do not assume its package storage
-is private. File-level redistribution review remains incomplete.
+The code mirror and data download are separate: `main` is code-only; a
+GitLab-only `data/lite72-20261109-curated-v1` branch uses Git LFS for the five
+large files. Public download was explicitly authorized by the maintainer.
+File-level redistribution review remains incomplete; preserve attribution and
+do not assume this is a formally reviewed public dataset release.
 Do not tar the workspace or expose the original archives wholesale to agents:
 some archives contain HTML/notebooks or other possible solution material.
 Scientific model files used as task inputs (for example trained flare models)
@@ -69,16 +70,34 @@ can reclassify a completed inventory without rereading payloads. It retains the
 original inventory checksum, resets approvals and explicitly records that no
 source rescan occurred; packaging still rechecks every source hash.
 
-## Private sharing transport (under 10 GB target)
+## Sharing transport (under 10 GB target)
 
 The reviewed compressed archive is **9,879,775,056 bytes (9.8798 GB)**. Its
 five upload parts plus helper, guide, review records and checksums total
 **9,879,807,635 bytes**, below 10,000,000,000 bytes. All 2,860 payload hashes
 and the reassembled-parts SHA256 were verified; 37 tooling/publication tests
 pass. These checks do not imply all 72 references have been validated offline.
-No live download URL is available yet. The intended destination is the project's
-[Generic Package registry](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/packages),
-with package name `lite72-share` and version `20261109-curated-v1`.
+Version `20261109-curated-v1` is available from the
+[GitLab data folder](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1).
+All 14 files were downloaded anonymously and verified byte-for-byte/SHA256;
+see the [public-download verification record](data/lite72-share-publication.json).
+It uses Git LFS rather than Generic Packages, allowing the maintainer's existing
+SSH authentication without a new persistent API token. No data branch is pushed
+to GitHub. Install Git and [Git LFS](https://git-lfs.com/) before downloading:
+
+```bash
+git lfs install
+git clone --single-branch --branch data/lite72-20261109-curated-v1 \
+  https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite.git astrovisbench-data
+cd astrovisbench-data
+git lfs pull
+cd lite72-data/20261109-curated-v1
+```
+
+No account is needed for public downloads. A clone without Git LFS can contain
+only small text pointers instead of the actual data parts. Do not assume a
+source ZIP contains LFS payloads. Git metadata/LFS caches add disk usage beyond
+the 9.88 GB package itself.
 
 Archive SHA256:
 `3c529d7f389db96d7d652f9749391c443c4b5fad4e8e96c96b88fbaffb9dc06a`.
@@ -102,7 +121,10 @@ The restored `bench_env/` supplies notebook archives, while
 Use `operator/lite72-v2-candidate.json` explicitly with the selector; its default
 is legacy v1. Follow the [current operator prompt](../LITE72_AGENT_PROMPT.md) for
 generation and execution, then submit unjudged outputs to the maintainer.
-The bundle's ready marker records preparation-time state, not upload completion.
+The bundle's ready marker and included README record preparation-time state
+and the original Generic Package proposal, not upload completion. The immutable
+14 package files and their checksums are unchanged; this page describes the
+actual Git LFS distribution route.
 
 `scripts/lite72_share_bundle.py` stages selected environment members by SHA256,
 stores identical file payloads once, and compresses them using standard XZ.
@@ -131,7 +153,7 @@ The manifest records original installer hashes, byte counts and review results.
 `curate-installers OLD_WORK NEW_WORK` performs this bounded review/curation;
 it does not prune arbitrary files, repair arrays or change historical scores.
 
-The private transport may retain original solution-like files, plots and
+The operator transport may retain original solution-like files, plots and
 helpers to avoid unvalidated input deletion. It is **operator-only**, not a
 clean raw-input bundle to expose to task-solving agents. T1 runs still require
 audited per-stage allowlists and source/reference separation. Scientific CNN
@@ -141,9 +163,9 @@ catalogue services and other uncached dependencies remain possible.
 On 9 November 2026 the selected GitLab instance's public
 [configuration](https://gitlab.zhejianglab.com/help/instance_configuration)
 reported 5 GiB per Generic Package file and about 4.883 GiB per attachment.
-This does not establish the project's storage quota. Prefer Generic Package
-uploads in modest parts rather than repeated large Git commits; no upload or
-account/billing change is performed by these tools.
+This does not establish the project's storage quota or LFS limits. The deployed
+bundle instead uses Git LFS; do not commit large payloads as ordinary Git blobs.
+The preparation tools themselves perform no uploads or account/billing changes.
 
 ## Packaging gate
 

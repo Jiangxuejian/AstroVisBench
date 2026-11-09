@@ -118,10 +118,20 @@ class PublicationTests(unittest.TestCase):
 
     def test_sanitized_exports_and_local_links(self):
         for name in ['gpt6-v2-selection-audit.json','claude-k3-v2-selection-audit.json',
-                     'codex-qwen38-v2-selection-recovery-audit.json','lite72-v2-candidate.json']:
+                     'codex-qwen38-v2-selection-recovery-audit.json','lite72-v2-candidate.json',
+                     'lite72-share-publication.json']:
             text=(DATA/name).read_text()
             for forbidden in ['/mnt/','/home/','Bearer ','Authorization','access_token','refresh_token']:
                 self.assertNotIn(forbidden,text)
+        publication=json.loads((DATA/'lite72-share-publication.json').read_text())
+        self.assertEqual(publication['package_version'],'20261109-curated-v1')
+        self.assertEqual(len(publication['parts']),5)
+        self.assertEqual(len(publication['metadata']),9)
+        self.assertEqual(publication['total_package_bytes'],9879807635)
+        self.assertEqual(sum(p['bytes'] for p in publication['parts']+publication['metadata']),
+                         publication['total_package_bytes'])
+        self.assertFalse(publication['offline_complete'])
+        self.assertFalse(publication['redistribution_review_complete'])
         for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):

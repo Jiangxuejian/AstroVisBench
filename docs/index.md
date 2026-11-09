@@ -16,7 +16,7 @@ This is an **independent evaluation project**, built on the original AstroVisBen
 **Content snapshot: 30 October 2026.** Historical-v2-selection GPT-6 + Codex, Claude Code + K3 and the separate Codex + Qwen recovery track now each have **216 validated judge outcomes over 72 workflows**. These are **not frozen-input v2 scores**. Full-432 and v1 results are retained; historical/live-network variability and Qwen's supplemental retries preclude a controlled common ranking.
 
 **9 November documentation update:** a verified **9.88 GB** Lite-72 sharing
-bundle has been prepared for GitLab. Upload is pending; see [data sharing](#data-sharing).
+bundle is publicly shared on GitLab; see [data sharing](#data-sharing).
 No model scores or scientific validation claims changed.
 
 ## What we measure
@@ -197,12 +197,13 @@ Lite results will be presented separately from Full results. Arbitrary custom su
 ## Data sharing
 
 The [GitLab code mirror](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/)
-is the intended home for a separate Lite-72 data download. **No data package is
-committed to GitHub.** The prepared upload is **9,879,807,635 bytes (9.88 GB)**:
+also hosts a separate Lite-72 data branch. **No data package is
+committed to GitHub.** The shared package is **9,879,807,635 bytes (9.88 GB)**:
 five archive parts plus a standalone restore helper, checksums and review records.
 It retains all **72 workflows / 144 stages across 61 notebook environments**.
-Package upload awaits authentication and access confirmation; there is no live
-download yet.
+Download from the public
+[GitLab-only data branch](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1)
+using Git LFS and the commands in the guide below; `main` remains code-only.
 
 This is an **operator-only convenience bundle**, not a fully offline or
 licence-cleared dataset release. Some live services remain. A declared compact

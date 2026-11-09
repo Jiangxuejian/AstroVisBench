@@ -7,6 +7,10 @@ Scope: **72 workflows / 144 stages**, using the **v2 UID selection with historic
 upstream inputs**, not the unreleased frozen-file/SQLite benchmark. Live services
 and environment differences still limit comparability.
 
+Optional inputs: the [9.88 GB GitLab bundle](docs/lite72-data-release.md) is
+operator-only and has declared data deviations. Record its version/hash;
+do not silently treat it as the original full-HDU historical inputs.
+
 Choose a track:
 
 - **T0:** original no-tool model generation; operator tools are only orchestration.
@@ -31,6 +35,7 @@ CONFIGURATION — fill before starting; ask about missing choices or permissions
   HARNESS = <name, version, source revision; adapter if needed>
   FULL_BENCHMARK_JSON = <original 432-record astrovisbench_queries.json>
   BENCH_ENV = <extracted original bench_env directory>
+  INPUT_VARIANT = <original-historical | 20261109-curated-v1; record bundle hash>
   EXECUTION_ENV = <isolated Python 3.10 environment/container>
   RESOURCE_AUTHORITY = <approved time/tokens/API cost/disk/install scope>
   SUBMISSION_OUTPUT = <new .tar.gz path outside RUN_DIR>
@@ -41,7 +46,8 @@ and exec_bench.py. Record fork commit/dirty diff, model and harness identities,
 actual inference settings/retry policy, OS/Python/hardware/drivers, dependencies
 and input hashes/acquisition dates. Use unknown/not_disclosed, not guesses.
 Freeze versions before inference; no mid-run updates or per-candidate installs.
-Use original upstream downloads/setup (links below); budget potentially 100+ GB.
+Use upstream downloads/setup (links below), potentially 100+ GB; or follow the
+data-bundle guide (50+ GB), declaring its input variant and limitations.
 Do not modify the base environment or use sudo without permission.
 
 Verify these pins; stop on mismatch or unavailable inputs:

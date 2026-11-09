@@ -5,7 +5,7 @@
 - Test astronomy **data analysis and visualization**, following the original AstroVisBench workflow.
 - Run **Lite-72: 72 workflows / 144 generation tasks** instead of all 432 workflows / 864 tasks. Give your operator agent [this prompt](LITE72_AGENT_PROMPT.md), then send the compressed results to us for judging.
 - See the [leaderboard and provenance](docs/index.md). No-tool models and coding agents are separate tracks; Lite results are not Full-432 scores.
-- The [9.88 GB data bundle](docs/lite72-data-release.md) is prepared for GitLab sharing, not stored on GitHub. Upload is pending; it is operator-only and **not fully offline**.
+- Download the [9.88 GB data bundle from GitLab](docs/lite72-data-release.md), not GitHub. It is operator-only and **not fully offline**.
 
 This fork of the
 [original AstroVisBench repository](https://github.com/NSF-Simons-CosmicAI-Institute/AstroVisBench)
@@ -40,8 +40,9 @@ not need to run judges or supply judge API credentials**. The guide includes a
 
 **Data:** the [Lite-72 GitLab sharing bundle](docs/lite72-data-release.md)
 contains all 61 notebook environments, in five parts totalling **9.8798 GB**
-including helpers and checksums. Upload awaits package authentication and access
-confirmation. It is not a complete offline release; current leaderboard results
+including helpers and checksums. It is publicly shared through a
+[GitLab-only LFS data branch](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1).
+It is not a complete offline release; current leaderboard results
 remain unchanged and use the documented historical inputs.
 
 ## Current snapshot

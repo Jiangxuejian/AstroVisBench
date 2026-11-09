@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "package_version": "20261109-curated-v1",
+  "public_download_verified_at": "2026-11-09T04:20:17.415248+00:00",
+  "method": "anonymous Git LFS batch download; full SHA256 streaming verification",
+  "repository": "https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite",
+  "branch": "data/lite72-20261109-curated-v1",
+  "parts": [
+    {
+      "name": "lite72-share.tar.xz.part-00",
+      "bytes": 2000000000,
+      "sha256": "0a307238795bc9a8e1cdf9711d49017b1b835166a07594d9ec5292d0450562e4"
+    },
+    {
+      "name": "lite72-share.tar.xz.part-01",
+      "bytes": 2000000000,
+      "sha256": "f43a8877ea24b989a4007e5120d437ed08711996e3e67eb912b902c43510bf54"
+    },
+    {
+      "name": "lite72-share.tar.xz.part-02",
+      "bytes": 2000000000,
+      "sha256": "a3d5da31bf50f57d7854329a6af002231d7fca0db84a1fbf9312b95a28c1a5f6"
+    },
+    {
+      "name": "lite72-share.tar.xz.part-03",
+      "bytes": 2000000000,
+      "sha256": "15187a6bfbe1a80b1b1bbc68fbbd9b8f3433b228916f9e3856f0d29dfbeecf76"
+    },
+    {
+      "name": "lite72-share.tar.xz.part-04",
+      "bytes": 1879775056,
+      "sha256": "85efd1d012a6cc6400d96832e1ab9fb1a6378240e431bdeac1e383841567e63a"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "BUNDLE.sha256",
+      "bytes": 86,
+      "sha256": "61f370e0db9502a00f6d6d556c3985dbf13e5996df8bdc51056262a637ae5d8f"
+    },
+    {
+      "name": "INSTALLER_REVIEW.json",
+      "bytes": 1884,
+      "sha256": "cd1c6a7d64dd75cb7fe67d1b20ab180609d20b540561db0e664055f6a2bc4c92"
+    },
+    {
+      "name": "NIRISS_INTEGRITY.json",
+      "bytes": 331,
+      "sha256": "e8fa5d85bc001c9ac50b4dbe1324cbbd936e6a9bdf7410df4f50bca4c4d542be"
+    },
+    {
+      "name": "PAYLOAD_REVIEW.json",
+      "bytes": 551,
+      "sha256": "15c10f015398153ff9a3632262f16c99ee39b3ae7bf0afa75d49191575450984"
+    },
+    {
+      "name": "README.md",
+      "bytes": 4272,
+      "sha256": "54f05b383b0a7e9a1af5a61a891b947bafe1cb133fc0659b4e49437126a12902"
+    },
+    {
+      "name": "RESTORE_HEADER_REVIEW.json",
+      "bytes": 140,
+      "sha256": "c0791e101517b0e2a451a3dca28e3780a503b832df6a1689217244156f84b080"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 1154,
+      "sha256": "daa52acfeb93d575bd17e9999fd81a9d580eccb13b2cdbfd40e91090e6a90655"
+    },
+    {
+      "name": "UPLOAD_READY.json",
+      "bytes": 1589,
+      "sha256": "e3e5ce365f6b833c399b5fcae8d4c7d200695ca6e6cb59df049111a55378fe98"
+    },
+    {
+      "name": "lite72_share_bundle.py",
+      "bytes": 22572,
+      "sha256": "13e5491919a29a17e04207b9bfb3a615790ebd6a58e18645aeaddfa85967a0d9"
+    }
+  ],
+  "total_package_bytes": 9879807635,
+  "total_part_bytes": 9879775056,
+  "archive_sha256": "3c529d7f389db96d7d652f9749391c443c4b5fad4e8e96c96b88fbaffb9dc06a",
+  "offline_complete": false,
+  "redistribution_review_complete": false,
+  "note": "Preparation metadata remains immutable. Public download authorized by owner; not a licence-clearance certificate."
+}
