@@ -155,6 +155,9 @@ not silently ranked against single-budget runs.
 
 ## Model, harness and budgets
 
+For new runs, follow the [versioned T1 protocol](T1_PROTOCOL.md). This section
+records historical conditions, not retrospective compliance with the new version.
+
 | Component | GPT-6 + Codex | Claude Code + K3 |
 |---|---|---|
 | Requested model | `gpt-6-astra` | `k3` |

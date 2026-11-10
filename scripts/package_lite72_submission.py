@@ -28,6 +28,9 @@ T1_LIMITS = dict(model_requests_per_stage=20, total_output_tokens_per_stage=3276
     per_response_output_tokens=8192, candidate_checks_per_stage=3,
     candidate_timeout_seconds=600, stage_wall_seconds=2400)
 T1_TOOLS = ['list_inputs', 'read_text', 'write_candidate', 'run_candidate', 'submit']
+T1_PROTOCOL_ID = 'astrovis-t1-20261110'
+T1_PROTOCOL = ROOT / 'submission/t1_protocol.json'
+T1_SOLVER_INSTRUCTIONS = ROOT / 'submission/t1_solver_instructions.txt'
 CONTEXT = ['setup_query', 'setup_gt_code', 'processing_query', 'processing_gt_code',
            'visualization_query', 'visualization_gt_code', 'processing_underspecifications',
            'visualization_underspecifications']
@@ -128,6 +131,51 @@ def png(uri, label):
     require(raw.startswith(b'\x89PNG\r\n\x1a\n'), f'{label}: invalid PNG signature')
 
 
+def declared_t1_contract(manifest):
+    """Check declared policy identities, not whether a supervisor enforced them."""
+    if manifest['track'] != 'T1':
+        return None
+    generation = manifest['generation']
+    if 'protocol_id' not in generation:
+        require(not any(field in generation for field in
+                        ['protocol_sha256', 'solver_instructions_sha256']),
+                'T1 protocol hashes require a protocol_id')
+        return None  # Legacy evidence remains reviewable, not newly certified.
+    require(generation['protocol_id'] == T1_PROTOCOL_ID, 'Unsupported T1 protocol_id')
+    require(generation.get('protocol_sha256') == sha(T1_PROTOCOL), 'T1 protocol checksum mismatch')
+    require(generation.get('solver_instructions_sha256') == sha(T1_SOLVER_INSTRUCTIONS),
+            'T1 solver instructions checksum mismatch')
+    contract = load(T1_PROTOCOL)
+    require(contract.get('protocol_id') == T1_PROTOCOL_ID
+            and contract.get('limits') == T1_LIMITS
+            and contract.get('allowed_tools') == T1_TOOLS
+            and contract.get('feedback_revision_opportunities') == 2,
+            'T1 contract does not match the fixed tools/budgets')
+    return contract
+
+
+def validate_t1_freeze(entry, contract):
+    for field in contract['ledger_fields']:
+        require(field in entry, f'Versioned T1 ledger must record {field}')
+    reason = entry['terminal_reason']
+    require(reason in contract['terminal_reasons'], 'Unknown T1 terminal_reason')
+    last, latest = entry['last_checked_code_sha256'], entry['latest_complete_code_sha256']
+    for value in [last, latest]:
+        require(value is None or (isinstance(value, str) and re.fullmatch(r'[a-f0-9]{64}', value)),
+                'T1 candidate identities must be SHA256 strings or null')
+    submitted = entry['code_sha256']
+    if entry['candidate_checks'] > 0:
+        require(submitted is not None and last == submitted and latest is not None,
+                'T1 must freeze the exact last checked candidate, not a later edit or earlier choice')
+    else:
+        require(last is None and latest == submitted,
+                'T1 with zero checks must freeze the latest complete candidate or record missing')
+    require(reason != 'submitted' or submitted is not None, 'A missing T1 candidate cannot be submitted')
+    if reason == 'candidate_check_limit':
+        require(entry['candidate_checks'] == T1_LIMITS['candidate_checks_per_stage'],
+                'T1 candidate_check_limit requires three charged checks')
+
+
 def validate(run, benchmark):
     require(sha(SELECTION) == SELECTION_SHA, 'Pinned selection manifest changed')
     suite = load(SELECTION)
@@ -145,6 +193,7 @@ def validate(run, benchmark):
     require(manifest.get('track') in ['T0', 'T1', 'agent-pilot'], 'Declare T0, T1 or agent-pilot')
     for key in ['model', 'harness', 'generation', 'execution', 'environment']:
         require(isinstance(manifest.get(key), dict) and manifest[key], f'Missing {key} provenance')
+    t1_contract = declared_t1_contract(manifest)
     for section, field in [('model', 'requested_id'), ('harness', 'name'), ('harness', 'version')]:
         require(isinstance(manifest[section].get(field), str) and manifest[section][field].strip(),
                 f'Missing {section}.{field}')
@@ -196,6 +245,8 @@ def validate(run, benchmark):
             require(isinstance(entry.get('elapsed_seconds'), (int, float))
                     and not isinstance(entry['elapsed_seconds'], bool)
                     and 0 <= entry['elapsed_seconds'] <= 2400, 'T1 elapsed_seconds exceeds limit or is unknown')
+            if t1_contract is not None:
+                validate_t1_freeze(entry, t1_contract)
     if manifest['track'] == 'T1':
         require(manifest['generation'].get('limits') == T1_LIMITS, 'T1 manifest must declare the frozen limits')
         require(sorted(manifest['generation'].get('tools', [])) == sorted(T1_TOOLS),
@@ -228,7 +279,12 @@ def validate(run, benchmark):
             png(images[0], f'{uid} generated')
             single += 1
     require(executed_uids == expected, 'Execution must contain all 72 unique selected UIDs')
+    protocol_check = ('declared_contract_hashes_checked' if t1_contract is not None else
+                      'legacy_unversioned_requires_review' if manifest['track'] == 'T1' else
+                      'not_applicable')
     return dict(run_id=manifest['run_id'], track=manifest['track'], workflows=72,
+        generation_protocol=manifest['generation'].get('protocol_id'),
+        protocol_declaration_check=protocol_check,
         stage_terminals=144, missing_stages=missing,
         status='needs_missing_submission_accounting' if missing else 'structurally_complete_unjudged',
         visualization_records=dict(crash=crash, plot_count_failure=multi, single_png=single),
@@ -255,6 +311,9 @@ def package(run, output, reviewed, benchmark):
     summary = check_submission(run, benchmark)
     files = {name: run / name for name in REQUIRED + OPTIONAL if (run / name).is_file()}
     files['suite_manifest.json'] = SELECTION
+    if summary['protocol_declaration_check'] == 'declared_contract_hashes_checked':
+        files['t1_protocol.json'] = T1_PROTOCOL
+        files['t1_solver_instructions.txt'] = T1_SOLVER_INSTRUCTIONS
     checksums = {name: sha(path) for name, path in files.items()}
     metadata = dict(schema_version=1, created_utc=datetime.now(timezone.utc).isoformat(),
         packager_sha256=sha(Path(__file__)),

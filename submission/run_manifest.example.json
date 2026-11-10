@@ -25,6 +25,9 @@
     "adapter_sha256": "REPLACE-adapter-source-hash-or-not_applicable"
   },
   "generation": {
+    "protocol_id": "REPLACE-T1-astrovis-t1-20261110-or-not_applicable",
+    "protocol_sha256": "REPLACE-sha256-of-submission-t1_protocol.json-or-not_applicable",
+    "solver_instructions_sha256": "REPLACE-sha256-of-submission-t1_solver_instructions.txt-or-not_applicable",
     "limits_enforcement": "REPLACE-external-or-prompt_only-or-not_applicable",
     "temperature": "REPLACE-observed-value-or-provider_default_unobserved",
     "seed": "REPLACE-observed-value-or-provider_default_unobserved",
@@ -40,7 +43,7 @@
       "candidate_timeout_seconds": 600,
       "stage_wall_seconds": 2400
     },
-    "selection_policy": "Last checked candidate; otherwise latest complete untested candidate; never best-of hidden scores",
+    "selection_policy": "Freeze exact last checked candidate even if it failed; otherwise latest complete untested candidate; otherwise missing. Never best-of or a later unchecked edit.",
     "network_policy": "REPLACE-T0-no-tools-or-T1-approved-scientific-data-services-only",
     "retry_policy": "REPLACE-predeclared-transport-policy-no-budget-refunds"
   },

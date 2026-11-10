@@ -75,6 +75,19 @@ class SubmissionTests(unittest.TestCase):
     def validate(self):
         return bundle.validate(self.run, self.source)
 
+    def versioned_t1(self, checks=0):
+        self.manifest['track'] = 'T1'
+        self.manifest['generation'] = dict(limits_enforcement='external',
+            tools=bundle.T1_TOOLS, limits=bundle.T1_LIMITS,
+            protocol_id=bundle.T1_PROTOCOL_ID, protocol_sha256=bundle.sha(bundle.T1_PROTOCOL),
+            solver_instructions_sha256=bundle.sha(bundle.T1_SOLVER_INSTRUCTIONS))
+        for entry in self.ledger:
+            entry.update(candidate_checks=checks,
+                last_checked_code_sha256=entry['code_sha256'] if checks else None,
+                latest_complete_code_sha256=entry['code_sha256'], terminal_reason='submitted')
+        (self.run/'generation_events.jsonl').write_text('{"synthetic":true}\n')
+        self.flush()
+
     def test_complete_package_and_allowlist(self):
         (self.run/'.env').write_text('SYNTHETIC_SECRET=do-not-package')
         (self.run/'cache').mkdir()
@@ -167,10 +180,117 @@ class SubmissionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Prompt-only'):
             self.validate()
         self.manifest['generation']['limits_enforcement'] = 'external'
-        self.ledger[0]['model_requests'] = 21
+        for field, excessive, message in [('model_requests', 21, 'within 20'),
+                                          ('output_tokens', 32769, 'within 32768'),
+                                          ('candidate_checks', 4, 'within 3'),
+                                          ('elapsed_seconds', 2401, 'elapsed_seconds')]:
+            original = self.ledger[0][field]
+            self.ledger[0][field] = excessive
+            self.flush()
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
+                self.validate()
+            self.ledger[0][field] = original
+
+    def test_versioned_t1_and_legacy_declarations_are_distinct(self):
+        self.versioned_t1()
+        result = self.validate()
+        self.assertEqual(result['generation_protocol'], bundle.T1_PROTOCOL_ID)
+        self.assertEqual(result['protocol_declaration_check'], 'declared_contract_hashes_checked')
+        for field in ['protocol_id', 'protocol_sha256', 'solver_instructions_sha256']:
+            self.manifest['generation'].pop(field)
         self.flush()
-        with self.assertRaisesRegex(ValueError, 'within 20'):
+        result = self.validate()
+        self.assertIsNone(result['generation_protocol'])
+        self.assertEqual(result['protocol_declaration_check'], 'legacy_unversioned_requires_review')
+
+    def test_versioned_t1_rejects_wrong_policy_id_or_hashes(self):
+        self.versioned_t1()
+        for field, value, message in [('protocol_id', 'another-policy', 'Unsupported T1'),
+                                       ('protocol_sha256', '0'*64, 'protocol checksum'),
+                                       ('solver_instructions_sha256', '0'*64, 'solver instructions checksum')]:
+            original = self.manifest['generation'][field]
+            self.manifest['generation'][field] = value
+            self.flush()
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
+                self.validate()
+            self.manifest['generation'][field] = original
+        self.manifest['generation'].pop('protocol_id')
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'hashes require a protocol_id'):
             self.validate()
+
+    def test_versioned_t1_last_checked_wins_over_unchecked_edit(self):
+        self.versioned_t1(checks=1)
+        entry = self.ledger[0]
+        # An unsubmitted newer edit may exist, but the checked A remains frozen.
+        entry['latest_complete_code_sha256'] = '0'*64
+        self.flush()
+        self.assertEqual(self.validate()['track'], 'T1')
+        # Submitting an untested B, even with correct generated/executed hashes,
+        # must not replace checked A after the request budget is exhausted.
+        code_b = "print('different synthetic candidate; never executed')"
+        self.generated[0]['processing_gen_code'] = code_b
+        self.executed[0]['processing_gen_code'] = code_b
+        entry['code_sha256'] = hashlib.sha256(code_b.encode()).hexdigest()
+        entry['latest_complete_code_sha256'] = entry['code_sha256']
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'exact last checked candidate'):
+            self.validate()
+
+    def test_versioned_t1_zero_checks_and_missing_submission(self):
+        self.versioned_t1()
+        entry = self.ledger[0]
+        original = entry['latest_complete_code_sha256']
+        entry['latest_complete_code_sha256'] = '0'*64
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'zero checks'):
+            self.validate()
+        entry['latest_complete_code_sha256'] = original
+        entry['last_checked_code_sha256'] = original
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'zero checks'):
+            self.validate()
+        self.generated[0]['processing_gen_code'] = ''
+        self.executed[0]['processing_gen_code'] = ''
+        entry.update(status='missing', code_sha256=None, last_checked_code_sha256=None,
+                     latest_complete_code_sha256=None, terminal_reason='no_complete_candidate')
+        self.flush()
+        self.assertEqual(self.validate()['status'], 'needs_missing_submission_accounting')
+
+    def test_versioned_t1_requires_freeze_fields_and_valid_terminal_reason(self):
+        self.versioned_t1(checks=1)
+        entry = self.ledger[0]
+        for field in ['last_checked_code_sha256', 'latest_complete_code_sha256', 'terminal_reason']:
+            original = entry.pop(field)
+            self.flush()
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'must record '+field):
+                self.validate()
+            entry[field] = original
+        entry['terminal_reason'] = 'fresh_budget'
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'Unknown T1 terminal_reason'):
+            self.validate()
+        entry['terminal_reason'] = 'candidate_check_limit'
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'requires three'):
+            self.validate()
+        entry['candidate_checks'] = 3
+        self.flush()
+        self.assertEqual(self.validate()['track'], 'T1')
+
+    def test_versioned_t1_package_includes_declared_policy(self):
+        self.versioned_t1(checks=3)
+        output = self.root/'versioned-t1.tar.gz'
+        with redirect_stdout(io.StringIO()):
+            bundle.package(self.run, output, True, self.source)
+        with tarfile.open(output) as archive:
+            self.assertEqual(archive.extractfile('submission/t1_protocol.json').read(),
+                             bundle.T1_PROTOCOL.read_bytes())
+            self.assertEqual(archive.extractfile('submission/t1_solver_instructions.txt').read(),
+                             bundle.T1_SOLVER_INSTRUCTIONS.read_bytes())
+            metadata = json.load(archive.extractfile('submission/submission_manifest.json'))
+            self.assertEqual(metadata['files_sha256']['t1_protocol.json'],
+                             self.manifest['generation']['protocol_sha256'])
 
     def test_duplicate_and_incomplete_execution(self):
         self.executed[-1] = copy.deepcopy(self.executed[0])

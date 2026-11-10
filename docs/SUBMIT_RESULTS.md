@@ -36,6 +36,8 @@ The existing packager selects only the evidence needed for scoring:
 Use the [manifest template](../submission/run_manifest.example.json) and
 [run prompt](../LITE72_AGENT_PROMPT.md) when preparing these records.
 Failed tasks must stay included; an interrupted run is not a completed submission.
+For new T1 runs, retain the [protocol version and freeze evidence](T1_PROTOCOL.md#evidence-for-new-runs).
+Do not reconstruct missing budgets or relabel a legacy run as the new protocol.
 
 <details>
 <summary>Commands for your agent or manual use</summary>

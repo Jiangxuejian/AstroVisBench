@@ -87,6 +87,10 @@ budgets separately. Reference answers and hidden tests stay unavailable to the
 evaluated agent. As upstream, visualization tasks receive reference processing
 code rather than the model's own analysis output.
 
+In [T1](T1_PROTOCOL.md), up to three candidate checks and two optional revisions
+happen during generation. All submissions are frozen before final execution;
+there is no repair after evaluation.
+
 Use the current **v2 task selection**. The older v1 study is
 [archived](../LITE72_RUN_GUIDE.md); do not mix the selections.
 A fully offline data release is still in development.
