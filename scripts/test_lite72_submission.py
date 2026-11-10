@@ -1,6 +1,6 @@
 """Offline, synthetic-only tests; never execute submitted code or call models."""
 import base64
-from contextlib import ExitStack, redirect_stdout
+from contextlib import ExitStack, redirect_stderr, redirect_stdout
 import copy
 import hashlib
 import io
@@ -98,6 +98,39 @@ class SubmissionTests(unittest.TestCase):
         self.assertEqual(output.with_name(output.name+'.sha256').read_text().split()[0], bundle.sha(output))
         with self.assertRaisesRegex(ValueError, 'already exists'):
             bundle.package(self.run, output, True, self.source)
+
+    def test_check_only_cli_does_not_write_or_modify_files(self):
+        before = {p.name: p.read_bytes() for p in self.run.iterdir()}
+        stdout = io.StringIO()
+        with redirect_stdout(stdout):
+            bundle.main(['--run-dir', str(self.run), '--benchmark', str(self.source), '--check-only'])
+        summary = json.loads(stdout.getvalue())
+        self.assertEqual(summary['workflows'], 72)
+        self.assertEqual(summary['stage_terminals'], 144)
+        self.assertFalse(summary['judge_run'])
+        self.assertEqual({p.name: p.read_bytes() for p in self.run.iterdir()}, before)
+        self.assertFalse(list(self.root.glob('*.tar.gz*')))
+
+    def test_check_only_cli_reports_missing_evidence(self):
+        (self.run/'RUN_NOTES.md').unlink()
+        stderr = io.StringIO()
+        with redirect_stderr(stderr), self.assertRaises(SystemExit) as error:
+            bundle.main(['--run-dir', str(self.run), '--benchmark', str(self.source), '--check-only'])
+        self.assertEqual(error.exception.code, 2)
+        self.assertIn('Missing required submission file: RUN_NOTES.md', stderr.getvalue())
+        self.assertFalse(list(self.root.glob('*.tar.gz*')))
+
+    def test_cli_requires_output_only_for_packaging(self):
+        argv = ['--run-dir', str(self.run), '--benchmark', str(self.source)]
+        for extra, message in [([], '--output is required'),
+                               (['--check-only', '--output', str(self.root/'bad.tar.gz')],
+                                'omit --output')]:
+            stderr = io.StringIO()
+            with self.subTest(extra=extra), redirect_stderr(stderr), self.assertRaises(SystemExit) as error:
+                bundle.main(argv + extra)
+            self.assertEqual(error.exception.code, 2)
+            self.assertIn(message, stderr.getvalue())
+        self.assertFalse(list(self.root.glob('*.tar.gz*')))
 
     def test_source_hash_and_context_identity(self):
         self.source.write_text(self.source.read_text()+' ')

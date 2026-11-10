@@ -137,7 +137,7 @@ class PublicationTests(unittest.TestCase):
                          publication['total_package_bytes'])
         self.assertFalse(publication['offline_complete'])
         self.assertFalse(publication['redistribution_review_complete'])
-        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md']:
+        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md','docs/SUBMIT_RESULTS.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue

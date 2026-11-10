@@ -5,6 +5,7 @@ For astronomers:
 - [Results and score interpretation](index.md)
 - [Download and prepare Lite-72 data](lite72-data-release.md)
 - [Run the benchmark with your agent](../LITE72_AGENT_PROMPT.md)
+- [Package and submit results for scoring](SUBMIT_RESULTS.md)
 
 For reproducibility and maintenance:
 

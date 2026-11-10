@@ -3,6 +3,8 @@
 Copy the prompt below into your **operator agent**, fill the configuration, and
 send the resulting archive to the maintainer. **Do not run judges.**
 
+Execution already finished? Use the [short submission guide](docs/SUBMIT_RESULTS.md).
+
 Scope: **72 workflows / 144 stages**, using the **v2 UID selection with historical
 upstream inputs**, not the unreleased frozen-file/SQLite benchmark. Live services
 and environment differences still limit comparability.

@@ -236,17 +236,23 @@ def validate(run, benchmark):
         note='Structural validation is not proof of isolation, scientific correctness, privacy or leaderboard eligibility. Missing stages require maintainer accounting; raw blank-cell success flags are not corrected here.')
 
 
-def package(run, output, reviewed, benchmark):
-    require(reviewed, 'Review all included files for secrets/private material, then pass --reviewed')
-    run, output = run.resolve(), output.absolute()
-    require(not output.exists(), 'Archive already exists; never overwrite a submission')
+def check_submission(run, benchmark):
+    """Read-only completeness/provenance check; not a privacy or science audit."""
+    run = run.resolve()
     for name in REQUIRED + OPTIONAL:
         path = run / name
         require(not path.is_symlink(), f'Refusing symlink: {name}')
         if name in REQUIRED:
             require(path.is_file(), f'Missing required submission file: {name}')
+    return validate(run, benchmark.resolve())
+
+
+def package(run, output, reviewed, benchmark):
+    require(reviewed, 'Review all included files for secrets/private material, then pass --reviewed')
+    run, output = run.resolve(), output.absolute()
+    require(not output.exists(), 'Archive already exists; never overwrite a submission')
     require(not output.with_name(output.name + '.sha256').exists(), 'Checksum sidecar already exists')
-    summary = validate(run, benchmark.resolve())
+    summary = check_submission(run, benchmark)
     files = {name: run / name for name in REQUIRED + OPTIONAL if (run / name).is_file()}
     files['suite_manifest.json'] = SELECTION
     checksums = {name: sha(path) for name, path in files.items()}
@@ -277,14 +283,27 @@ def package(run, output, reviewed, benchmark):
     print(json.dumps(dict(archive=str(output), sha256=digest, **summary), indent=2))
 
 
-if __name__ == '__main__':
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-dir', type=Path, required=True)
     parser.add_argument('--benchmark', type=Path, required=True, help='Original full 432-record source JSON; verified but not archived')
-    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--check-only', action='store_true', help='Validate required files and run coverage without creating an archive')
+    parser.add_argument('--output', type=Path, help='New archive path; required unless --check-only')
     parser.add_argument('--reviewed', action='store_true', help='Acknowledge review of all included evidence for credentials/private material')
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
+    if args.check_only and args.output is not None:
+        parser.error('--check-only does not create an archive; omit --output')
+    if not args.check_only and args.output is None:
+        parser.error('--output is required when packaging')
     try:
-        package(args.run_dir, args.output, args.reviewed, args.benchmark)
+        if args.check_only:
+            print(json.dumps(check_submission(args.run_dir, args.benchmark), indent=2))
+        else:
+            package(args.run_dir, args.output, args.reviewed, args.benchmark)
     except (ValueError, OSError, json.JSONDecodeError) as error:
-        parser.exit(2, f'Submission not packaged: {error}\n')
+        action = 'Submission check failed' if args.check_only else 'Submission not packaged'
+        parser.exit(2, f'{action}: {error}\n')
+
+
+if __name__ == '__main__':
+    main()

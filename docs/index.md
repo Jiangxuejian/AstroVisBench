@@ -79,7 +79,7 @@ bookkeeping correction is included. Details are retained in the
 
 1. [Prepare the data](lite72-data-release.md): about **9.9 GB** to download; allow **50 GB free**, plus scientific software and execution outputs.
 2. Give your coordinating agent the [run prompt](../LITE72_AGENT_PROMPT.md). It preserves the original task definitions and evaluation procedure.
-3. Submit the compressed generated code and execution results to the maintainer for common judging. You do not need to run a judge.
+3. [Package and submit your results](SUBMIT_RESULTS.md) to the maintainer for common judging. You do not need to run a judge.
 
 The workflow is **prepare → generate → execute → judge → aggregate**.
 Standard model runs have no tools; coding-agent runs declare their tools and
