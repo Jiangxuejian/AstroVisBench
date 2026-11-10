@@ -26,10 +26,13 @@ See the [full table, metric definitions and limitations](docs/index.md).
 ## Run Lite-72
 
 1. [Download and prepare the data](docs/lite72-data-release.md).
-2. Give your coordinating agent the [benchmark prompt](LITE72_AGENT_PROMPT.md).
+2. Give your coordinating agent the [benchmark prompt](LITE72_AGENT_PROMPT.md). New runs default to [T1](docs/T1_PROTOCOL.md): bounded tool use with up to three candidate checks per stage.
 3. [Package and submit your results](docs/SUBMIT_RESULTS.md) for maintainer-side scoring. You do not need judge credentials.
 
 Data downloads: [GitHub](https://github.com/Jiangxuejian/AstroVisBench/releases/tag/lite72-data-20261109) · [GitLab](https://gitlab.zhejianglab.com/jiangxuejian/astrovisbench-lite/-/tree/data/lite72-20261109-curated-v1/lite72-data/20261109-curated-v1).
+
+T1 requires verified external controls; otherwise stop and ask. No-tool T0 or
+unverified agent-pilot runs require explicit selection and separate reporting.
 
 Lite-72 spans spectroscopy, photometry, imaging, time series, cosmology and
 simulation/modeling, using provisional notebook-family labels. It is a fixed

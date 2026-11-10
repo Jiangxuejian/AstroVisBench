@@ -75,6 +75,31 @@ class SubmissionTests(unittest.TestCase):
     def validate(self):
         return bundle.validate(self.run, self.source)
 
+    def test_new_run_template_defaults_to_versioned_t1(self):
+        template = json.loads((bundle.ROOT/'submission/run_manifest.example.json').read_text())
+        self.assertEqual(template['track'], 'T1')
+        generation = template['generation']
+        self.assertEqual(generation['protocol_id'], bundle.T1_PROTOCOL_ID)
+        self.assertEqual(generation['limits_enforcement'], 'external')
+        self.assertEqual(generation['tools'], bundle.T1_TOOLS)
+        self.assertEqual(generation['limits'], bundle.T1_LIMITS)
+        prompt = (bundle.ROOT/'LITE72_AGENT_PROMPT.md').read_text()
+        self.assertIn('TRACK = T1', prompt)
+        self.assertIn('Never silently switch to T0/pilot', prompt)
+
+    def test_missing_track_is_not_inferred_from_new_run_default(self):
+        self.manifest.pop('track')
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'Declare T0, T1 or agent-pilot'):
+            self.validate()
+
+    def test_explicit_alternative_tracks_remain_available(self):
+        for track in ['T0', 'agent-pilot']:
+            with self.subTest(track=track):
+                self.manifest['track'] = track
+                self.flush()
+                self.assertEqual(self.validate()['track'], track)
+
     def versioned_t1(self, checks=0):
         self.manifest['track'] = 'T1'
         self.manifest['generation'] = dict(limits_enforcement='external',

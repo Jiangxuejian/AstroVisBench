@@ -1,5 +1,8 @@
 # T1 protocol: bounded tool-assisted generation
 
+**Default track for new runs.** T0 and agent-pilot require explicit selection.
+Without verified external T1 controls, stop and ask; never silently downgrade.
+
 Version: **astrovis-t1-20261110**, for new runs. The numerical budgets are
 unchanged. Historical results retain their recorded protocols; this clarification
 does not certify or rescore them.

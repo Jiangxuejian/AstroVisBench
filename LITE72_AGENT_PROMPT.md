@@ -13,14 +13,15 @@ Optional inputs: the [~9.9 GB shared bundle](docs/lite72-data-release.md) is
 operator-only and has declared data deviations. Record its version/hash;
 do not silently treat it as the original full-HDU historical inputs.
 
-Choose a track:
+**T1 is the default for new runs.** Alternatives require an explicit choice:
 
+- **T1 (default):** model + harness with externally enforced isolation, tools and budgets.
 - **T0:** original no-tool model generation; operator tools are only orchestration.
-- **T1:** model + harness with externally enforced isolation, tools and budgets.
 - **agent-pilot:** native agent with unverified controls; not controlled T1.
 
 This repository has no portable audited T1 supervisor. A prompt alone cannot
-enforce T1; supply a versioned, audited supervisor or choose T0/pilot explicitly.
+enforce T1. Verify a versioned, audited supervisor before starting; otherwise
+STOP and ask. Never silently switch to T0/pilot or claim prompt-only T1.
 
 **T1 order:** generate/check/revise (up to three checks per stage) → freeze all
 submissions → final execution → maintainer judging. The two optional revisions
@@ -37,7 +38,7 @@ CONFIGURATION — fill before starting; ask about missing choices or permissions
   CHECKOUT = <clone of https://github.com/Jiangxuejian/AstroVisBench>
   RUN_DIR = <new empty directory outside the repository>
   RUN_ID = <model-harness-track-date>
-  TRACK = <T0 | T1 | agent-pilot>
+  TRACK = T1  # default; T0 or agent-pilot only if explicitly selected
   MODEL = <exact provider ID or local weights/revision/quantization>
   HARNESS = <name, version, source revision; adapter if needed>
   FULL_BENCHMARK_JSON = <original 432-record astrovisbench_queries.json>
@@ -48,6 +49,9 @@ CONFIGURATION — fill before starting; ask about missing choices or permissions
   SUBMISSION_OUTPUT = <new .tar.gz path outside RUN_DIR>
 
 1. PREFLIGHT
+Use T1 unless the contributor explicitly selects T0 or agent-pilot. For T1,
+verify external enforcement before inference; otherwise STOP and ask, without
+silently downgrading. Template defaults are requirements, not proof of controls.
 Read this guide, generate_code/generate_code.py and exec_bench.py. For T1 also
 read docs/T1_PROTOCOL.md and submission/t1_protocol.json. Record fork commit/dirty
 diff, model and harness identities,
@@ -74,7 +78,9 @@ Run commands from CHECKOUT in EXECUTION_ENV, substituting quoted actual paths:
     --output RUN_DIR/selected_benchmark.json
 The selector defaults to legacy v1: never omit --manifest or bypass checks.
 Fill submission/run_manifest.example.json as RUN_DIR/run_manifest.json;
-replace every REPLACE field. T0: mark T1-specific limits not applicable.
+replace every REPLACE field and verify all prefilled T1 settings against the
+actual supervisor. If explicitly choosing T0/pilot, record that track and actual
+tools/enforcement/policy; T0: mark T1-specific protocol/limits not applicable.
 Record live-service failures; do not substitute frozen databases or answers.
 T1: set generation.protocol_id = astrovis-t1-20261110 and record SHA256s of
 submission/t1_protocol.json and submission/t1_solver_instructions.txt in the
@@ -95,7 +101,8 @@ Visualization adds NEITHER underspecification field and must not inherit the
 model's processing code/history. Preserve all original source/reference fields;
 fill only processing_gen_code and visualization_gen_code, matched by UID.
 
-T0: use the original generator (LIBRARY: OA/anthropic/together/GEM/hf as supported):
+T0 (explicit alternative only): use the original generator
+(LIBRARY: OA/anthropic/together/GEM/hf as supported):
   python generate_code/generate_code.py \
     RUN_DIR/selected_benchmark.json RUN_DIR/generated_benchmark.json MODEL LIBRARY
 For unsupported providers, version a transport-only adapter preserving exact
@@ -104,7 +111,7 @@ inspection, candidate runs, browsing, images or corrections. Retain API failures
 and predeclared retries; never retry valid answers to improve them. Validate UID
 coverage: upstream concurrent checkpointing/resume is not a coverage guarantee.
 
-T1 — bounded checks are PART OF GENERATION, not final benchmark execution:
+T1 (default) — bounded checks are PART OF GENERATION, not final execution:
   a. Smoke-test the external supervisor on synthetic, non-benchmark inputs.
      If isolation/counters cannot be enforced, STOP and ask about a pilot.
   b. Start one fresh solver session for this UID/stage. Supply only its original
@@ -134,7 +141,7 @@ Checks use clean identical inputs/prelude and return bounded runtime/exit/
 timeout/sanitized-exception feedback only. Keep stdout/artifacts operator-side;
 do not expose hidden tests, reference products, images/encodings or judge scores.
 
-Pilot: declare actual tools/limits and unknown controls; obtain approval for
+Pilot (explicit alternative only): declare actual tools/limits and unknown controls; obtain approval for
 broader capabilities. Still require fresh sessions and reference separation;
 stop if those cannot be achieved. Never silently relabel a pilot as T1.
 

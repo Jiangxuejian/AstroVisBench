@@ -82,8 +82,10 @@ bookkeeping correction is included. Details are retained in the
 3. [Package and submit your results](SUBMIT_RESULTS.md) to the maintainer for common judging. You do not need to run a judge.
 
 The workflow is **prepare → generate → execute → judge → aggregate**.
-Standard model runs have no tools; coding-agent runs declare their tools and
-budgets separately. Reference answers and hidden tests stay unavailable to the
+**New runs default to [T1](T1_PROTOCOL.md)** with verified external tool/budget
+controls. Without them, stop and ask; never silently downgrade. No-tool T0 or
+unverified agent-pilot runs require explicit selection and separate reporting.
+Reference answers and hidden tests stay unavailable to the
 evaluated agent. As upstream, visualization tasks receive reference processing
 code rather than the model's own analysis output.
 
