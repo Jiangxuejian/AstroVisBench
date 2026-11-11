@@ -57,6 +57,10 @@ class PublicationTests(unittest.TestCase):
         self.assertNotIn('<!-- Full-432 · independent · no tools -->',content)
         self.assertEqual(content.count('<!-- (lite-bench) -->'),3)
         self.assertIn('selected 144 tasks from the full 864 tasks',content)
+        self.assertIn('github.com/Jiangxuejian/AstroVisBench',content)
+        links=svg.findall('.//{http://www.w3.org/2000/svg}a')
+        self.assertTrue(any(link.get('{http://www.w3.org/1999/xlink}href') ==
+                            'https://github.com/Jiangxuejian/AstroVisBench' for link in links))
         self.assertNotIn('Lite-72 v2 selection',content)
         self.assertNotIn('Display order only:',content)
         self.assertNotIn('Qwen recovery includes supplemental attempts',content)
