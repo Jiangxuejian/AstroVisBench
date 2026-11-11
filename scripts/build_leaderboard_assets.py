@@ -22,6 +22,8 @@ def row_label(row):
     name = row.get('table_label', row['label']).split(' (', 1)[0]
     if row['id'] == 'qwen38-27b-q4-k-m':
         name = 'Qwen3.8\n27B Q4_K_M'
+    elif row['id'] == 'gpt6-lite72-v2-selection':
+        name = 'GPT-6 Astra medium\n+ Codex'
     elif row['id'] == 'codex-qwen38-lite72-v2-selection-recovery':
         name = 'Codex + Qwen3.8\n27B Q4_K_M'
     return name + ('\n(lite-bench)' if 'v2-selection' in row['id'] else '')
@@ -38,7 +40,7 @@ def main():
     height = 0.21
     colors = ['#89a8ee', '#91dce9', '#8fe7a5']
     names = ['Processing No Error %', 'Visualization No Error %', 'CorrectV %']
-    fig, ax = plt.subplots(figsize=(10.8, 15.5), dpi=180)
+    fig, ax = plt.subplots(figsize=(10.8, 17.5), dpi=180)
     fig.patch.set_facecolor('white')
     ax.set_facecolor('white')
     for index in range(len(rows)):
@@ -58,31 +60,31 @@ def main():
             ax.text((value + 0.8) if value is not None else 0.8,
                     bar.get_y() + bar.get_height() / 2,
                     f'{value:.2f}' if value is not None else 'n/a',
-                    va='center', ha='left', fontsize=14,
+                    va='center', ha='left', fontsize=18,
                     fontweight='bold' if correct else 'normal',
                     color='#237445' if correct else '#596273', zorder=4)
     ax.set_yticks(y)
-    ax.set_yticklabels([row_label(row) for row in rows], fontsize=15, linespacing=1.35)
+    ax.set_yticklabels([row_label(row) for row in rows], fontsize=19, linespacing=1.2)
     ax.set_ylim(len(rows) - 0.5, -0.5)
     ax.set_xlim(0, 90)
     ax.set_xticks(np.arange(0, 91, 10))
-    ax.set_xlabel('Percent (%)', fontsize=17, labelpad=12)
+    ax.set_xlabel('Percent (%)', fontsize=21, labelpad=12)
     ax.grid(axis='x', color='#d9dde5', linewidth=0.7, zorder=1)
     ax.set_axisbelow(True)
     ax.spines[['top', 'right', 'left']].set_visible(False)
     ax.spines['bottom'].set_color('#cbd1da')
     ax.tick_params(axis='y', length=0, pad=12, colors='#3d4858')
-    ax.tick_params(axis='x', length=0, pad=6, labelsize=14, colors='#596273')
-    fig.suptitle('AstroVisBench Leaderboard', fontsize=28, fontweight='bold', y=0.98)
+    ax.tick_params(axis='x', length=0, pad=6, labelsize=18, colors='#596273')
+    fig.suptitle('AstroVisBench Leaderboard', fontsize=32, fontweight='bold', y=0.98)
     fig.text(0.5, 0.945, 'Sorted by CorrectV ↓ · lite-bench = selected 144 tasks from the full 864 tasks',
-             ha='center', fontsize=15, color='#596273')
+             ha='center', fontsize=18, color='#596273')
     fig.text(0.5, 0.92, 'github.com/Jiangxuejian/AstroVisBench',
-             ha='center', fontsize=14, color='#596273',
+             ha='center', fontsize=17, color='#596273',
              url='https://github.com/Jiangxuejian/AstroVisBench')
     fig.legend(*ax.get_legend_handles_labels(), loc='upper center',
                bbox_to_anchor=(0.5, 0.9), ncol=3, frameon=False,
-               fontsize=13.5, handlelength=1.6, columnspacing=1.2)
-    fig.subplots_adjust(left=0.37, right=0.95, bottom=0.06, top=0.855)
+               fontsize=16, handlelength=1.4, columnspacing=1.0)
+    fig.subplots_adjust(left=0.40, right=0.93, bottom=0.06, top=0.855)
     # Center the complete plot, including model labels and numeric annotations,
     # not just the bar axes (which would clip long model names on the left).
     fig.canvas.draw()
