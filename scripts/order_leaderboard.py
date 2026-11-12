@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Display Full-432/v2 by CorrectV; archive v1 without changing any score."""
+"""Display Full-432/v2 by an equal-weight VIscore/CorrectV index; archive v1."""
 import argparse
 import json
 from pathlib import Path
@@ -47,13 +47,18 @@ def main(check=False):
     display_note = '2026-10-30: Portrait horizontal chart, Full-432 and historical Lite-72 v2 selection only, globally sorted by CorrectV. Lite-72 v1 retained in archived_rows, not displayed. No scores changed.'
     if display_note not in payload['notes']:
         payload['notes'].insert(0, display_note)
+    index_note = '2026-11-12: Display order uses (100 * VIscore + CorrectV) / 2, an equal-weight browsing index, not an official or validated benchmark metric. VIscore is conditional on eligible successful processing runs; CorrectV uses all visualization tasks. Original scores unchanged.'
+    if index_note not in payload['notes']:
+        payload['notes'].insert(0, index_note)
     payload['display_order'] = dict(
-        sort_by='correct_v', direction='descending',
+        sort_by='equal_weight_vi_correctv', direction='descending',
+        formula='(100 * vi_score + correct_v) / 2',
+        weights=dict(vi_score=0.5, correct_v=0.5),
         scope='Full-432 and Lite-72 v2 task selection; Lite-72 v1 excluded',
         groups=[dict(id=key, label=label) for key, label, _ in GROUPS
                 if any(group_id(row) == key for row in after)],
         tie_break='model ID; missing metrics last',
-        note='Globally sorted for display only. Different suites, judges and recovery budgets do not form one comparable ranking.')
+        note='Display index only, not an official metric. Conditional VIscore and all-task CorrectV have different denominators. Different suites, judges and recovery budgets do not form one comparable ranking.')
     outputs = {path: json.dumps(payload, indent=2, ensure_ascii=False, allow_nan=False) + '\n'}
     markdown = ROOT / 'docs/index.md'
     outputs[markdown] = reorder_markdown(markdown.read_text(), before, after)

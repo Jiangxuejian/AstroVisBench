@@ -9,7 +9,7 @@ from statistics import mean
 import unittest
 import xml.etree.ElementTree as ET
 
-from leaderboard_order import GROUPS, group_id, ordered_rows
+from leaderboard_order import GROUPS, display_index, group_id, ordered_rows
 from order_leaderboard import reorder_markdown
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -22,22 +22,22 @@ class PublicationTests(unittest.TestCase):
         rows=leaderboard['rows']
         self.assertEqual(rows,ordered_rows(rows))
         self.assertEqual([r['id'] for r in rows],[
-            'gpt6-lite72-v2-selection','claude-k3-lite72-v2-selection',
-            'kimi-k3','gemini-2.5-pro','o3-mini','qwen-2.5','llama-4-maverick',
-            'claude-sonnet-3.7','claude-opus-4.0','gpt-4o','qwq',
-            'qwen38-27b-q4-k-m',
-            'codex-qwen38-lite72-v2-selection-recovery'])
+            'gpt6-lite72-v2-selection','kimi-k3','o3-mini',
+            'claude-k3-lite72-v2-selection','gemini-2.5-pro','claude-opus-4.0',
+            'claude-sonnet-3.7','codex-qwen38-lite72-v2-selection-recovery',
+            'llama-4-maverick','qwen-2.5','gpt-4o','qwq','qwen38-27b-q4-k-m'])
         self.assertEqual([g['id'] for g in leaderboard['display_order']['groups']],
                          [g[0] for g in GROUPS if g[0]!='lite-v1-t1'])
-        self.assertEqual(leaderboard['display_order']['sort_by'],'correct_v')
-        self.assertEqual([r['correct_v'] for r in rows],sorted([r['correct_v'] for r in rows],reverse=True))
+        self.assertEqual(leaderboard['display_order']['sort_by'],'equal_weight_vi_correctv')
+        self.assertEqual(leaderboard['display_order']['formula'],'(100 * vi_score + correct_v) / 2')
+        self.assertEqual([display_index(r) for r in rows],sorted([display_index(r) for r in rows],reverse=True))
         archived=leaderboard['archived_rows']
         self.assertEqual([r['id'] for r in archived],['claude-code-k3-lite72'])
         self.assertAlmostEqual(archived[0]['correct_v'],18.51851851851852)
         self.assertEqual(group_id(archived[0]),'lite-v1-t1')
         text=(ROOT/'docs/index.md').read_text()
         self.assertEqual(text,reorder_markdown(text,list(reversed(rows)),rows))
-        self.assertEqual(group_id(rows[-1]),'historical-v2-recovery')
+        self.assertEqual(group_id(rows[-1]),'independent-full')
 
     def test_portrait_assets_and_compatibility_aliases(self):
         assets=ROOT/'docs/assets'
@@ -66,25 +66,29 @@ class PublicationTests(unittest.TestCase):
         self.assertNotIn('Qwen recovery includes supplemental attempts',content)
         self.assertNotIn('Hatched bars: independent runs',content)
 
-    def test_figure_includes_viscore_with_its_own_scale(self):
+    def test_figure_includes_viscore_as_scaled_fourth_bar(self):
         leaderboard=json.loads((DATA/'leaderboard.json').read_text())
         self.assertEqual(leaderboard['chart_metrics'],[
             'processing_no_error','visualization_no_error','correct_v','vi_score'])
         svg=(ROOT/'docs/assets/leaderboard-portrait.svg').read_text()
-        self.assertIn('<!-- VIscore ↑ -->',svg)
-        self.assertIn('<!-- Score (0–1) -->',svg)
-        self.assertIn('<!-- Percent (%) -->',svg)
+        self.assertIn('<!-- VIscore × 100 -->',svg)
+        self.assertIn('<!-- Percent / VIscore × 100 -->',svg)
+        self.assertIn('<!-- Display order: (100 × VIscore + CorrectV) / 2 ↓ -->',svg)
+        self.assertNotIn('<!-- Score (0–1) -->',svg)
         for row in leaderboard['rows']:
             if row['id'] == 'qwen38-27b-q4-k-m':
                 continue
-            self.assertIn(f"<!-- {row['vi_score']:.3f} -->",svg)
+            self.assertIn(f"<!-- {100*row['vi_score']:.2f} -->",svg)
 
     def test_sort_ties_and_missing_metrics(self):
-        rows=[dict(id=id,source='published-reference',correct_v=value)
-              for id,value in [('missing',None),('b',10),('a',10),('c',20)]]
-        self.assertEqual([r['id'] for r in ordered_rows(rows)],['c','a','b','missing'])
+        rows=[dict(id=id,source='published-reference',vi_score=vi,correct_v=value)
+              for id,vi,value in [('missing-vi',None,99),('b',0.5,20),
+                                  ('a',0.6,10),('c',0.8,0),('missing-correct',0.99,None)]]
+        self.assertEqual(display_index(rows[1]),35)
+        self.assertEqual(display_index(rows[2]),35)
+        self.assertEqual([r['id'] for r in ordered_rows(rows)],['c','a','b','missing-correct','missing-vi'])
         legacy=dict(id='claude-code-k3-lite72',source='independent-local',correct_v=99)
-        self.assertEqual([r['id'] for r in ordered_rows(rows+[legacy])],['c','a','b','missing'])
+        self.assertEqual([r['id'] for r in ordered_rows(rows+[legacy])],['c','a','b','missing-correct','missing-vi'])
         with self.assertRaises(ValueError):
             group_id(dict(id='unknown',source='independent-local'))
 

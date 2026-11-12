@@ -17,8 +17,13 @@ the official leaderboard.
 
 **CorrectV** is the percentage of all visualization tasks judged free of errors.
 A program that runs successfully is not necessarily scientifically correct.
-**VIscore** (right panel, 0–1) measures agreement with reference data products
-among eligible successful processing runs. Higher is better.
+**VIscore** measures agreement with reference data products among eligible
+successful processing runs. The fourth bar shows **VIscore × 100**; the table
+retains its original 0–1 scale. Higher is better.
+
+Display order uses **(100 × VIscore + CorrectV) / 2**, with equal weights.
+This is a browsing index, not an official benchmark score; its two components
+have different denominators and should also be read separately.
 
 The figure includes full-benchmark and Lite results. Tool-assisted agents and
 models without tools are different experiments; the display is not a controlled
