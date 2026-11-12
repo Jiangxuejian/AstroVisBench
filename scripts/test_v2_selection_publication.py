@@ -66,6 +66,19 @@ class PublicationTests(unittest.TestCase):
         self.assertNotIn('Qwen recovery includes supplemental attempts',content)
         self.assertNotIn('Hatched bars: independent runs',content)
 
+    def test_figure_includes_viscore_with_its_own_scale(self):
+        leaderboard=json.loads((DATA/'leaderboard.json').read_text())
+        self.assertEqual(leaderboard['chart_metrics'],[
+            'processing_no_error','visualization_no_error','correct_v','vi_score'])
+        svg=(ROOT/'docs/assets/leaderboard-portrait.svg').read_text()
+        self.assertIn('<!-- VIscore ↑ -->',svg)
+        self.assertIn('<!-- Score (0–1) -->',svg)
+        self.assertIn('<!-- Percent (%) -->',svg)
+        for row in leaderboard['rows']:
+            if row['id'] == 'qwen38-27b-q4-k-m':
+                continue
+            self.assertIn(f"<!-- {row['vi_score']:.3f} -->",svg)
+
     def test_sort_ties_and_missing_metrics(self):
         rows=[dict(id=id,source='published-reference',correct_v=value)
               for id,value in [('missing',None),('b',10),('a',10),('c',20)]]

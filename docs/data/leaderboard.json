@@ -13,7 +13,8 @@
   "chart_metrics": [
     "processing_no_error",
     "visualization_no_error",
-    "correct_v"
+    "correct_v",
+    "vi_score"
   ],
   "rows": [
     {

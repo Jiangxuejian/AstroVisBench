@@ -33,6 +33,9 @@ judge and execution conditions mean this is **not one controlled ranking**.
 The no-tool Qwen result appears in the table only.
 [Download PNG](assets/leaderboard-portrait.png).
 
+The right-hand **VIscore** panel uses a separate 0–1 scale: agreement with
+reference data products among eligible successful processing runs. Higher is better.
+
 | Model | Suite / track | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | GPT-6 Astra medium + Codex§ | (lite-72 v2 selection) historical inputs, T1 | 66.67% | 0.6700 | 83.33% | 25.93% | 8.33% | 25.00% | 24.07% |
