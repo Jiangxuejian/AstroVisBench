@@ -26,10 +26,8 @@ def group_id(row):
 
 
 def display_index(row):
-    """Equal-weight browsing index, not an upstream benchmark metric."""
-    if row.get('vi_score') is None or row.get('correct_v') is None:
-        return None
-    return (100 * row['vi_score'] + row['correct_v']) / 2
+    """Display by CorrectV alone; VIscore never affects position or ties."""
+    return row.get('correct_v')
 
 
 def ordered_rows(rows):

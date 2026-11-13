@@ -1,0 +1,1236 @@
+{
+  "snapshot": "2026-10-30",
+  "suite": "Lite-72 v2 task selection — historical inputs",
+  "track": "coding-agent T1 — supplemental recovery",
+  "official_frozen_input_v2_result": false,
+  "original_capped_run_result": false,
+  "selection_manifest": "lite72-v2-candidate.json",
+  "selection_sha256": "a9ed93a935b2e984e546fdebbcfef7b0f14879e3b93064db6985e34ef4541f3b",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "upstream_revision": "707657f8fac4df50a6cf6c2c4671bf6a0258a201",
+  "model": {
+    "display_name": "Codex + Qwen3.8-27B Q4_K_M",
+    "harness": "Codex CLI",
+    "cli_version": "0.162.1",
+    "model_requested": "qwen38-27b-q4",
+    "reasoning_effort": "disabled",
+    "hf_repository": "ggml-org/Qwen3.8-27B-GGUF",
+    "hf_revision": "0669b98607d47046c7c2b3f801011d54a08cfccf",
+    "weights_sha256": "31629f53165ab6a7dad8c9847dcfd1fdf55829dac1e6e748f4a68581b0033d34",
+    "llama_cpp_build": "b10679",
+    "llama_cpp_commit": "50f068fff",
+    "transport_adapter": "qwen-responses-context-compaction-v5-20261028",
+    "context_tokens": 32768,
+    "temperature": 0,
+    "seed": 42
+  },
+  "run": {
+    "id": "codex-qwen38-27b-q4-t1-v2-selection-recovery-20261029",
+    "original_id": "codex-qwen38-27b-q4-t1-v2-selection-20261027",
+    "retry_id": "codex-qwen38-27b-q4-t1-v2-selection-retry-p51-p52-20261029",
+    "executed_workflows": 72
+  },
+  "stage_limits": {
+    "logical_model_requests": 20,
+    "total_output_tokens": 32768,
+    "per_response_output_tokens": 8192,
+    "candidate_checks": 3,
+    "feedback_corrections": 2,
+    "candidate_timeout_seconds": 600,
+    "wall_clock_seconds": 2400,
+    "subagents": 0,
+    "human_hints": 0
+  },
+  "tools": [
+    "list_inputs",
+    "read_text",
+    "write_candidate",
+    "run_candidate",
+    "submit"
+  ],
+  "image_viewing": false,
+  "metrics": {
+    "workflows": 72,
+    "processing_successes": 25,
+    "visualization_successes": 39,
+    "processing_no_error": 34.72222222222222,
+    "visualization_no_error": 54.166666666666664,
+    "vi_score": 0.5789473684210527,
+    "vi_eligible_workflows": 19,
+    "correct_v": 6.944444444444445,
+    "minor": 9.25925925925926,
+    "major": 28.24074074074074,
+    "vis_fail": 9.722222222222221,
+    "crash": 45.833333333333336
+  },
+  "records": [
+    {
+      "uid": "c1b95253-3b6a-4a04-b6ec-a5ab4dc1c4bd",
+      "index_1based": 1,
+      "selection_task_1based": 1,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
+    },
+    {
+      "uid": "9cc4b7c6-5e7d-48aa-8fc3-7eaa088dc84f",
+      "index_1based": 2,
+      "selection_task_1based": 2,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "47e8e149-b8b5-4343-8aec-2325694f04f6",
+      "index_1based": 4,
+      "selection_task_1based": 3,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
+    },
+    {
+      "uid": "c775d8bc-edd4-4c57-9294-a631b382ddcd",
+      "index_1based": 10,
+      "selection_task_1based": 4,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 0.6666666666666666,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "a74f8fe0-bc6b-41e5-b31a-f6594fa1c886",
+      "index_1based": 15,
+      "selection_task_1based": 5,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "17a02a01-af49-4ee7-b017-d0c71acdb57b",
+      "index_1based": 18,
+      "selection_task_1based": 6,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "7fd80af6-da2b-40a5-91e4-d44e6ff805dd",
+      "index_1based": 21,
+      "selection_task_1based": 7,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "7d56c314-8d6c-439e-ba64-bc803ce897e8",
+      "index_1based": 30,
+      "selection_task_1based": 8,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "2e1a9726-5b3b-4da3-99b7-4419cf891159",
+      "index_1based": 31,
+      "selection_task_1based": 9,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "2197f927-5def-4303-96e1-3aec9ae4a74e",
+      "index_1based": 33,
+      "selection_task_1based": 10,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "85369b15-43ed-4de1-996e-f215f31fd9cb",
+      "index_1based": 44,
+      "selection_task_1based": 11,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "c8ab6aa2-8e9c-4d03-a60e-11554e29d664",
+      "index_1based": 45,
+      "selection_task_1based": 12,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "ec751b1b-48e9-4248-9bb8-dd080498e33f",
+      "index_1based": 49,
+      "selection_task_1based": 13,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
+    },
+    {
+      "uid": "a37aec5d-d6f1-4000-8648-3bade2959adf",
+      "index_1based": 51,
+      "selection_task_1based": 14,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "c62dc8ee-0bec-4b41-9549-acd1e2d3af50",
+      "index_1based": 56,
+      "selection_task_1based": 15,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "002f11b3-627d-4b95-ae2e-067d056da5d7",
+      "index_1based": 75,
+      "selection_task_1based": 16,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "355af9d3-179a-4e3d-af73-472fb3c0799d",
+      "index_1based": 83,
+      "selection_task_1based": 17,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": true,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "238220a8-8cdc-41ab-93a8-0ae0ec62fd15",
+      "index_1based": 95,
+      "selection_task_1based": 18,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "dbaf0eac-4de5-4c4c-8721-13c9c4432cb8",
+      "index_1based": 102,
+      "selection_task_1based": 19,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "627613e5-84a4-467b-a166-ec9ec5bfca11",
+      "index_1based": 108,
+      "selection_task_1based": 20,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
+    },
+    {
+      "uid": "afd81858-3389-483b-a0d7-d3d74cf7e876",
+      "index_1based": 112,
+      "selection_task_1based": 21,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "7cae0e5e-6266-4004-a12f-73dde40ee152",
+      "index_1based": 115,
+      "selection_task_1based": 22,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
+    },
+    {
+      "uid": "07e96fae-1f1a-44f1-9c09-fc5c395097fc",
+      "index_1based": 123,
+      "selection_task_1based": 23,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "9537fb6f-f1c5-4f40-a1d8-5d5bcb45e3b8",
+      "index_1based": 141,
+      "selection_task_1based": 24,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "f7850e8d-b4cd-41e5-8b9c-3522000cfea7",
+      "index_1based": 144,
+      "selection_task_1based": 25,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "d4804e8e-80b5-4417-b3a2-e3f508100129",
+      "index_1based": 146,
+      "selection_task_1based": 26,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "33295b64-6b01-4666-bc42-99f8bd05735c",
+      "index_1based": 149,
+      "selection_task_1based": 27,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "d8a30a5e-6a09-4661-beae-0e0c221efa57",
+      "index_1based": 162,
+      "selection_task_1based": 28,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "7744c49c-18d4-4cf8-b732-7fe76fc4437a",
+      "index_1based": 163,
+      "selection_task_1based": 29,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "fb50a146-7c98-4b44-ab0b-82ac586332ff",
+      "index_1based": 172,
+      "selection_task_1based": 30,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "89a5d0de-2406-4a5b-9d0a-ddeb202b5788",
+      "index_1based": 176,
+      "selection_task_1based": 31,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
+    },
+    {
+      "uid": "fa664ea9-1590-4bad-829a-382d6fb0fb6c",
+      "index_1based": 186,
+      "selection_task_1based": 32,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "9c357ad3-f7ae-4342-8bc6-9906ec414f6e",
+      "index_1based": 213,
+      "selection_task_1based": 33,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
+    },
+    {
+      "uid": "188c4b77-354f-4e75-9acb-820db4944f83",
+      "index_1based": 219,
+      "selection_task_1based": 34,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "80831816-3a6a-44c3-8c03-f4c1d9dbf206",
+      "index_1based": 238,
+      "selection_task_1based": 35,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "23aa6396-1e0e-4f88-a2cc-51f6989938bd",
+      "index_1based": 246,
+      "selection_task_1based": 36,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "5c60db9b-c287-4a84-a61b-715487d1c845",
+      "index_1based": 253,
+      "selection_task_1based": 37,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
+    },
+    {
+      "uid": "eca69933-152c-41a2-a3dc-38d8c48b9d4f",
+      "index_1based": 256,
+      "selection_task_1based": 38,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 0.3333333333333333,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
+    },
+    {
+      "uid": "625a8a7c-0dce-4316-8085-1f41771b7201",
+      "index_1based": 261,
+      "selection_task_1based": 39,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "160f483a-5273-4f5f-a993-df3217e2394e",
+      "index_1based": 264,
+      "selection_task_1based": 40,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "76d5d28c-b147-4312-97ad-75e9056ba3b6",
+      "index_1based": 269,
+      "selection_task_1based": 41,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "8b7ac5df-b70f-4125-a4e0-b5c2626c471f",
+      "index_1based": 272,
+      "selection_task_1based": 42,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "9960a5ea-64db-4583-8c50-37ba381f8666",
+      "index_1based": 275,
+      "selection_task_1based": 43,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "a570878c-8f42-48f7-9819-2713d9d0bb29",
+      "index_1based": 277,
+      "selection_task_1based": 44,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "4cbe0a87-8bf8-4bed-a99d-4c3085287986",
+      "index_1based": 281,
+      "selection_task_1based": 45,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "48f1992d-36e1-4459-bdc4-5add59da05e9",
+      "index_1based": 286,
+      "selection_task_1based": 46,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "41d15f0f-d58b-4b8d-bd8b-4b2d085b2e97",
+      "index_1based": 294,
+      "selection_task_1based": 47,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "dd7d9594-d70d-4218-9a16-17aca965718d",
+      "index_1based": 297,
+      "selection_task_1based": 48,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "7e3490f5-1574-4cf8-80ea-327ee709f40b",
+      "index_1based": 305,
+      "selection_task_1based": 49,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "d2bbf16f-061d-4f23-9b29-fd6d29effe2f",
+      "index_1based": 314,
+      "selection_task_1based": 50,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "07079aeb-c8f4-4ea3-aa04-7c926bd1dc9e",
+      "index_1based": 320,
+      "selection_task_1based": 51,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "7788e881-9e90-47b3-8c05-25de5f330ae7",
+      "index_1based": 331,
+      "selection_task_1based": 52,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": true,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "951db797-6b07-4686-9fba-7ce477df2876",
+      "index_1based": 336,
+      "selection_task_1based": 53,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "07c8eb39-2946-4a2c-aa7a-84b28c1eaf47",
+      "index_1based": 341,
+      "selection_task_1based": 54,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "4469562e-cc01-40e1-896c-a262585b2767",
+      "index_1based": 343,
+      "selection_task_1based": 55,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "2128e9c3-4b3a-4833-a430-48d9c8cbf1eb",
+      "index_1based": 351,
+      "selection_task_1based": 56,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "1ff69f41-f150-4f7a-be05-63c99df0318e",
+      "index_1based": 352,
+      "selection_task_1based": 57,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "c8b33d23-e294-4cf1-a001-6cf62c5dcf97",
+      "index_1based": 362,
+      "selection_task_1based": 58,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "No Error",
+        "No Error",
+        "No Error"
+      ]
+    },
+    {
+      "uid": "41adb5f6-deda-40bf-8479-0d96facfc207",
+      "index_1based": 370,
+      "selection_task_1based": 59,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "c4764483-281e-493c-b064-4abd55c8eb73",
+      "index_1based": 378,
+      "selection_task_1based": 60,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Minor Error",
+        "Minor Error",
+        "Minor Error"
+      ]
+    },
+    {
+      "uid": "bd5ddae7-a452-4dad-a9cf-c95873249434",
+      "index_1based": 380,
+      "selection_task_1based": 61,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "86f7a70c-9cf8-4742-8aa4-9515a2de55cb",
+      "index_1based": 386,
+      "selection_task_1based": 62,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "50da158f-4fa9-4dc8-82ad-1b1797e52677",
+      "index_1based": 388,
+      "selection_task_1based": 63,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Major Error",
+        "Major Error",
+        "Major Error"
+      ]
+    },
+    {
+      "uid": "3340a274-e53f-444c-bb13-81a3c21101d0",
+      "index_1based": 395,
+      "selection_task_1based": 64,
+      "processing_success": true,
+      "visualization_success": true,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "e8f3a414-1dfb-4765-b3bc-9a0afbf5efb2",
+      "index_1based": 397,
+      "selection_task_1based": 65,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "cd8ab4d6-9cf5-44ec-8897-92a94fe125b2",
+      "index_1based": 400,
+      "selection_task_1based": 66,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "ef078b25-1a76-44e0-a045-9dc5afdd5131",
+      "index_1based": 407,
+      "selection_task_1based": 67,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "395134b0-eeaa-462f-b45a-cd2dc80b6d26",
+      "index_1based": 408,
+      "selection_task_1based": 68,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 1.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "5d5b3425-21aa-4a5e-b23d-17c571582b91",
+      "index_1based": 409,
+      "selection_task_1based": 69,
+      "processing_success": true,
+      "visualization_success": false,
+      "vi_score": 0.0,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "6ed80aaa-370f-4726-a2cf-827836941c45",
+      "index_1based": 415,
+      "selection_task_1based": 70,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    },
+    {
+      "uid": "cb97c3f7-3b6a-466c-abd6-1721d25be091",
+      "index_1based": 430,
+      "selection_task_1based": 71,
+      "processing_success": false,
+      "visualization_success": true,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "VisFail",
+        "VisFail",
+        "VisFail"
+      ]
+    },
+    {
+      "uid": "47ea8025-f66f-43cf-b991-58d384722dfc",
+      "index_1based": 432,
+      "selection_task_1based": 72,
+      "processing_success": false,
+      "visualization_success": false,
+      "vi_score": null,
+      "missing_processing": false,
+      "execution_artifact": "recovery_accounted_execution",
+      "judge_outcomes": [
+        "Crash",
+        "Crash",
+        "Crash"
+      ]
+    }
+  ],
+  "recovery": {
+    "original_missing_processing_tasks": [
+      17,
+      51,
+      52
+    ],
+    "fresh_processing_attempts": [
+      51,
+      52
+    ],
+    "successful_retry_used": 51,
+    "missing_processing_tasks": [
+      17,
+      52
+    ],
+    "missing_processing_uids": [
+      "355af9d3-179a-4e3d-af73-472fb3c0799d",
+      "7788e881-9e90-47b3-8c05-25de5f330ae7"
+    ],
+    "generated_code_manually_repaired": false,
+    "original_artifacts_preserved": true,
+    "policy": "Raw executor is unchanged. Only missing processing stages become pro_success=false with no VI eligibility in a separate accounting artifact. All visualization judge fields are unchanged; no image resizing."
+  },
+  "checksums": {
+    "recovery_manifest_sha256": "1d669fd1b6fb81621f97a59733176582b83fd6503476ac1734b8536deb086c66",
+    "execution_accounting_sha256": "7a069c4c8468a37487edeb6e80a647938ac7ed64fd03e491664d92ac06291716",
+    "raw_execution_sha256": "a6590ddda6ef3b9794c454e54d2a9a1512e7c89275c488ed62894dd28b5b1693",
+    "accounted_execution_sha256": "52e71ae4d1308b4a2e6599b881ccf4b633abc5d633fe8755148b59edabb0dc6b",
+    "filled_benchmark_sha256": "20a64c8936ed7026d7a29f8c2e8a0b4437d21f4231fbbf9e13be36da51679daf",
+    "original_manifest_sha256": "d6a5c478934c9828947d079448402db706107d9ca74841339b3446bab35b1d68",
+    "retry_manifest_sha256": "50d68cff5482857752c872bb1a58d58d7c0f5c7ad604b143e2e3015cc497780e",
+    "task51_processing_sha256": "f167ba01fa2ee3dba1d3e16f8f3fa5243be90816a628cd8febfdee5d6e81644d",
+    "judge_runtime": {
+      "model_requested": "gpt-6-astra",
+      "reasoning_effort": "medium",
+      "trials": 3,
+      "cli_version": "codex-cli 0.153.4",
+      "cli_launcher_sha256": "61b0194f3bb6534439c8d26a3ed57d0805f84b884588b761795323eeb92fcf70",
+      "cli_native_sha256": "56ef98ab4032d317ab26e9b5e5a175650717351edb16ed9cde0cb6d1734d62da",
+      "adapter_sha256": "7d56fe338a9cbbcbcfdfc4ea1fe618a0a3918be0662c97de072583ea5e5503e4",
+      "prompt_csv_sha256": "442df31fcf52cae36cc99ef975c66505b09a88855579e5afe6eeeb718602b281",
+      "immutable_server_model_snapshot": null,
+      "desktop_app_version_current": null,
+      "version_note": "Live requested model alias; immutable served-model snapshot and current Mac app version unobserved."
+    }
+  },
+  "aggregation": "All 72 workflows retained. Missing processing 17/52 count as failures and are not VI eligible; raw blank-cell executor results remain unchanged.",
+  "limitations": [
+    "Historical/live-service inputs, not the released frozen-input v2 suite. External-download timeouts affected execution.",
+    "Supplemental recovery uses one fresh bounded attempt for processing tasks 51/52; not an original capped T1 baseline or a directly comparable ranking.",
+    "Original task 52 had compaction-adapter faults; the separate retry exhausted its request cap without code. No extra attempts are hidden.",
+    "Raw prompts, evidence and notebooks remain local; public hashes do not claim raw artifact availability.",
+    "Automated GPT-6 judging is not human expert validation; same-model bias is possible for GPT-6 generation."
+  ],
+  "result_status": "execution and 216 visualization judge outcomes validated",
+  "judge": {
+    "status": "validated",
+    "coverage_workflows": 72,
+    "trials_per_workflow": 3,
+    "valid_outcomes": 216,
+    "full_72_metrics_available": true,
+    "counts": {
+      "No Error": 15,
+      "Major Error": 61,
+      "Minor Error": 20,
+      "Crash": 99,
+      "VisFail": 21
+    },
+    "model_requested": "gpt-6-astra",
+    "reasoning_effort": "medium",
+    "codex_cli_version": "0.153.4",
+    "python_version": "3.10.12",
+    "ijson_version": "3.5.1",
+    "immutable_backend_snapshot_available": false,
+    "desktop_app_version_current": null,
+    "checkpoint_sha256": "751e9d7960b269b5bf2b5a1d44f1499f676b7d9c466c3d82b32442b84141a897",
+    "scores_sha256": "46189fc633fcc27e3c78f805998bb33d38a9d5b11a5619d7b490c9773e9599eb",
+    "adapter_provenance_sha256": "4fd22f66f37bd02b00a9b4885b6cd65b1cf7ae2e27f417a4cbe18013b721053f",
+    "input_sha256": "8e0a81960826d7d628e74c89b34161748c4d08d83f02e72bc6a947195d5456bd",
+    "completed_utc": "2026-10-30T01:11:35.439139+00:00",
+    "aggregation": "Counts / (72 workflows × 3 trials); no majority vote.",
+    "protocol": "Original rubric, image order and Crash/VisFail semantics; Codex provider adapter, not upstream Anthropic transport.",
+    "human_expert_review_included": false,
+    "adapter_sha256": "7d56fe338a9cbbcbcfdfc4ea1fe618a0a3918be0662c97de072583ea5e5503e4",
+    "prompt_csv_sha256": "442df31fcf52cae36cc99ef975c66505b09a88855579e5afe6eeeb718602b281",
+    "cli_launcher_sha256": "61b0194f3bb6534439c8d26a3ed57d0805f84b884588b761795323eeb92fcf70",
+    "cli_native_sha256": "56ef98ab4032d317ab26e9b5e5a175650717351edb16ed9cde0cb6d1734d62da"
+  }
+}

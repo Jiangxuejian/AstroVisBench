@@ -1,0 +1,77 @@
+{
+  "content_snapshot": "2026-10-08",
+  "suite": "AstroVisBench Lite-72 candidate v1",
+  "track": "coding-agent T1",
+  "model": {
+    "display_name": "Claude Code + Kimi K3",
+    "harness": "Claude Code",
+    "harness_version_observed": "2.1.285",
+    "provider": "Kimi Code API",
+    "model_requested": "k3",
+    "reasoning_effort_target": "low",
+    "tool_profile": "T1",
+    "tools": [
+      "list_inputs",
+      "read_text",
+      "write_candidate",
+      "run_candidate",
+      "submit"
+    ],
+    "stage_limits": {
+      "candidate_checks": 3,
+      "feedback_corrections": 2,
+      "logical_model_requests": 20,
+      "output_tokens": 32768,
+      "per_response_output_tokens": 8192,
+      "execution_timeout_seconds": 600,
+      "wall_clock_seconds": 2400,
+      "subagents": 0,
+      "human_hints": 0
+    },
+    "vision_access": false
+  },
+  "upstream_revision": "707657f8fac4df50a6cf6c2c4671bf6a0258a201",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "run": {
+    "run_id": "claude-code-k3-t1-lite-20261004",
+    "execution_records": 72,
+    "execution_sha256": "e6b715bd2007fb0529279448dab86e4d3736b9868a84781033b7f98e3e0b0f72",
+    "judge_source_sha256": "e6b715bd2007fb0529279448dab86e4d3736b9868a84781033b7f98e3e0b0f72",
+    "execution_manifest_sha256": "1ccce4573f25ea77ce3bb25c985e02a829ece11e223ffd71fb22c42b1dcf1ad6",
+    "lite_manifest_sha256": "25a97c7deae01f4590cd5d14d0d77a170a7be2a46f2d50a972eac4fe5a1d4d2e",
+    "codex_cli": "codex-cli 0.153.4",
+    "desktop_version_supplied_by_user": "26.908.70816"
+  },
+  "judge": {
+    "model_requested": "gpt-6-astra",
+    "reasoning_effort_requested": "medium",
+    "trials": 3,
+    "outcome_slots": 216,
+    "invocation_failures": 0,
+    "provenance_sha256": {
+      "batch_001_042": "73f8323afd1d232e6acd785e0a633abc3abad3b64ed284463333c06891371d43",
+      "batch_043_061": "77b591edd109d2939b98312f2d5d75129cb12a6d83cdafe1eaac96b253f0086f",
+      "batch_062_062": "9011ac747e8bcc59d4167f9e03835f8463891a678bd5b918e96fbedc6f3c2033",
+      "batch_063_072": "3c10c25094a27bfdd44e3b464a8c42d9842604aa85449aea369bcf8edada5149"
+    }
+  },
+  "metrics": {
+    "workflows": 72,
+    "processing_no_error": 62.5,
+    "vi_score": 0.6565656565656566,
+    "vi_eligible_workflows": 33,
+    "visualization_no_error": 84.72222222222221,
+    "correct_v": 18.51851851851852,
+    "vis_fail": 11.11111111111111,
+    "minor": 19.444444444444443,
+    "major": 35.648148148148145,
+    "crash": 15.277777777777779
+  },
+  "aggregation": "Processing and visualization execution rates use 72 workflows. VIscore uses the original unweighted score and includes only 33 successful workflows with nonempty inspections. Visualization categories are counts across three judge trials (216 outcome slots), using all workflows as the denominator for each trial.",
+  "limitations": [
+    "This is a Lite-72 candidate result, not a Full-432 score.",
+    "T1 is a separate coding-agent track; its allowed tools, correction loop, and budgets are not comparable to the no-tool model track.",
+    "The historical protocol records the Kimi route as not independently verified; the requested model alias was k3.",
+    "The judge transport was authenticated Codex CLI with the original visualization rubric adapted to gpt-6-astra; it is a separately identified judge series."
+  ]
+}

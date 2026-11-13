@@ -45,6 +45,33 @@ class SnapshotTests(unittest.TestCase):
             create_snapshot(root, '20261101', '2026-11-14')
         self.assertEqual((path/'manifest.json').read_bytes(), before)
 
+    def test_presentation_revision_preserves_original_and_has_valid_parent_links(self):
+        root = self.fixture()
+        original = create_snapshot(root, '20261101', '2026-11-13')
+        before = (original/'manifest.json').read_bytes()
+        view = create_snapshot(root, '20261101', '2026-11-13', view='correctv')
+        self.assertEqual(view, original/'correctv')
+        self.assertEqual((original/'manifest.json').read_bytes(), before)
+        self.assertIn('(../../../index.md)', (view/'README.md').read_text())
+        with self.assertRaises(FileExistsError):
+            create_snapshot(root, '20261101', '2026-11-13', view='correctv')
+        with self.assertRaises(ValueError):
+            create_snapshot(root, '20261101', '2026-11-13', view='../escape')
+
+    def test_current_correctv_view_keeps_scores_and_orders_by_correctv(self):
+        path = ROOT/'docs/leaderboards/20261101'
+        original = json.loads((path/'leaderboard.json').read_text())
+        revised = json.loads((path/'correctv/leaderboard.json').read_text())
+        self.assertEqual({r['id']: r for r in original['rows']},
+                         {r['id']: r for r in revised['rows']})
+        scores = [r['correct_v'] for r in revised['rows']]
+        self.assertEqual(scores, sorted(scores, reverse=True))
+        self.assertEqual(revised['display_order']['sort_by'], 'correct_v')
+        manifest = json.loads((path/'correctv/manifest.json').read_text())
+        for name, expected in manifest['files'].items():
+            data = (path/'correctv'/name).read_bytes()
+            self.assertEqual(hashlib.sha256(data).hexdigest(), expected['sha256'], name)
+
     def test_invalid_version_and_assembly_date_are_rejected(self):
         root = self.fixture()
         for version in ('../20261101', '20260230', '2026-11-01', 'abcdefgh'):

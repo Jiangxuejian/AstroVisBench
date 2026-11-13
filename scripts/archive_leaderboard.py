@@ -17,13 +17,19 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def create_snapshot(root, version, recorded_on=None):
+def create_snapshot(root, version, recorded_on=None, view=None):
     if not re.fullmatch(r'\d{8}', version):
         raise ValueError('Version must be a YYYYMMDD identifier')
     datetime.strptime(version, '%Y%m%d')
     recorded_on = recorded_on or datetime.now(ZoneInfo('Asia/Shanghai')).date().isoformat()
     date.fromisoformat(recorded_on)
     destination = root/'docs/leaderboards'/version
+    if view is not None:
+        if not re.fullmatch(r'[a-z][a-z0-9-]*', view):
+            raise ValueError('View must be a simple lowercase identifier')
+        if not destination.is_dir():
+            raise ValueError('A presentation view requires an existing dated snapshot')
+        destination = destination/view
     if destination.exists():
         raise FileExistsError('Snapshot already exists; choose a new version')
 
@@ -51,7 +57,11 @@ def create_snapshot(root, version, recorded_on=None):
     while end < len(lines) and lines[end].startswith('|'):
         end += 1
     table = '\n'.join(lines[start:end])
-    readme = f'''# Leaderboard {version}
+    docs_prefix = '../' * len(destination.relative_to(root/'docs').parts)
+    sort_note = ('Sorted by **CorrectV only**, highest first; VIscore does not affect order.'
+                 if payload['display_order'].get('sort_by') == 'correct_v'
+                 else 'The display index is not an official benchmark metric.')
+    readme = f'''# Leaderboard {version}{' — ' + view if view else ''}
 
 Frozen version label **{version}**; assembled on **{recorded_on}** (Asia/Shanghai).
 The version label is not the execution or publication date. Scores are the
@@ -61,18 +71,18 @@ new scientific evaluation rules. Lite rows use the **Lite-72 v2 task selection**
 ![Leaderboard {version}](leaderboard.png)
 
 [SVG](leaderboard.svg) · [Score data](leaderboard.json) ·
-[Checksums and version metadata](manifest.json) · [Current results](../../index.md)
+[Checksums and version metadata](manifest.json) · [Current results]({docs_prefix}index.md)
 
 VIscore uses the separate **0–1 panel** and is conditional on eligible successful
 processing runs. Reference coverage is incomplete; treat these historical VI
-scores as provisional. The display index is not an official benchmark metric.
+scores as provisional. {sort_note}
 Different samples, tools, judges and recovery budgets are not a controlled ranking.
 
 {table}
 
 † Independent full-benchmark no-tool runs. § Historical Lite-72 T1 agents.
 ¶ Separate recovery run with extra attempts.
-See [methods and limitations](../../lite72-v2-historical.md).
+See [methods and limitations]({docs_prefix}lite72-v2-historical.md).
 
 Evidence files in `data/` are frozen public audit exports, not raw submissions
 or benchmark input data. Future updates must create a new version folder rather
@@ -82,6 +92,7 @@ than overwrite this one.
     manifest = {
         'schema_version': 1,
         'leaderboard_version': version,
+        'presentation_view': view,
         'assembled_on': recorded_on,
         'timezone': 'Asia/Shanghai',
         'version_label_is_execution_or_publication_date': False,
@@ -111,5 +122,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--version', required=True)
     parser.add_argument('--recorded-on', help='Actual assembly date, YYYY-MM-DD; defaults to today in Shanghai')
+    parser.add_argument('--view', help='Optional presentation revision inside an existing dated version; originals stay unchanged')
     args = parser.parse_args()
-    print(create_snapshot(ROOT, args.version, args.recorded_on))
+    print(create_snapshot(ROOT, args.version, args.recorded_on, args.view))

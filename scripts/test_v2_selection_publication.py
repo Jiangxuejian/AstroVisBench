@@ -22,14 +22,15 @@ class PublicationTests(unittest.TestCase):
         rows=leaderboard['rows']
         self.assertEqual(rows,ordered_rows(rows))
         self.assertEqual([r['id'] for r in rows],[
-            'gpt6-lite72-v2-selection','kimi-k3','o3-mini',
-            'claude-k3-lite72-v2-selection','gemini-2.5-pro','claude-opus-4.0',
-            'claude-sonnet-3.7','codex-qwen38-lite72-v2-selection-recovery',
-            'llama-4-maverick','qwen-2.5','gpt-4o','qwq','qwen38-27b-q4-k-m'])
+            'gpt6-lite72-v2-selection','claude-k3-lite72-v2-selection',
+            'kimi-k3','gemini-2.5-pro','o3-mini','qwen-2.5','llama-4-maverick',
+            'claude-sonnet-3.7','claude-opus-4.0','gpt-4o','qwq',
+            'qwen38-27b-q4-k-m','codex-qwen38-lite72-v2-selection-recovery'])
         self.assertEqual([g['id'] for g in leaderboard['display_order']['groups']],
                          [g[0] for g in GROUPS if g[0]!='lite-v1-t1'])
-        self.assertEqual(leaderboard['display_order']['sort_by'],'equal_weight_vi_correctv')
-        self.assertEqual(leaderboard['display_order']['formula'],'(100 * vi_score + correct_v) / 2')
+        self.assertEqual(leaderboard['display_order']['sort_by'],'correct_v')
+        self.assertNotIn('weights',leaderboard['display_order'])
+        self.assertNotIn('formula',leaderboard['display_order'])
         self.assertEqual([display_index(r) for r in rows],sorted([display_index(r) for r in rows],reverse=True))
         archived=leaderboard['archived_rows']
         self.assertEqual([r['id'] for r in archived],['claude-code-k3-lite72'])
@@ -37,7 +38,7 @@ class PublicationTests(unittest.TestCase):
         self.assertEqual(group_id(archived[0]),'lite-v1-t1')
         text=(ROOT/'docs/index.md').read_text()
         self.assertEqual(text,reorder_markdown(text,list(reversed(rows)),rows))
-        self.assertEqual(group_id(rows[-1]),'independent-full')
+        self.assertEqual(group_id(rows[-1]),'historical-v2-recovery')
 
     def test_portrait_assets_and_compatibility_aliases(self):
         assets=ROOT/'docs/assets'
@@ -74,7 +75,8 @@ class PublicationTests(unittest.TestCase):
         self.assertIn('<!-- VIscore ↑ -->',svg)
         self.assertIn('<!-- Score (0–1) -->',svg)
         self.assertIn('<!-- Percent (%) -->',svg)
-        self.assertIn('<!-- Display order: (100 × VIscore + CorrectV) / 2 ↓ -->',svg)
+        self.assertIn('<!-- Sorted by CorrectV ↓ -->',svg)
+        self.assertNotIn('100 × VIscore + CorrectV',svg)
         self.assertNotIn('<!-- VIscore × 100 -->',svg)
         for row in leaderboard['rows']:
             if row['id'] == 'qwen38-27b-q4-k-m':
@@ -84,12 +86,12 @@ class PublicationTests(unittest.TestCase):
     def test_sort_ties_and_missing_metrics(self):
         rows=[dict(id=id,source='published-reference',vi_score=vi,correct_v=value)
               for id,vi,value in [('missing-vi',None,99),('b',0.5,20),
-                                  ('a',0.6,10),('c',0.8,0),('missing-correct',0.99,None)]]
-        self.assertEqual(display_index(rows[1]),35)
-        self.assertEqual(display_index(rows[2]),35)
-        self.assertEqual([r['id'] for r in ordered_rows(rows)],['c','a','b','missing-correct','missing-vi'])
+                                  ('a',0.6,20),('c',0.8,0),('missing-correct',0.99,None)]]
+        self.assertEqual(display_index(rows[1]),20)
+        self.assertEqual(display_index(rows[2]),20)
+        self.assertEqual([r['id'] for r in ordered_rows(rows)],['missing-vi','a','b','c','missing-correct'])
         legacy=dict(id='claude-code-k3-lite72',source='independent-local',correct_v=99)
-        self.assertEqual([r['id'] for r in ordered_rows(rows+[legacy])],['c','a','b','missing-correct','missing-vi'])
+        self.assertEqual([r['id'] for r in ordered_rows(rows+[legacy])],['missing-vi','a','b','c','missing-correct'])
         with self.assertRaises(ValueError):
             group_id(dict(id='unknown',source='independent-local'))
 
@@ -159,7 +161,7 @@ class PublicationTests(unittest.TestCase):
                          publication['total_package_bytes'])
         self.assertFalse(publication['offline_complete'])
         self.assertFalse(publication['redistribution_review_complete'])
-        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md','docs/SUBMIT_RESULTS.md','docs/T1_PROTOCOL.md','docs/archive/lite72-v1/README.md','docs/leaderboards/README.md','docs/leaderboards/20261101/README.md']:
+        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md','docs/SUBMIT_RESULTS.md','docs/T1_PROTOCOL.md','docs/archive/lite72-v1/README.md','docs/leaderboards/README.md','docs/leaderboards/20261101/README.md','docs/leaderboards/20261101/correctv/README.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue

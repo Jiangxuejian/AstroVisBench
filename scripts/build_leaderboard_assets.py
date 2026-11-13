@@ -101,7 +101,7 @@ def main():
     ax.tick_params(axis='y', length=0, pad=12, colors='#3d4858')
     ax.tick_params(axis='x', length=0, pad=6, labelsize=18, colors='#596273')
     fig.suptitle('AstroVisBench Leaderboard', fontsize=32, fontweight='bold', y=0.98)
-    fig.text(0.5, 0.945, 'Display order: (100 × VIscore + CorrectV) / 2 ↓',
+    fig.text(0.5, 0.945, 'Sorted by CorrectV ↓',
              ha='center', fontsize=18, color='#596273')
     fig.text(0.5, 0.92, 'lite-bench = selected 144 tasks from the full 864 tasks',
              ha='center', fontsize=18, color='#596273')

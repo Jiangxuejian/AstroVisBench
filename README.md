@@ -13,9 +13,9 @@ the official leaderboard.
 
 ## Results — leaderboard 20261101
 
-![AstroVisBench model comparison](docs/leaderboards/20261101/leaderboard.png)
+![AstroVisBench model comparison](docs/leaderboards/20261101/correctv/leaderboard.png)
 
-[Dated figure, table and reproducibility records](docs/leaderboards/20261101/README.md)
+[Dated figure, table and reproducibility records](docs/leaderboards/20261101/correctv/README.md)
 · [All versions](docs/leaderboards/README.md).
 This snapshot preserves the existing scores; no reference repairs have been applied.
 
@@ -25,9 +25,8 @@ A program that runs successfully is not necessarily scientifically correct.
 data products among eligible successful processing runs. Higher is better.
 Reference coverage is incomplete, so these historical VI scores remain provisional.
 
-Display order uses **(100 × VIscore + CorrectV) / 2**, with equal weights.
-This is a browsing index, not an official benchmark score; its two components
-have different denominators and should also be read separately.
+Models are sorted by **CorrectV only**, highest first. VIscore is shown
+separately and does not affect the order.
 
 The figure includes full-benchmark and Lite results. Tool-assisted agents and
 models without tools are different experiments; the display is not a controlled
