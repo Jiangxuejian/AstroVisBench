@@ -23,21 +23,24 @@ guaranteed to reproduce full-benchmark scores or model rankings.
 
 ## Results
 
-*Results through 30 October 2026. Data-sharing guide updated 9 November.*
+**Leaderboard [20261101](leaderboards/20261101/README.md)** ·
+[Version history](leaderboards/README.md). Existing scores are unchanged;
+this dated snapshot was assembled 13 November 2026.
 
-![AstroVisBench model comparison](assets/leaderboard-portrait.svg)
+![AstroVisBench model comparison](leaderboards/20261101/leaderboard.svg)
 
 Hatched bars are our independent runs; `(lite-bench)` marks Lite-72.
 Models are displayed by **(100 × VIscore + CorrectV) / 2**, with equal weights.
 This is a browsing index, not an official benchmark score. Differences in task sample, tools,
 judge and execution conditions mean this is **not one controlled ranking**.
 The no-tool Qwen result appears in the table only.
-[Download PNG](assets/leaderboard-portrait.png).
+[Download PNG](leaderboards/20261101/leaderboard.png).
 
-The fourth bar shows **VIscore × 100**; the table retains its 0–1 scale.
+The separate right-hand **VIscore** panel uses its original 0–1 scale.
 VIscore measures reference-product agreement among eligible successful
 processing runs, while CorrectV covers all visualization tasks. Their different
 denominators limit the combined index; read the individual metrics too.
+Reference coverage is incomplete, so these historical VI scores remain provisional.
 
 | Model | Suite / track | Processing no error ↑ | VIscore ↑ | Visualization no error ↑ | CorrectV ↑ | VisFail ↓ | Minor error ↓ | Major error ↓ |
 |---|---|---:|---:|---:|---:|---:|---:|---:|

@@ -66,19 +66,20 @@ class PublicationTests(unittest.TestCase):
         self.assertNotIn('Qwen recovery includes supplemental attempts',content)
         self.assertNotIn('Hatched bars: independent runs',content)
 
-    def test_figure_includes_viscore_as_scaled_fourth_bar(self):
+    def test_figure_includes_viscore_in_independently_scaled_panel(self):
         leaderboard=json.loads((DATA/'leaderboard.json').read_text())
         self.assertEqual(leaderboard['chart_metrics'],[
             'processing_no_error','visualization_no_error','correct_v','vi_score'])
         svg=(ROOT/'docs/assets/leaderboard-portrait.svg').read_text()
-        self.assertIn('<!-- VIscore × 100 -->',svg)
-        self.assertIn('<!-- Percent / VIscore × 100 -->',svg)
+        self.assertIn('<!-- VIscore ↑ -->',svg)
+        self.assertIn('<!-- Score (0–1) -->',svg)
+        self.assertIn('<!-- Percent (%) -->',svg)
         self.assertIn('<!-- Display order: (100 × VIscore + CorrectV) / 2 ↓ -->',svg)
-        self.assertNotIn('<!-- Score (0–1) -->',svg)
+        self.assertNotIn('<!-- VIscore × 100 -->',svg)
         for row in leaderboard['rows']:
             if row['id'] == 'qwen38-27b-q4-k-m':
                 continue
-            self.assertIn(f"<!-- {100*row['vi_score']:.2f} -->",svg)
+            self.assertIn(f"<!-- {row['vi_score']:.3f} -->",svg)
 
     def test_sort_ties_and_missing_metrics(self):
         rows=[dict(id=id,source='published-reference',vi_score=vi,correct_v=value)
@@ -158,7 +159,7 @@ class PublicationTests(unittest.TestCase):
                          publication['total_package_bytes'])
         self.assertFalse(publication['offline_complete'])
         self.assertFalse(publication['redistribution_review_complete'])
-        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md','docs/SUBMIT_RESULTS.md','docs/T1_PROTOCOL.md']:
+        for name in ['README.md','LITE72_RUN_GUIDE.md','LITE72_AGENT_PROMPT.md','docs/index.md','docs/lite72-v2-historical.md','docs/execution-fairness.md','docs/lite72-data-release.md','docs/README.md','docs/maintainer-data-notes.md','docs/SUBMIT_RESULTS.md','docs/T1_PROTOCOL.md','docs/archive/lite72-v1/README.md','docs/leaderboards/README.md','docs/leaderboards/20261101/README.md']:
             path=ROOT/name
             for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)',path.read_text()):
                 if re.match(r'\w+://',target) or target.startswith('#'):continue

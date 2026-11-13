@@ -1,0 +1,375 @@
+{
+  "content_snapshot": "2026-09-30",
+  "model": {
+    "display_name": "Qwen3.8-27B Q4_K_M",
+    "repository": "ggml-org/Qwen3.8-27B-GGUF",
+    "weight_revision": "0669b98607d47046c7c2b3f801011d54a08cfccf",
+    "quantization": "Q4_K_M"
+  },
+  "upstream_revision": "707657f8fac4df50a6cf6c2c4671bf6a0258a201",
+  "dataset_sha256": "c48528947378e138c8c1df26531f1fd37e96a9226a52659ea838cc543a8e22e2",
+  "judge": {
+    "model_requested": "gpt-6-astra",
+    "reasoning_effort_requested": "medium",
+    "trials": 3,
+    "backend_snapshot": "not established by these provenance files",
+    "cli_versions": [
+      "codex-cli 0.153.4"
+    ],
+    "desktop_version_supplied_by_user": "26.908.70816"
+  },
+  "aggregation": "Mean trial percentages across all workflows (including Crash/VisFail); also report first-trial CorrectV because local upstream-compatible export uses trial 1.",
+  "full": {
+    "n": 432,
+    "notebooks": 110,
+    "processing_no_error": 32.175925925925924,
+    "visualization_no_error": 52.5462962962963,
+    "vi_score": 0.4737654320987654,
+    "vi_eligible_n": 108,
+    "judge_trial_counts": {
+      "No Error": 93,
+      "Crash": 615,
+      "Minor Error": 136,
+      "Major Error": 323,
+      "VisFail": 129
+    },
+    "correct_v": 7.175925925925926,
+    "minor": 10.493827160493828,
+    "major": 24.92283950617284,
+    "vis_fail": 9.953703703703704,
+    "crash": 47.4537037037037,
+    "correct_v_first_trial": 7.175925925925926
+  },
+  "lite_candidate": {
+    "n": 72,
+    "notebooks": 62,
+    "processing_no_error": 37.5,
+    "visualization_no_error": 56.94444444444444,
+    "vi_score": 0.38095238095238093,
+    "vi_eligible_n": 21,
+    "judge_trial_counts": {
+      "No Error": 24,
+      "Crash": 93,
+      "Minor Error": 27,
+      "VisFail": 30,
+      "Major Error": 42
+    },
+    "correct_v": 11.11111111111111,
+    "minor": 12.5,
+    "major": 19.444444444444443,
+    "vis_fail": 13.88888888888889,
+    "crash": 43.05555555555556,
+    "correct_v_first_trial": 11.11111111111111
+  },
+  "by_provisional_notebook_family": {
+    "Spectroscopy": {
+      "full": {
+        "n": 82,
+        "notebooks": 17,
+        "processing_no_error": 24.390243902439025,
+        "visualization_no_error": 54.8780487804878,
+        "vi_score": 0.5729166666666666,
+        "vi_eligible_n": 16,
+        "judge_trial_counts": {
+          "Crash": 111,
+          "Major Error": 70,
+          "Minor Error": 19,
+          "No Error": 19,
+          "VisFail": 27
+        },
+        "correct_v": 7.723577235772358,
+        "minor": 7.723577235772358,
+        "major": 28.45528455284553,
+        "vis_fail": 10.975609756097562,
+        "crash": 45.1219512195122,
+        "correct_v_first_trial": 8.536585365853659
+      },
+      "lite": {
+        "n": 12,
+        "notebooks": 11,
+        "processing_no_error": 25.0,
+        "visualization_no_error": 33.333333333333336,
+        "vi_score": 1.0,
+        "vi_eligible_n": 1,
+        "judge_trial_counts": {
+          "Crash": 24,
+          "Major Error": 6,
+          "No Error": 3,
+          "Minor Error": 3
+        },
+        "correct_v": 8.333333333333334,
+        "minor": 8.333333333333334,
+        "major": 16.666666666666668,
+        "vis_fail": 0.0,
+        "crash": 66.66666666666667,
+        "correct_v_first_trial": 8.333333333333334
+      }
+    },
+    "Simulation and modeling": {
+      "full": {
+        "n": 24,
+        "notebooks": 7,
+        "processing_no_error": 33.333333333333336,
+        "visualization_no_error": 75.0,
+        "vi_score": 0.5,
+        "vi_eligible_n": 8,
+        "judge_trial_counts": {
+          "No Error": 16,
+          "Crash": 18,
+          "VisFail": 12,
+          "Minor Error": 17,
+          "Major Error": 9
+        },
+        "correct_v": 22.22222222222222,
+        "minor": 23.61111111111111,
+        "major": 12.5,
+        "vis_fail": 16.666666666666668,
+        "crash": 25.0,
+        "correct_v_first_trial": 20.833333333333332
+      },
+      "lite": {
+        "n": 12,
+        "notebooks": 7,
+        "processing_no_error": 41.666666666666664,
+        "visualization_no_error": 83.33333333333333,
+        "vi_score": 0.4,
+        "vi_eligible_n": 5,
+        "judge_trial_counts": {
+          "No Error": 9,
+          "Crash": 6,
+          "VisFail": 9,
+          "Minor Error": 9,
+          "Major Error": 3
+        },
+        "correct_v": 25.0,
+        "minor": 25.0,
+        "major": 8.333333333333334,
+        "vis_fail": 25.0,
+        "crash": 16.666666666666668,
+        "correct_v_first_trial": 25.0
+      }
+    },
+    "Cosmology and large-scale structure": {
+      "full": {
+        "n": 37,
+        "notebooks": 8,
+        "processing_no_error": 29.72972972972973,
+        "visualization_no_error": 56.75675675675676,
+        "vi_score": 0.09090909090909091,
+        "vi_eligible_n": 11,
+        "judge_trial_counts": {
+          "Major Error": 33,
+          "Crash": 48,
+          "Minor Error": 12,
+          "VisFail": 18
+        },
+        "correct_v": 0.0,
+        "minor": 10.81081081081081,
+        "major": 29.72972972972973,
+        "vis_fail": 16.216216216216218,
+        "crash": 43.24324324324324,
+        "correct_v_first_trial": 0.0
+      },
+      "lite": {
+        "n": 12,
+        "notebooks": 8,
+        "processing_no_error": 33.333333333333336,
+        "visualization_no_error": 66.66666666666667,
+        "vi_score": 0.0,
+        "vi_eligible_n": 4,
+        "judge_trial_counts": {
+          "Crash": 12,
+          "Minor Error": 6,
+          "Major Error": 12,
+          "VisFail": 6
+        },
+        "correct_v": 0.0,
+        "minor": 16.666666666666668,
+        "major": 33.333333333333336,
+        "vis_fail": 16.666666666666668,
+        "crash": 33.333333333333336,
+        "correct_v_first_trial": 0.0
+      }
+    },
+    "Photometry": {
+      "full": {
+        "n": 105,
+        "notebooks": 20,
+        "processing_no_error": 25.714285714285715,
+        "visualization_no_error": 48.57142857142857,
+        "vi_score": 0.7037037037037037,
+        "vi_eligible_n": 27,
+        "judge_trial_counts": {
+          "Minor Error": 31,
+          "Major Error": 89,
+          "Crash": 162,
+          "VisFail": 18,
+          "No Error": 15
+        },
+        "correct_v": 4.761904761904762,
+        "minor": 9.841269841269842,
+        "major": 28.253968253968253,
+        "vis_fail": 5.714285714285714,
+        "crash": 51.42857142857143,
+        "correct_v_first_trial": 4.761904761904762
+      },
+      "lite": {
+        "n": 12,
+        "notebooks": 12,
+        "processing_no_error": 25.0,
+        "visualization_no_error": 50.0,
+        "vi_score": 1.0,
+        "vi_eligible_n": 3,
+        "judge_trial_counts": {
+          "Minor Error": 6,
+          "Crash": 18,
+          "Major Error": 6,
+          "No Error": 3,
+          "VisFail": 3
+        },
+        "correct_v": 8.333333333333334,
+        "minor": 16.666666666666668,
+        "major": 16.666666666666668,
+        "vis_fail": 8.333333333333334,
+        "crash": 50.0,
+        "correct_v_first_trial": 8.333333333333334
+      }
+    },
+    "Image processing": {
+      "full": {
+        "n": 66,
+        "notebooks": 24,
+        "processing_no_error": 48.484848484848484,
+        "visualization_no_error": 65.15151515151516,
+        "vi_score": 0.390625,
+        "vi_eligible_n": 32,
+        "judge_trial_counts": {
+          "Minor Error": 27,
+          "Crash": 69,
+          "Major Error": 69,
+          "VisFail": 27,
+          "No Error": 6
+        },
+        "correct_v": 3.0303030303030303,
+        "minor": 13.636363636363637,
+        "major": 34.84848484848485,
+        "vis_fail": 13.636363636363637,
+        "crash": 34.84848484848485,
+        "correct_v_first_trial": 3.0303030303030303
+      },
+      "lite": {
+        "n": 12,
+        "notebooks": 12,
+        "processing_no_error": 58.333333333333336,
+        "visualization_no_error": 66.66666666666667,
+        "vi_score": 0.2857142857142857,
+        "vi_eligible_n": 7,
+        "judge_trial_counts": {
+          "Major Error": 12,
+          "VisFail": 9,
+          "Crash": 12,
+          "Minor Error": 3
+        },
+        "correct_v": 0.0,
+        "minor": 8.333333333333334,
+        "major": 33.333333333333336,
+        "vis_fail": 25.0,
+        "crash": 33.333333333333336,
+        "correct_v_first_trial": 0.0
+      }
+    },
+    "Time-series analysis": {
+      "full": {
+        "n": 118,
+        "notebooks": 34,
+        "processing_no_error": 34.74576271186441,
+        "visualization_no_error": 41.52542372881356,
+        "vi_score": 0.39285714285714285,
+        "vi_eligible_n": 14,
+        "judge_trial_counts": {
+          "Major Error": 53,
+          "No Error": 37,
+          "VisFail": 27,
+          "Crash": 207,
+          "Minor Error": 30
+        },
+        "correct_v": 10.451977401129943,
+        "minor": 8.474576271186441,
+        "major": 14.971751412429379,
+        "vis_fail": 7.627118644067797,
+        "crash": 58.47457627118644,
+        "correct_v_first_trial": 10.169491525423728
+      },
+      "lite": {
+        "n": 12,
+        "notebooks": 12,
+        "processing_no_error": 41.666666666666664,
+        "visualization_no_error": 41.666666666666664,
+        "vi_score": 0.0,
+        "vi_eligible_n": 1,
+        "judge_trial_counts": {
+          "Crash": 21,
+          "No Error": 9,
+          "Major Error": 3,
+          "VisFail": 3
+        },
+        "correct_v": 25.0,
+        "minor": 0.0,
+        "major": 8.333333333333334,
+        "vis_fail": 8.333333333333334,
+        "crash": 58.333333333333336,
+        "correct_v_first_trial": 25.0
+      }
+    }
+  },
+  "execution_sha256": "dd0e43d116cbeb7640802cb46ceacd87cbf34ec41d1b69c7fef62d6dfcd3a43d",
+  "selection_sha256": "25a97c7deae01f4590cd5d14d0d77a170a7be2a46f2d50a972eac4fe5a1d4d2e",
+  "judge_checkpoint_checksums": [
+    {
+      "batch": "batch_001_100",
+      "sha256": "645e7d7743d5b2ab69a42e1dcfe1cba982969376e5e2cbb472e5cd75033c877a"
+    },
+    {
+      "batch": "batch_101_137",
+      "sha256": "cc0e1090c0663aedfb71978206c32f311f635d808056063118c8d8651aaabcbd"
+    },
+    {
+      "batch": "batch_138_138",
+      "sha256": "1df246e07a2961c05a5e4286cb7c56bc5dcf4d0c880195c531c60d7f8d64ed19"
+    },
+    {
+      "batch": "batch_139_172",
+      "sha256": "38f6c0420f845df3afe17e5db84e3e94ded992cc2aa1cec63017111b551a51e4"
+    },
+    {
+      "batch": "batch_173_261",
+      "sha256": "dce9a35031d9ce21e2cc343d30bf0959f9c094b8c234b153dec3ecf7dc002094"
+    },
+    {
+      "batch": "batch_262_351",
+      "sha256": "b3f976e507cde98cd03f0aefa86bdb4f4004d02f379e2c9a1a109d063aef30a5"
+    },
+    {
+      "batch": "batch_352_385",
+      "sha256": "a22770439093b9c3f6065df1201f5be97bb8670ba1c02e795bf4aa79c7ba172d"
+    },
+    {
+      "batch": "batch_386_386",
+      "sha256": "4f878dd3dcf73c1d8ebaf5b8ec0c466ef4d92d161c02e460b80442830fd9434e"
+    },
+    {
+      "batch": "batch_387_419",
+      "sha256": "f35d8b19ba51ada79b72fb0f2c92c164d8e306bd664e3ee5ab10e5493c680b47"
+    },
+    {
+      "batch": "batch_420_432",
+      "sha256": "89f78f03d9cd05dfffcf177c33313e666b25ef8a33f8e188d365a13cc300d41f"
+    }
+  ],
+  "limitations": [
+    "Notebook domains are manually assigned proxies, not official per-task labels.",
+    "Code length is a complexity proxy, not measured difficulty.",
+    "Balanced domain sampling differs from the full task distribution."
+  ],
+  "raw_artifacts": "Retained locally; no public raw-artifact archive linked in this draft."
+}

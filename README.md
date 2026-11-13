@@ -11,15 +11,19 @@ This fork adds independent evaluations and a lower-cost subset to
 It follows the original generation → execution → judging workflow and is not
 the official leaderboard.
 
-## Results
+## Results — leaderboard 20261101
 
-![AstroVisBench model comparison](docs/assets/leaderboard-portrait.svg)
+![AstroVisBench model comparison](docs/leaderboards/20261101/leaderboard.png)
+
+[Dated figure, table and reproducibility records](docs/leaderboards/20261101/README.md)
+· [All versions](docs/leaderboards/README.md).
+This snapshot preserves the existing scores; no reference repairs have been applied.
 
 **CorrectV** is the percentage of all visualization tasks judged free of errors.
 A program that runs successfully is not necessarily scientifically correct.
-**VIscore** measures agreement with reference data products among eligible
-successful processing runs. The fourth bar shows **VIscore × 100**; the table
-retains its original 0–1 scale. Higher is better.
+**VIscore** (separate right-hand panel, 0–1) measures agreement with reference
+data products among eligible successful processing runs. Higher is better.
+Reference coverage is incomplete, so these historical VI scores remain provisional.
 
 Display order uses **(100 × VIscore + CorrectV) / 2**, with equal weights.
 This is a browsing index, not an official benchmark score; its two components

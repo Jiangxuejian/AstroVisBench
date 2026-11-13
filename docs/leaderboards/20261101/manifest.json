@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "leaderboard_version": "20261101",
+  "assembled_on": "2026-11-13",
+  "timezone": "Asia/Shanghai",
+  "version_label_is_execution_or_publication_date": false,
+  "benchmark": "Full-432 plus historical Lite-72 v2 task selection",
+  "evaluation_revision": "historical; no reference repairs applied",
+  "layout": "three percentage series plus separate VIscore 0-1 panel",
+  "display_order": {
+    "sort_by": "equal_weight_vi_correctv",
+    "direction": "descending",
+    "formula": "(100 * vi_score + correct_v) / 2",
+    "weights": {
+      "vi_score": 0.5,
+      "correct_v": 0.5
+    },
+    "scope": "Full-432 and Lite-72 v2 task selection; Lite-72 v1 excluded",
+    "groups": [
+      {
+        "id": "published-full",
+        "label": "Full-432 · published reference"
+      },
+      {
+        "id": "independent-full",
+        "label": "Full-432 · independent no-tool"
+      },
+      {
+        "id": "historical-v2-t1",
+        "label": "Lite-72 v2 selection · historical inputs · T1 agents"
+      },
+      {
+        "id": "historical-v2-recovery",
+        "label": "Lite-72 v2 selection · historical inputs · recovery"
+      }
+    ],
+    "tie_break": "model ID; missing metrics last",
+    "note": "Display index only, not an official metric. Conditional VIscore and all-task CorrectV have different denominators. Different suites, judges and recovery budgets do not form one comparable ranking."
+  },
+  "score_data_sha256": "ed9eefd980270c8fafd7fb0544ffdeaea2224e16e8f599be7cfb7c8db5158f00",
+  "scores_recalculated": false,
+  "files": {
+    "README.md": {
+      "bytes": 2969,
+      "sha256": "2be0140d8a5d6485b24c127b47ab77406b7a2422b464b62c9658c2bb5eb5e5d3"
+    },
+    "data/claude-k3-lite-audit.json": {
+      "bytes": 3347,
+      "sha256": "b4b4255913e75bc52d831cf12974b296c832bc3bd0e85d5ef27f32d692ce5350"
+    },
+    "data/claude-k3-v2-selection-audit.json": {
+      "bytes": 29947,
+      "sha256": "2e5fb5700c69c59c57cb689c5139a6dfef0e8a9eed14680bdde7fb6c92c1a0bf"
+    },
+    "data/codex-qwen38-v2-selection-recovery-audit.json": {
+      "bytes": 36687,
+      "sha256": "06fa64ccdab3ee96b8beb0bb2c2a8acc0c78760d87a2f60861969ad11a5ee644"
+    },
+    "data/gpt6-v2-selection-audit.json": {
+      "bytes": 29513,
+      "sha256": "f16602b20f76e7e3aa49724eb70b838bfb675d779feb7ef0d0710d799484a581"
+    },
+    "data/k3-audit.json": {
+      "bytes": 6981,
+      "sha256": "448d80ff23a103cc34681b2ae73d5025104cad23c48e3e34c87b7e265036e026"
+    },
+    "data/lite72-candidate-v1.json": {
+      "bytes": 18723,
+      "sha256": "25a97c7deae01f4590cd5d14d0d77a170a7be2a46f2d50a972eac4fe5a1d4d2e"
+    },
+    "data/lite72-v2-candidate.json": {
+      "bytes": 51832,
+      "sha256": "a9ed93a935b2e984e546fdebbcfef7b0f14879e3b93064db6985e34ef4541f3b"
+    },
+    "data/qwen38-audit.json": {
+      "bytes": 11384,
+      "sha256": "76cc916668497e75c648deb779f678a3829efa7b8153444e9761139858b1cad7"
+    },
+    "leaderboard.json": {
+      "bytes": 9924,
+      "sha256": "ed9eefd980270c8fafd7fb0544ffdeaea2224e16e8f599be7cfb7c8db5158f00"
+    },
+    "leaderboard.png": {
+      "bytes": 479520,
+      "sha256": "77cd1feb4cd1780244105a8fc0fc11e6ac194ad1f12dce92bbc5c40e016f17ec"
+    },
+    "leaderboard.svg": {
+      "bytes": 121488,
+      "sha256": "bbc2e92cbbd0b71250f7e3b9d57c626db5991cb3e9e7425109d9c6e0580285d5"
+    }
+  }
+}
