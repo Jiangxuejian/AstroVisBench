@@ -43,6 +43,8 @@ Data downloads: [GitHub](https://github.com/Jiangxuejian/AstroVisBench/releases/
 
 T1 requires verified external controls; otherwise stop and ask. No-tool T0 or
 unverified agent-pilot runs require explicit selection and separate reporting.
+Provider quota resets allow unfinished T1 tasks to resume with their existing
+history and remaining budgets; documented quota waits do not consume stage time.
 
 Lite-72 spans spectroscopy, photometry, imaging, time series, cosmology and
 simulation/modeling, using provisional notebook-family labels. It is a fixed

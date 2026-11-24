@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "protocol_id": "astrovis-t1-20261110",
+  "protocol_id": "astrovis-t1-20261123",
   "profile": "T1",
   "unit": "one UID and one processing or visualization stage",
   "allowed_tools": ["list_inputs", "read_text", "write_candidate", "run_candidate", "submit"],
@@ -23,13 +23,26 @@
   "candidate_selection": "last_checked_else_latest_complete_untested_else_missing",
   "feedback": ["runtime", "exit_status", "timeout", "sanitized_exception"],
   "budget_accounting": "Charge admitted model requests and candidate checks before dispatch, including failures; no refunds or resets on resume.",
+  "quota_resume": {
+    "paused_state": "paused_provider_quota",
+    "terminal": false,
+    "eligible": "Unfinished stage with remaining benchmark budgets; documented provider quota exhaustion, settled requests/checks and known usage.",
+    "clock": "Exclude only recorded provider-quota waits; preserve unused stage time. All other interruptions count.",
+    "preserve": ["uid", "stage", "conversation", "candidates", "charged_requests", "known_tokens", "charged_checks", "remaining_stage_seconds", "harness_and_model"],
+    "during_pause": "No inference polling, solver work, candidate checks, edits or hints.",
+    "evidence": "generation_events.jsonl: provider error evidence, UTC pause/resume times, wall-time offsets, counters and state hashes.",
+    "interval_fields": ["start_elapsed_seconds", "end_elapsed_seconds", "provider_error", "evidence_ref", "usage_known"],
+    "unknown_usage": "Block pending reconciliation; never assume zero.",
+    "terminal_stages": "Never reopen or reset."
+  },
   "terminal_reasons": [
     "submitted", "model_request_limit", "output_token_limit",
     "candidate_check_limit", "stage_wall_limit",
     "infrastructure_failure", "no_complete_candidate"
   ],
   "ledger_fields": [
-    "last_checked_code_sha256", "latest_complete_code_sha256", "terminal_reason"
+    "last_checked_code_sha256", "latest_complete_code_sha256", "terminal_reason",
+    "wall_elapsed_seconds", "quota_pauses"
   ],
-  "scope_note": "Clarified contract for new runs. Existing historical evaluations are not retrospectively certified against this version. This file is not an enforcement supervisor."
+  "scope_note": "Quota-resumable contract for new runs. Existing pinned runs require explicit, recorded migration; historical evaluations are not retrospectively certified. This file is not an enforcement supervisor."
 }

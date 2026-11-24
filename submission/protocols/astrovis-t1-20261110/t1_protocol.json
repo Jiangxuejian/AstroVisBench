@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "protocol_id": "astrovis-t1-20261110",
+  "profile": "T1",
+  "unit": "one UID and one processing or visualization stage",
+  "allowed_tools": ["list_inputs", "read_text", "write_candidate", "run_candidate", "submit"],
+  "limits": {
+    "model_requests_per_stage": 20,
+    "total_output_tokens_per_stage": 32768,
+    "per_response_output_tokens": 8192,
+    "candidate_checks_per_stage": 3,
+    "candidate_timeout_seconds": 600,
+    "stage_wall_seconds": 2400
+  },
+  "feedback_revision_opportunities": 2,
+  "workflow": [
+    "generate_with_optional_candidate_checks",
+    "freeze_all_144_stage_submissions",
+    "original_final_execution",
+    "maintainer_judging",
+    "aggregate"
+  ],
+  "candidate_selection": "last_checked_else_latest_complete_untested_else_missing",
+  "feedback": ["runtime", "exit_status", "timeout", "sanitized_exception"],
+  "budget_accounting": "Charge admitted model requests and candidate checks before dispatch, including failures; no refunds or resets on resume.",
+  "terminal_reasons": [
+    "submitted", "model_request_limit", "output_token_limit",
+    "candidate_check_limit", "stage_wall_limit",
+    "infrastructure_failure", "no_complete_candidate"
+  ],
+  "ledger_fields": [
+    "last_checked_code_sha256", "latest_complete_code_sha256", "terminal_reason"
+  ],
+  "scope_note": "Clarified contract for new runs. Existing historical evaluations are not retrospectively certified against this version. This file is not an enforcement supervisor."
+}

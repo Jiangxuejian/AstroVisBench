@@ -109,7 +109,8 @@ class SubmissionTests(unittest.TestCase):
         for entry in self.ledger:
             entry.update(candidate_checks=checks,
                 last_checked_code_sha256=entry['code_sha256'] if checks else None,
-                latest_complete_code_sha256=entry['code_sha256'], terminal_reason='submitted')
+                latest_complete_code_sha256=entry['code_sha256'], terminal_reason='submitted',
+                wall_elapsed_seconds=entry['elapsed_seconds'], quota_pauses=[])
         (self.run/'generation_events.jsonl').write_text('{"synthetic":true}\n')
         self.flush()
 
@@ -316,6 +317,93 @@ class SubmissionTests(unittest.TestCase):
             metadata = json.load(archive.extractfile('submission/submission_manifest.json'))
             self.assertEqual(metadata['files_sha256']['t1_protocol.json'],
                              self.manifest['generation']['protocol_sha256'])
+
+    def test_quota_wait_is_excluded_without_refunding_requests_or_checks(self):
+        self.versioned_t1(checks=2)
+        entry = self.ledger[0]
+        entry.update(model_requests=19, output_tokens=32000, elapsed_seconds=100,
+                     wall_elapsed_seconds=86500, quota_pauses=[dict(
+                         start_elapsed_seconds=50, end_elapsed_seconds=86450,
+                         provider_error='usage_limit_reached', evidence_ref='generation_events.jsonl:2',
+                         usage_known=True)])
+        self.flush()
+        self.assertEqual(self.validate()['track'], 'T1')
+        self.assertEqual(entry['model_requests'], 19)
+        self.assertEqual(entry['candidate_checks'], 2)
+        entry['model_requests'] = 21
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'within 20'):
+            self.validate()
+
+    def test_quota_wait_rejects_undocumented_or_overlapping_intervals(self):
+        self.versioned_t1()
+        entry = self.ledger[0]
+        entry['wall_elapsed_seconds'] = 86401
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'wall time minus documented'):
+            self.validate()
+        pause = dict(start_elapsed_seconds=0.5, end_elapsed_seconds=86400.5,
+                     provider_error='usage_limit_reached', evidence_ref='events:2', usage_known=True)
+        entry['quota_pauses'] = [pause, dict(pause)]
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'nonoverlapping'):
+            self.validate()
+        entry['quota_pauses'] = [pause]
+        self.flush()
+        self.validate()
+        for field, value, error in [('usage_known', False, 'known usage'),
+                                     ('evidence_ref', '', 'error evidence'),
+                                     ('end_elapsed_seconds', float('inf'), 'nonoverlapping'),
+                                     ('start_elapsed_seconds', True, 'nonoverlapping')]:
+            original = pause[field]
+            pause[field] = value
+            self.flush()
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, error):
+                self.validate()
+            pause[field] = original
+
+    def test_quota_paused_stage_is_not_terminal_or_a_new_budget(self):
+        self.versioned_t1()
+        entry = self.ledger[0]
+        entry['terminal_reason'] = 'paused_provider_quota'
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'Unknown T1 terminal_reason'):
+            self.validate()
+        entry['terminal_reason'] = 'submitted'
+        entry.update(elapsed_seconds=2401, wall_elapsed_seconds=2401)
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'elapsed_seconds'):
+            self.validate()
+
+    def test_quota_contract_requires_explicit_clock_evidence_even_without_pauses(self):
+        self.versioned_t1()
+        for field in ['wall_elapsed_seconds', 'quota_pauses']:
+            original = self.ledger[0].pop(field)
+            self.flush()
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, 'must record '+field):
+                self.validate()
+            self.ledger[0][field] = original
+
+    def test_previous_pinned_policy_remains_accepted_and_packaged_unchanged(self):
+        self.versioned_t1(checks=1)
+        protocol, solver = bundle.t1_policy_paths(bundle.PREVIOUS_T1_PROTOCOL_ID)
+        self.manifest['generation'].update(protocol_id=bundle.PREVIOUS_T1_PROTOCOL_ID,
+            protocol_sha256=bundle.sha(protocol), solver_instructions_sha256=bundle.sha(solver))
+        for entry in self.ledger:
+            entry.pop('wall_elapsed_seconds')
+            entry.pop('quota_pauses')
+        self.flush()
+        self.assertEqual(self.validate()['generation_protocol'], bundle.PREVIOUS_T1_PROTOCOL_ID)
+        output = self.root/'previous-t1.tar.gz'
+        with redirect_stdout(io.StringIO()):
+            bundle.package(self.run, output, True, self.source)
+        with tarfile.open(output) as archive:
+            self.assertEqual(archive.extractfile('submission/t1_protocol.json').read(), protocol.read_bytes())
+            self.assertEqual(archive.extractfile('submission/t1_solver_instructions.txt').read(), solver.read_bytes())
+        self.ledger[0]['elapsed_seconds'] = 86400
+        self.flush()
+        with self.assertRaisesRegex(ValueError, 'elapsed_seconds'):
+            self.validate()
 
     def test_duplicate_and_incomplete_execution(self):
         self.executed[-1] = copy.deepcopy(self.executed[0])

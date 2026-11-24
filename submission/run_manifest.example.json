@@ -25,7 +25,7 @@
     "adapter_sha256": "REPLACE-adapter-source-hash-or-not_applicable"
   },
   "generation": {
-    "protocol_id": "astrovis-t1-20261110",
+    "protocol_id": "astrovis-t1-20261123",
     "protocol_sha256": "REPLACE-sha256-of-submission-t1_protocol.json-or-not_applicable",
     "solver_instructions_sha256": "REPLACE-sha256-of-submission-t1_solver_instructions.txt-or-not_applicable",
     "limits_enforcement": "external",

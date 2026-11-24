@@ -3,9 +3,11 @@
 **Default track for new runs.** T0 and agent-pilot require explicit selection.
 Without verified external T1 controls, stop and ask; never silently downgrade.
 
-Version: **astrovis-t1-20261110**, for new runs. The numerical budgets are
-unchanged. Historical results retain their recorded protocols; this clarification
-does not certify or rescore them.
+Version: **astrovis-t1-20261123**, for new runs. Provider-quota waits may now
+pause the stage clock; numerical budgets are unchanged. Historical and already
+pinned runs retain their recorded policies; this revision does not reopen,
+certify or rescore them. The [previous contract](../submission/protocols/astrovis-t1-20261110/t1_protocol.json)
+is retained for older submissions.
 Compare runs with matching protocol, harness and inputs; do not silently pool
 new-policy runs with historical T1 results as controlled replications.
 
@@ -67,13 +69,13 @@ operator-side, outside the solver's accessible workspace.
 | Output tokens per response | 8,192 |
 | Candidate checks | 3: initial check plus two revision/check opportunities |
 | Time per check | 600 seconds, or less if stage time is almost exhausted |
-| Total stage wall time | 2,400 seconds |
+| Stage wall time, excluding documented provider-quota waits | 2,400 seconds |
 | Active checks / final submissions | One at a time / one |
 
 Charge an admitted request/check **before dispatch**, including errors and
 timeouts. Reject over-budget actions without launching them. No budget refunds,
-extra sessions, operator-side candidate runs or deadline resets on resume.
-Persist the original counters/deadline; stage wall time includes interruptions.
+extra sessions or operator-side candidate runs. Persist counters and the remaining
+stage time; interruptions count except for the documented quota waits below.
 Unknown usage must stay unknown, never be reported as zero or controlled T1.
 Perform environment smoke tests on synthetic inputs before benchmark sessions.
 
@@ -82,6 +84,35 @@ one tool call. Finish recording the last admitted response and any already
 requested tools that remain permitted by the other limits; then freeze before
 a further model request. Do not discard the last allowed response or grant an
 extra model turn just to submit it. Check 3 always closes the check/revision loop.
+
+## Provider quota exhaustion and resumption
+
+An unfinished stage may enter `paused_provider_quota` when a documented provider
+quota/usage-limit error prevents inference. This is not a missing submission or
+a terminal stage. After the provider allowance resets, resume the **same**
+UID/stage, conversation, candidates and harness/model configuration.
+
+- Keep all charged requests, known tokens, check counts and candidate hashes.
+  A failed admitted request still counts; an account quota reset does **not**
+  reset benchmark budgets. Unknown usage blocks resumption pending reconciliation.
+- Pause only after all in-flight requests/checks have settled and usage is known,
+  while the stage still has budget. No solver calls, candidate execution,
+  edits or human hints during the pause. Do not poll with inference requests.
+- Exclude only this recorded wait from the 2,400-second stage clock. On resume,
+  retain the unused time; never grant a fresh 40 minutes. All other interruptions
+  and active work still count. Each check retains its 600-second cap.
+- Record quota error evidence, UTC pause/resume times, cumulative wall-time
+  offsets, counters and state hashes in `generation_events.jsonl`. The ledger
+  records `elapsed_seconds` (charged time), `wall_elapsed_seconds`, and
+  `quota_pauses` (empty when none). Each interval records `start_elapsed_seconds`,
+  `end_elapsed_seconds`, `provider_error`, `evidence_ref`, and `usage_known: true`.
+  Offsets measure wall time since stage start; waits must not overlap.
+- A terminal stage stays closed, including a scientific failure or an exhausted
+  benchmark budget. Do not restart it, replace its answer or switch providers.
+
+Use this policy only with a supervisor that persists and enforces quota pauses.
+Existing pinned runs need a separately recorded, explicitly approved migration;
+do not silently change their contract or erase earlier terminals.
 
 ## Stop and freeze deterministically
 

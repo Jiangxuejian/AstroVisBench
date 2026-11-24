@@ -9,6 +9,7 @@ import base64
 import hashlib
 import io
 import json
+import math
 from pathlib import Path
 import re
 import tarfile
@@ -28,9 +29,10 @@ T1_LIMITS = dict(model_requests_per_stage=20, total_output_tokens_per_stage=3276
     per_response_output_tokens=8192, candidate_checks_per_stage=3,
     candidate_timeout_seconds=600, stage_wall_seconds=2400)
 T1_TOOLS = ['list_inputs', 'read_text', 'write_candidate', 'run_candidate', 'submit']
-T1_PROTOCOL_ID = 'astrovis-t1-20261110'
+T1_PROTOCOL_ID = 'astrovis-t1-20261123'
 T1_PROTOCOL = ROOT / 'submission/t1_protocol.json'
 T1_SOLVER_INSTRUCTIONS = ROOT / 'submission/t1_solver_instructions.txt'
+PREVIOUS_T1_PROTOCOL_ID = 'astrovis-t1-20261110'
 CONTEXT = ['setup_query', 'setup_gt_code', 'processing_query', 'processing_gt_code',
            'visualization_query', 'visualization_gt_code', 'processing_underspecifications',
            'visualization_underspecifications']
@@ -131,6 +133,14 @@ def png(uri, label):
     require(raw.startswith(b'\x89PNG\r\n\x1a\n'), f'{label}: invalid PNG signature')
 
 
+def t1_policy_paths(protocol_id):
+    if protocol_id == T1_PROTOCOL_ID:
+        return T1_PROTOCOL, T1_SOLVER_INSTRUCTIONS
+    require(protocol_id == PREVIOUS_T1_PROTOCOL_ID, 'Unsupported T1 protocol_id')
+    directory = ROOT / 'submission/protocols' / protocol_id
+    return directory / 't1_protocol.json', directory / 't1_solver_instructions.txt'
+
+
 def declared_t1_contract(manifest):
     """Check declared policy identities, not whether a supervisor enforced them."""
     if manifest['track'] != 'T1':
@@ -141,12 +151,12 @@ def declared_t1_contract(manifest):
                         ['protocol_sha256', 'solver_instructions_sha256']),
                 'T1 protocol hashes require a protocol_id')
         return None  # Legacy evidence remains reviewable, not newly certified.
-    require(generation['protocol_id'] == T1_PROTOCOL_ID, 'Unsupported T1 protocol_id')
-    require(generation.get('protocol_sha256') == sha(T1_PROTOCOL), 'T1 protocol checksum mismatch')
-    require(generation.get('solver_instructions_sha256') == sha(T1_SOLVER_INSTRUCTIONS),
+    protocol_path, solver_path = t1_policy_paths(generation['protocol_id'])
+    require(generation.get('protocol_sha256') == sha(protocol_path), 'T1 protocol checksum mismatch')
+    require(generation.get('solver_instructions_sha256') == sha(solver_path),
             'T1 solver instructions checksum mismatch')
-    contract = load(T1_PROTOCOL)
-    require(contract.get('protocol_id') == T1_PROTOCOL_ID
+    contract = load(protocol_path)
+    require(contract.get('protocol_id') == generation['protocol_id']
             and contract.get('limits') == T1_LIMITS
             and contract.get('allowed_tools') == T1_TOOLS
             and contract.get('feedback_revision_opportunities') == 2,
@@ -154,9 +164,39 @@ def declared_t1_contract(manifest):
     return contract
 
 
+def validate_quota_pauses(entry, contract):
+    """Validate declared wait arithmetic; events/isolation still require review."""
+    if 'quota_resume' not in contract:
+        return
+
+    def seconds(value):
+        return type(value) in (int, float) and math.isfinite(value) and value >= 0
+
+    wall, charged = entry['wall_elapsed_seconds'], entry['elapsed_seconds']
+    require(seconds(wall) and wall >= charged, 'T1 wall_elapsed_seconds is invalid')
+    pauses = entry['quota_pauses']
+    require(isinstance(pauses, list), 'T1 quota_pauses must be an array')
+    previous_end, excluded = 0, 0
+    for pause in pauses:
+        require(isinstance(pause, dict) and all(field in pause for field in
+                contract['quota_resume']['interval_fields']), 'T1 quota pause fields missing')
+        start, end = pause['start_elapsed_seconds'], pause['end_elapsed_seconds']
+        require(seconds(start) and seconds(end) and previous_end <= start < end <= wall,
+                'T1 quota pause intervals must be ordered, nonoverlapping and within wall time')
+        require(pause['usage_known'] is True, 'T1 quota resumption requires known usage')
+        require(all(isinstance(pause[field], str) and pause[field].strip()
+                    for field in ['provider_error', 'evidence_ref']),
+                'T1 quota pause requires provider error evidence')
+        excluded += end - start
+        previous_end = end
+    require(math.isclose(wall - excluded, charged, rel_tol=0, abs_tol=1e-6),
+            'T1 charged time must equal wall time minus documented quota pauses')
+
+
 def validate_t1_freeze(entry, contract):
     for field in contract['ledger_fields']:
         require(field in entry, f'Versioned T1 ledger must record {field}')
+    validate_quota_pauses(entry, contract)
     reason = entry['terminal_reason']
     require(reason in contract['terminal_reasons'], 'Unknown T1 terminal_reason')
     last, latest = entry['last_checked_code_sha256'], entry['latest_complete_code_sha256']
@@ -312,8 +352,9 @@ def package(run, output, reviewed, benchmark):
     files = {name: run / name for name in REQUIRED + OPTIONAL if (run / name).is_file()}
     files['suite_manifest.json'] = SELECTION
     if summary['protocol_declaration_check'] == 'declared_contract_hashes_checked':
-        files['t1_protocol.json'] = T1_PROTOCOL
-        files['t1_solver_instructions.txt'] = T1_SOLVER_INSTRUCTIONS
+        protocol_path, solver_path = t1_policy_paths(summary['generation_protocol'])
+        files['t1_protocol.json'] = protocol_path
+        files['t1_solver_instructions.txt'] = solver_path
     checksums = {name: sha(path) for name, path in files.items()}
     metadata = dict(schema_version=1, created_utc=datetime.now(timezone.utc).isoformat(),
         packager_sha256=sha(Path(__file__)),

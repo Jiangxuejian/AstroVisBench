@@ -82,7 +82,7 @@ replace every REPLACE field and verify all prefilled T1 settings against the
 actual supervisor. If explicitly choosing T0/pilot, record that track and actual
 tools/enforcement/policy; T0: mark T1-specific protocol/limits not applicable.
 Record live-service failures; do not substitute frozen databases or answers.
-T1: set generation.protocol_id = astrovis-t1-20261110 and record SHA256s of
+T1: set generation.protocol_id = astrovis-t1-20261123 and record SHA256s of
 submission/t1_protocol.json and submission/t1_solver_instructions.txt in the
 manifest. Preserve the actual extra tool-policy wrapper separately; do not
 rewrite upstream scientific/system prompts. Do not assert this new version
@@ -129,9 +129,15 @@ T1 (default) — bounded checks are PART OF GENERATION, not final execution:
 
 Per stage: 20 admitted model requests (including retries/compaction), 32768
 total output tokens (including observable reasoning), 8192 tokens/response,
-3 checks, 600 seconds/check, 2400 seconds total wall time, one active check.
-Charge before dispatch; failures consume budget. No refunds or deadline/counter
-resets on resume. The supervisor freezes without another model request if a
+3 checks, 600 seconds/check, 2400 seconds stage wall time excluding documented
+provider-quota waits, one active check. Charge before dispatch; failures consume
+budget. On quota exhaustion, checkpoint an unfinished stage after in-flight work
+settles and usage is known; pause without solver work until the allowance resets.
+Resume the same history/candidates/configuration with remaining counters/time,
+never fresh budgets or reopened terminals. Log quota evidence, UTC intervals,
+counters/state hashes; record wall_elapsed_seconds and quota_pauses in the ledger
+as specified in docs/T1_PROTOCOL.md. Other interruptions still count. No inference
+polling. The supervisor freezes without another model request if a
 limit is reached. Unknown usage cannot substantiate controlled T1.
 Audit stage-specific raw-input allowlists; keep hidden solutions, reference
 plots, unsafe archive paths and secrets out. No shell, arbitrary filesystem
